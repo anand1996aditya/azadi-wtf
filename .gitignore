@@ -1,0 +1,21 @@
+# Sensitive files — do not commit
+config.php
+data/auth.json
+data/update.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+*~
+.in.*
+push.php
+sync.php
+
+# Generated PDF
+guide.pdf
+guide-print.html
+"Protest Safely.pdf"

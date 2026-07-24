@@ -1,0 +1,56 @@
+# ============================================
+# Azadi.wtf — Apache Configuration
+# ============================================
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# ============================================
+# SECURITY: Block public access to sensitive files
+# ============================================
+
+# Block config.php (API keys)
+<Files "config.php">
+  Order allow,deny
+  Deny from all
+</Files>
+
+# Block direct access to JSON data files
+<FilesMatch "^data/.*\.json$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Block direct access to PHP files in data/ and cron/ directories
+<FilesMatch "^(data|cron)/.*\.php$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Allow the public API endpoint
+<Files "api/protests.php">
+  Order allow,deny
+  Allow from all
+</Files>
+
+# ============================================
+# SECURITY HEADERS
+# ============================================
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "DENY"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Cache static assets for 1 week
+  <FilesMatch "\.(css|js|svg|png|jpg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# ============================================
+# PREVENT DIRECTORY LISTING
+# ============================================
+Options -Indexes

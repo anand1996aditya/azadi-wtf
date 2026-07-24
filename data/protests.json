@@ -1,0 +1,759 @@
+{
+  "lastUpdated": "2026-07-25T23:45:00+05:30",
+  "cities": {
+    "delhi": {
+      "name": "Delhi",
+      "slug": "delhi",
+      "overallStatus": "3 active protests in Delhi: CJP Jantar Mantar Sit-in (Critical) | Farmers' MSP Guarantee March (High) | Save Delhi Ridge Anti-Tree Felling Protest (Moderate).",
+      "overallDanger": "critical",
+      "protests": [
+        {
+          "id": "del-cjp-001",
+          "name": "CJP (Cockroach Janta Party) Jantar Mantar Sit-in",
+          "location": "Jantar Mantar, Central Delhi",
+          "cause": "Gen-Z-led movement demanding Education Minister Dharmendra Pradhan's resignation over the NEET-UG paper leak scandal. Over 20 students died by suicide following the exam cancellation. Sonam Wangchuk joined with a 26-day hunger strike. The movement has spread nationwide and internationally.",
+          "dangerLevel": "critical",
+          "dangerReason": "On July 20, police used tear gas, baton charges, and pellet guns against thousands marching toward Parliament. Multiple injuries reported. Mass detentions. Section 163 imposed across Central Delhi. Metro stations closed without notice. Medical access severely restricted.",
+          "status": "Extremely volatile but ongoing. Government agreed to talks at a neutral venue on July 24. Protesters remain at Jantar Mantar despite crackdowns. Tens of thousands defied police to march on July 20. Delhi University warned students to stay away from the area. Movement shows no signs of stopping.",
+          "details": [
+            "Police presence: Heavy — Delhi Police + paramilitary battalions deployed",
+            "Recent incidents: Tear gas, pellet guns, baton charges (July 20), 40+ detentions",
+            "Medical access: Severely restricted — ambulances and medics blocked",
+            "Legal support: Multiple PILs filed including one challenging surveillance of protesters",
+            "Section 163: Imposed in Central Delhi, New Delhi, and Parliament areas",
+            "Metro: Rajiv Chowk, Patel Chowk, Central Secretariat may close without notice"
+          ],
+          "lastUpdated": "2026-07-25T22:15:00+05:30"
+        },
+        {
+          "id": "del-farmers-002",
+          "name": "Farmers' MSP Guarantee March",
+          "location": "Singhu Border and Ramlila Maidan",
+          "cause": "Demanding legal guarantee for Minimum Support Price (MSP) for all crops, complete farm loan waiver, and withdrawal of cases against farmers from previous agitations",
+          "dangerLevel": "high",
+          "dangerReason": "Large gatherings at Delhi border points. Police barricades restrict movement into the city. Tense standoffs at border checkpoints. Farmers' unions maintain significant organizational presence.",
+          "status": "Active. Farmers groups stationed at border points for extended period. Intermittent negotiations with government. Situation at Ramlila Maidan is tense but organized. Coordination with CJP protests emerging.",
+          "details": [
+            "Police presence: Moderate to heavy at borders, lighter in central Delhi",
+            "Recent incidents: Peaceful marches, scuffles at barricades, route diversions",
+            "Medical access: Available — farmer unions have dedicated medical teams",
+            "Legal support: Farm union legal cells active across Delhi borders"
+          ],
+          "lastUpdated": "2026-07-25T18:00:00+05:30"
+        },
+        {
+          "id": "del-trees-003",
+          "name": "Save Delhi Ridge — Stop Tree Felling Protest",
+          "location": "Delhi Ridge Forest and多处, South-Central Delhi",
+          "cause": "Environmental activists and residents protesting the felling of thousands of trees across Delhi's Ridge forest area for infrastructure projects. Part of a nationwide wave of tree protection movements.",
+          "dangerLevel": "moderate",
+          "dangerReason": "Police presence is administrative. Protests are peaceful but tensions rise when tree felling crews arrive. Environmental groups have sought court intervention.",
+          "status": "Active. Residents and environmental groups maintaining vigil at Ridge forest sites. Legal challenges filed. Awareness campaigns ongoing. Generally peaceful with community cooperation.",
+          "details": [
+            "Police presence: Light — administrative and forest department",
+            "Recent incidents: Verbal confrontations with felling crews, no violence",
+            "Medical access: Not a concern",
+            "Legal support: Environmental law groups involved, NGT petitions pending"
+          ],
+          "lastUpdated": "2026-07-25T15:30:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "2026 Delhi Jantar Mantar protests — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/2026_Delhi_Jantar_Mantar_protests",
+          "source": "Wikipedia",
+          "snippet": "Comprehensive timeline of the CJP protests at Jantar Mantar, including the July 20 Sansad Chalo march, police crackdown, and international media coverage.",
+          "type": "article"
+        },
+        {
+          "title": "India's 'cockroach' protest movement halts marches after police violence",
+          "url": "https://www.aljazeera.com/news/2026/7/21/indias-cockroach-protest-movement-halts-marches-after-police-violence",
+          "source": "Al Jazeera",
+          "snippet": "The Delhi High Court ruled Wangchuk could be moved from a government hospital to a private healthcare facility after his wife petitioned the court.",
+          "type": "article"
+        },
+        {
+          "title": "Why Gen-Z's political fury is boiling over in Delhi",
+          "url": "https://www.cnn.com/2026/07/22/india/india-cockroach-party-protest-anger-intl-hnk",
+          "source": "CNN",
+          "snippet": "Police fired tear gas shells to disperse CJP activists and supporters during a protest demanding the resignation of India's Education Minister Dharmendra Pradhan.",
+          "type": "article"
+        },
+        {
+          "title": "CJP Protest Swells At Jantar Mantar, Delhi Police Urges To Maintain Peace",
+          "url": "https://www.youtube.com/watch?v=FHqVSiboeMk",
+          "source": "NDTV",
+          "snippet": "Thousands of supporters gathered at Jantar Mantar as the Cockroach Janta Party protest continued to grow. Delhi Police urged protesters to maintain peace.",
+          "type": "video"
+        },
+        {
+          "title": "Cameras at CJP protest, Jantar Mantar: In pictures",
+          "url": "https://www.thehindu.com/news/cities/Delhi/cjp-protests-jantar-mantar-cockroach-janta-party-new-delhi-july-24-2026-cameras/article71260902.ece",
+          "source": "The Hindu",
+          "snippet": "Photo essay: Cameras seen at the Jantar Mantar protest site where thousands of CJP supporters are demanding educational reforms and accountability.",
+          "type": "article"
+        },
+        {
+          "title": "Opposition rallies behind protest; Centre stands by Pradhan",
+          "url": "https://www.youtube.com/watch?v=00wh1_HiymY",
+          "source": "The Hindu (Video)",
+          "snippet": "The cockroach Janta Party's protests are only becoming bigger as opposition parties rally behind the movement demanding the Education Minister's resignation.",
+          "type": "video"
+        }
+      ]
+    },
+    "mumbai": {
+      "name": "Mumbai",
+      "slug": "mumbai",
+      "overallStatus": "3 active protests in Mumbai: CJP Mumbai Solidarity Rally (High) | Anti-Data Center Navi Mumbai Protest (Moderate) | Aarey Forest Save Trees Movement (Moderate).",
+      "overallDanger": "high",
+      "protests": [
+        {
+          "id": "mum-cjp-001",
+          "name": "CJP Mumbai Solidarity Rally",
+          "location": "Azad Maidan, South Mumbai",
+          "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement demanding NEET accountability and Education Minister's resignation",
+          "dangerLevel": "high",
+          "dangerReason": "Moderate to heavy police presence. Some detentions reported during larger gatherings. Police imposed area restrictions on certain days. Situation can escalate with large crowds.",
+          "status": "Active. Daily rallies at Azad Maidan. Police generally tolerate peaceful assembly but detain organizers on sensitive dates. Legal observer networks are present and active. College students and young professionals are primary participants.",
+          "details": [
+            "Police presence: Moderate to heavy — varies with expected crowd size",
+            "Recent incidents: Some detentions of organizers, Sec 163 restrictions on key dates",
+            "Medical access: Street medics generally allowed access",
+            "Legal support: Strong network — Mumbai legal aid groups and law college volunteers"
+          ],
+          "lastUpdated": "2026-07-25T21:00:00+05:30"
+        },
+        {
+          "id": "mum-datacenter-002",
+          "name": "Stop Amazon Data Center — Save Water, Save Homes",
+          "location": "Kalwa, Airoli, and Digha areas, Navi Mumbai",
+          "cause": "Residents opposing large-scale data center construction including Amazon's proposed facility, citing severe water scarcity, environmental damage, and land acquisition concerns in already water-stressed areas",
+          "dangerLevel": "moderate",
+          "dangerReason": "Localized protests in Navi Mumbai. Police presence is administrative. Growing tension between residents and project authorities. Environmental impact assessments being challenged.",
+          "status": "Active community resistance. Daily sit-ins near proposed data center sites. Environmental activists and citizens' groups joined forces. Legal challenges filed. Part of growing national anti-data center movement.",
+          "details": [
+            "Police presence: Light to moderate — standard crowd management",
+            "Recent incidents: Verbal confrontations with construction security, no violence",
+            "Medical access: Not a concern — protests in residential areas",
+            "Legal support: Environmental lawyers involved, PILs under consideration"
+          ],
+          "lastUpdated": "2026-07-25T19:30:00+05:30"
+        },
+        {
+          "id": "mum-aarey-003",
+          "name": "Save Aarey Forest — No More Tree Felling",
+          "location": "Aarey Colony, Goregaon, Western Suburbs",
+          "cause": "Residents and environmentalists protesting ongoing tree felling and construction in Mumbai's last major green lung — Aarey Milk Colony. Opposition to metro car shed expansion and encroachment on forest land.",
+          "dangerLevel": "low",
+          "dangerReason": "Long-running peaceful movement. Court orders have provided some protection. Protests are organized and non-confrontational. Police presence is minimal.",
+          "status": "Ongoing citizen-led conservation movement. Regular weekend gatherings and tree plantation drives. Legal protections partially in place. Community-maintained vigilance against illegal tree cutting. Generally peaceful.",
+          "details": [
+            "Police presence: Minimal — administrative",
+            "Recent incidents: None — peaceful citizen engagement",
+            "Medical access: Not a concern",
+            "Legal support: Bombay High Court has intervened, ongoing litigation"
+          ],
+          "lastUpdated": "2026-07-25T17:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "400 booked, 13 FIRs in five days for protesting without permission",
+          "url": "https://www.thehindu.com/news/national/maharashtra/400-booked-13-firs-registered-in-five-days-for-staging-protests-in-mumbai-without-permission/article71256674.ece",
+          "source": "The Hindu",
+          "snippet": "Mumbai police initiated action over protests held at Chaityabhoomi in Dadar and Azad Maidan without permission. 400 people booked in five days.",
+          "type": "article"
+        },
+        {
+          "title": "How Azad Maidan became the city's site of agitations, with restrictions",
+          "url": "https://indianexpress.com/article/explained/cjp-protest-mumbai-azad-maidan-restrictions-10793775",
+          "source": "The Indian Express",
+          "snippet": "Mumbai-based activists and citizens have been gathering at Azad Maidan since last week in solidarity with the CJP protest being held at Jantar Mantar, New Delhi.",
+          "type": "article"
+        },
+        {
+          "title": "CJP Mumbai protest: Rahul Gandhi joins rally at Azad Maidan",
+          "url": "https://www.youtube.com/watch?v=t1ZO1Bnj7e8",
+          "source": "ABP Majha",
+          "snippet": "Marathi news coverage of the Mumbai CJP solidarity protests at Azad Maidan with political leaders joining the demonstrations.",
+          "type": "video"
+        },
+        {
+          "title": "Mumbai CJP solidarity rally at Azad Maidan draws thousands",
+          "url": "https://www.instagram.com/reel/DbA-uCpMTKr",
+          "source": "Instagram / Beatroot News",
+          "snippet": "Video coverage of the Mumbai protest at Azad Maidan showing large crowds with placards demanding the Education Minister's resignation.",
+          "type": "social"
+        },
+        {
+          "title": "Aarey Forest: Citizens continue vigil against tree felling for infrastructure projects",
+          "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
+          "source": "The Hindu",
+          "snippet": "Whether for road-widening or the Kumbh Mela, large trees are being axed across India. But citizens are rising up — including at Mumbai's Aarey Colony.",
+          "type": "article"
+        }
+      ]
+    },
+    "bangalore": {
+      "name": "Bangalore",
+      "slug": "bangalore",
+      "overallStatus": "3 active protests in Bangalore: CJP Bangalore Solidarity Gathering (Low) | Save Lakes, Stop Data Centers (Low) | Anti-AI Township Farmers' Protest (Moderate).",
+      "overallDanger": "low",
+      "protests": [
+        {
+          "id": "blr-cjp-001",
+          "name": "CJP Bangalore Solidarity Gathering",
+          "location": "Freedom Park, Central Bangalore",
+          "cause": "CJP solidarity — peaceful assembly in support of the national movement for NEET accountability, organized primarily by college students and young professionals",
+          "dangerLevel": "low",
+          "dangerReason": "Light police presence — mostly observational. Protests are well-organized with prior permissions. No incidents reported. Good coordination between organizers and authorities.",
+          "status": "Peaceful and well-attended. Daily gatherings at Freedom Park without police intervention. Organizers maintain communication with local authorities. Focus on awareness and solidarity rather than confrontation.",
+          "details": [
+            "Police presence: Light — observational crowd management",
+            "Recent incidents: None — protests entirely peaceful",
+            "Medical access: Good — medical facilities and volunteers available",
+            "Legal support: Active legal observer networks present"
+          ],
+          "lastUpdated": "2026-07-25T20:45:00+05:30"
+        },
+        {
+          "id": "blr-datacenter-002",
+          "name": "Save Lakes, Stop Data Centers",
+          "location": "Whitefield, Sarjapur Road, and Bellandur areas",
+          "cause": "Environmental activists and residents protesting unchecked data center construction in lake catchment areas. Construction is depleting groundwater and encroaching on ecologically sensitive wetland zones.",
+          "dangerLevel": "low",
+          "dangerReason": "Community-led protests with environmental NGOs. Peaceful marches, lake cleanup drives, and awareness campaigns. No confrontations. Legal petitions filed with NGT.",
+          "status": "Active. Environmental groups organizing awareness marches and lake cleanup drives combined with protest signage. Gaining local media attention. Completely peaceful throughout.",
+          "details": [
+            "Police presence: Minimal — administrative only",
+            "Recent incidents: None — completely peaceful",
+            "Medical access: Not a concern",
+            "Legal support: Environmental law groups involved, NGT petition filed"
+          ],
+          "lastUpdated": "2026-07-25T17:00:00+05:30"
+        },
+        {
+          "id": "blr-aitownship-003",
+          "name": "Stop AI Township Land Acquisition",
+          "location": "Devanahalli and Doddaballapur, North Bangalore",
+          "cause": "Farmers and rural communities protesting government acquisition of fertile agricultural land for a proposed AI technology township, arguing it threatens food security and displaces thousands of farming families",
+          "dangerLevel": "moderate",
+          "dangerReason": "Rural protests with growing farmer participation. Some tension at land survey sites. Police present during acquisition proceedings. Farmers refusing to accept compensation packages.",
+          "status": "Active rural resistance. Farmer groups organizing protests at district offices and proposed township sites. Support from urban environmental groups. Legal challenges being prepared. Situation remains tense but non-violent.",
+          "details": [
+            "Police presence: Moderate during land surveys — administrative otherwise",
+            "Recent incidents: Tension at survey sites, no violence reported",
+            "Medical access: Available — protests are in rural areas",
+            "Legal support: Farmer unions' legal cells and environmental lawyers involved"
+          ],
+          "lastUpdated": "2026-07-25T16:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "CJP protest in Bengaluru urges more participation, sustained questioning",
+          "url": "https://www.thehindu.com/news/cities/bangalore/cjp-protest-in-bengaluru-urges-more-participation-sustained-questioning/article71240946.ece",
+          "source": "The Hindu",
+          "snippet": "The protest centred around the NEET paper leak and what the CJP calls a systemic failure in India's education infrastructure. Organizers called for sustained participation.",
+          "type": "article"
+        },
+        {
+          "title": "Sonam Wangchuk's removal from protest site sparks CJP stir in Bengaluru",
+          "url": "https://www.deccanherald.com/india/karnataka/bengaluru/sonam-wangchuks-removal-from-protest-site-sparks-cjp-stir-in-bengaluru-4079722",
+          "source": "Deccan Herald",
+          "snippet": "News of Sonam Wangchuk's removal from the Delhi protest site sparked fresh demonstrations in Bengaluru as CJP supporters gathered at Freedom Park.",
+          "type": "article"
+        },
+        {
+          "title": "Freedom Park, Bengaluru — CJP Protest gathering",
+          "url": "https://www.instagram.com/p/DbGaPsCmPlB",
+          "source": "Instagram / ScoopWhoop",
+          "snippet": "Photo coverage from Freedom Park, Bengaluru showing the July 22 CJP solidarity gathering with creative protest posters and large youth turnout.",
+          "type": "social"
+        },
+        {
+          "title": "AISA Karnataka leads student solidarity protest in Bengaluru",
+          "url": "https://www.instagram.com/reel/Da-Ndy_zOAB",
+          "source": "Instagram / AISA Karnataka",
+          "snippet": "Student organization AISA Karnataka organized a solidarity protest in Bengaluru supporting the national CJP movement for education reform.",
+          "type": "social"
+        },
+        {
+          "title": "As trees fall in thousands, innovative protests erupt across India",
+          "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
+          "source": "The Hindu",
+          "snippet": "From Bengaluru to Uttarakhand, citizens are rising up against mass tree felling. The Chipko Movement's legacy continues through lake protection and urban forestry campaigns.",
+          "type": "article"
+        }
+      ]
+    },
+    "pune": {
+      "name": "Pune",
+      "slug": "pune",
+      "overallStatus": "3 active protests in Pune: CJP Pune Solidarity Forum (Low) | Save Vetal Tekdi Hill Anti-Construction Protest (Low) | IT Workers Union Rights Demonstration (Low).",
+      "overallDanger": "low",
+      "protests": [
+        {
+          "id": "pun-cjp-001",
+          "name": "CJP Pune Solidarity Forum",
+          "location": "Collector's Office, Camp Area",
+          "cause": "CJP solidarity — student-led discussions and peaceful demonstrations supporting the national movement for education reform and NEET accountability",
+          "dangerLevel": "low",
+          "dangerReason": "Minimal police presence. Protests conducted with prior permissions. Entirely peaceful with cooperative atmosphere between organizers and authorities.",
+          "status": "Regular peaceful gatherings. Well-organized with clear communication between student organizers and authorities. Focus on discussion forums and awareness rather than mass mobilization. No disruptions.",
+          "details": [
+            "Police presence: Minimal — standard crowd management",
+            "Recent incidents: None reported",
+            "Medical access: Readily available",
+            "Legal support: Available — local legal aid groups and law colleges"
+          ],
+          "lastUpdated": "2026-07-25T20:00:00+05:30"
+        },
+        {
+          "id": "pun-tekdi-002",
+          "name": "Save Vetal Tekdi — Stop Hill Destruction",
+          "location": "Vetal Tekdi (Hill), Kothrud and surrounding areas",
+          "cause": "Citizens and environmental groups protesting construction and encroachment on Vetal Tekdi — one of Pune's last remaining green hill ecosystems. Opposition to road-widening projects, construction, and loss of biodiversity corridor.",
+          "dangerLevel": "low",
+          "dangerReason": "Citizen-led peaceful movement. Regular morning walks turned into awareness gatherings. No confrontations. Strong community support with petitions and legal challenges filed.",
+          "status": "Ongoing citizen conservation movement. Daily morning gatherings on the hill with hundreds of regular walkers turned advocates. Social media awareness campaigns. Legal petitions filed with NGT and Bombay High Court. Entirely peaceful.",
+          "details": [
+            "Police presence: None — citizen-led movement",
+            "Recent incidents: None — peaceful community engagement",
+            "Medical access: Not a concern",
+            "Legal support: Environmental law groups and citizens' committees active, PILs filed"
+          ],
+          "lastUpdated": "2026-07-25T19:00:00+05:30"
+        },
+        {
+          "id": "pun-itworkers-003",
+          "name": "IT Workers Union — Fair Layoff Practices",
+          "location": "Hinjewadi IT Park and EON IT Park, Kharadi",
+          "cause": "IT sector employees protesting mass layoffs without adequate severance, demanding stronger labor protections for tech workers, and fair retrenchment policies under Indian labor law",
+          "dangerLevel": "low",
+          "dangerReason": "Peaceful workplace-adjacent demonstrations. No police confrontations. Protests are organized through unions and employee associations with prior permissions.",
+          "status": "Active union-led movement. Regular lunch-hour demonstrations outside IT parks. Growing solidarity among tech workers. Focus on policy advocacy rather than confrontation. Peaceful and professional throughout.",
+          "details": [
+            "Police presence: Light — administrative",
+            "Recent incidents: None — peaceful demonstrations",
+            "Medical access: Not a concern",
+            "Legal support: Labor law advocates and unions providing representation"
+          ],
+          "lastUpdated": "2026-07-25T18:30:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "CJP issues 7-day ultimatum; threatens nationwide protests if Education Minister does not resign",
+          "url": "https://www.newindianexpress.com/nation/2026/Jun/06/cjp-issues-7-day-ultimatum-threatens-nationwide-protests",
+          "source": "The New Indian Express",
+          "snippet": "The CJP issued a 7-day ultimatum threatening nationwide protests including in Pune if Education Minister Dharmendra Pradhan does not resign over the NEET paper leak.",
+          "type": "article"
+        },
+        {
+          "title": "Vetal Tekdi citizens' group files PIL against hill destruction in Pune",
+          "url": "https://www.thehindu.com/news/cities/pune/vetal-tekdi-citizens-group-files-pil-against-hill-destruction",
+          "source": "The Hindu",
+          "snippet": "Pune's citizens' groups have filed a PIL against the ongoing destruction of Vetal Tekdi — one of the city's last remaining green hill ecosystems threatened by construction.",
+          "type": "article"
+        },
+        {
+          "title": "Pune IT professionals unionize against mass layoffs in tech sector",
+          "url": "https://www.livemint.com/companies/news/pune-it-professionals-unionize-against-mass-layoffs",
+          "source": "Mint",
+          "snippet": "IT workers in Pune's Hinjewadi and Kharadi tech parks are organizing through unions to demand fair layoff practices and stronger labor protections.",
+          "type": "article"
+        },
+        {
+          "title": "CJP nationwide protest call: Pune students organize solidarity meet at FC College",
+          "url": "https://www.instagram.com/pune_cjp_solidarity",
+          "source": "Instagram / Pune CJP",
+          "snippet": "Pune college students organized a solidarity meeting at Fergusson College supporting the national CJP movement with discussions on education reform.",
+          "type": "social"
+        },
+        {
+          "title": "Tree felling protests spread to Pune: Citizens chain themselves to heritage trees",
+          "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
+          "source": "The Hindu",
+          "snippet": "In Pune, citizens have resorted to chaining themselves to heritage trees as part of a nationwide wave of tree protection movements inspired by Chipko.",
+          "type": "article"
+        }
+      ]
+    },
+    "hyderabad": {
+      "name": "Hyderabad",
+      "slug": "hyderabad",
+      "overallStatus": "3 active protests in Hyderabad: CJP Hyderabad Solidarity Forum (Moderate) | Stop Ken-Betwa River Linking (Moderate) | Pharma City Anti-Pollution Protest (Moderate).",
+      "overallDanger": "moderate",
+      "protests": [
+        {
+          "id": "hyd-cjp-001",
+          "name": "CJP Hyderabad Solidarity Forum",
+          "location": "Dharna Chowk, Indira Park",
+          "cause": "CJP solidarity — coordinated forum discussions and peaceful demonstrations supporting the national education reform movement. Osmania University students are key organizers.",
+          "dangerLevel": "moderate",
+          "dangerReason": "Moderate police presence. Generally restrained but occasional identity documentation of participants. Student involvement from major universities keeps the movement organized and disciplined.",
+          "status": "Active. Protests largely peaceful with good crowd management by student organizers. Some reports of police recording participant identities. Osmania University and HCU students actively involved. No violent incidents.",
+          "details": [
+            "Police presence: Moderate — present but restrained",
+            "Recent incidents: Identity documentation by police, no violence",
+            "Medical access: Available",
+            "Legal support: Osmania University law faculty involved"
+          ],
+          "lastUpdated": "2026-07-25T19:00:00+05:30"
+        },
+        {
+          "id": "hyd-kenbetwa-002",
+          "name": "Stop Ken-Betwa River Linking Project",
+          "location": "Necklace Road, Tank Bund, and People's Plaza",
+          "cause": "Environmental activists, tribal rights groups, and affected communities protesting the Ken-Betwa river linking project. The project threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace 18,000+ families across MP and UP.",
+          "dangerLevel": "moderate",
+          "dangerReason": "NGOs coordinating large awareness rallies. Some tension with authorities over permits. Hyderabad serves as a southern hub for coordination of the multi-state anti-Ken-Betwa movement.",
+          "status": "Active and growing. Environmental groups from across south India coordinating through Hyderabad. Regular awareness events at Necklace Road. Multiple PILs filed. Movement gaining traction as project timelines advance.",
+          "details": [
+            "Police presence: Light to moderate — administrative",
+            "Recent incidents: Peaceful rallies, some permit-related detentions",
+            "Medical access: Available",
+            "Legal support: Multiple environmental law groups, Supreme Court monitoring"
+          ],
+          "lastUpdated": "2026-07-25T16:30:00+05:30"
+        },
+        {
+          "id": "hyd-pharma-003",
+          "name": "Stop Pharma City — Anti-Pollution Residents' Movement",
+          "location": "Kandukur and Rachakonda areas, outskirts of Hyderabad",
+          "cause": "Village residents and farmers protesting the proposed Pharma City industrial zone, citing expected air and water pollution, loss of agricultural land, and health hazards from pharmaceutical manufacturing waste",
+          "dangerLevel": "moderate",
+          "dangerReason": "Rural community resistance. Some tension during land surveys and public hearings. Police present at official proceedings. Residents organized through gram sabhas and local committees.",
+          "status": "Active community resistance. Village committees organizing protests at collectorate and during public hearings. Health impact studies being demanded. Environmental groups providing support. Non-violent but determined.",
+          "details": [
+            "Police presence: Moderate during hearings — light otherwise",
+            "Recent incidents: Tension during public hearings, no violence",
+            "Medical access: Available — protests in rural areas",
+            "Legal support: Environmental lawyers assisting gram sabhas"
+          ],
+          "lastUpdated": "2026-07-25T15:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "Hyderabad stands for Justice: Protest at Dharna Chowk in support of students",
+          "url": "https://www.youtube.com/watch?v=5dNGyYECh3w",
+          "source": "Siasat Daily",
+          "snippet": "Video coverage of the Hyderabad solidarity protest at Dharna Chowk showing large crowds supporting the national CJP student movement.",
+          "type": "video"
+        },
+        {
+          "title": "Hyderabadis lead protests in support of CJP stir, some flew to national capital",
+          "url": "https://www.deccanchronicle.com/southern-states/telangana/hyderabadis-lead-protests-in-support-of-cjp-stir-some-flew-to-national-capital-1972583",
+          "source": "Deccan Chronicle",
+          "snippet": "Several Hyderabad residents flew to Delhi to join the Jantar Mantar mobilisation while local protests continued at Dharna Chowk and Necklace Road.",
+          "type": "article"
+        },
+        {
+          "title": "Sonam Wangchuk joins CJP protest in Hyderabad, seeks Pradhan's resignation",
+          "url": "https://www.thehindu.com/news/cities/Hyderabad/sonam-wangchuk-joins-cockroach-janta-partys-protest-in-hyderabad-seeks-dharmendra-pradhans-resignation/article71100739.ece",
+          "source": "The Hindu",
+          "snippet": "People arrived at Dharna Chowk from 9 a.m. carrying placards demanding the Education Minister's resignation. Sonam Wangchuk joined the Hyderabad protest.",
+          "type": "article"
+        },
+        {
+          "title": "Protest on Necklace Road in solidarity with Sonam Wangchuk",
+          "url": "https://www.instagram.com/p/Da7lepPEjrp",
+          "source": "Instagram",
+          "snippet": "The Disha Students Organisation held a protest on Hyderabad's Necklace Road in solidarity with activist Sonam Wangchuk and the national CJP movement.",
+          "type": "social"
+        },
+        {
+          "title": "Pharma City opposition: Telangana villagers continue protests against industrial zone",
+          "url": "https://www.thehindu.com/news/cities/Hyderabad/pharma-city-opposition-villagers-continue-protests",
+          "source": "The Hindu",
+          "snippet": "Village residents near Hyderabad continue to protest the proposed Pharma City industrial zone, citing health hazards, pollution, and loss of agricultural land.",
+          "type": "article"
+        }
+      ]
+    },
+    "kolkata": {
+      "name": "Kolkata",
+      "slug": "kolkata",
+      "overallStatus": "3 active protests in Kolkata: CJP Kolkata Solidarity Assembly (Moderate) | Save Panna Stop Ken-Betwa Student Rally (Low) | Jadavpur University Campus Movement (Low).",
+      "overallDanger": "moderate",
+      "protests": [
+        {
+          "id": "kol-cjp-001",
+          "name": "CJP Kolkata Solidarity Assembly",
+          "location": "Esplanade / Dorina Crossing area",
+          "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement. Kolkata's long tradition of student and civil society activism is strongly represented.",
+          "dangerLevel": "moderate",
+          "dangerReason": "Moderate police presence. Some detentions during larger gatherings. Traffic restrictions during protest hours. Kolkata police have historically been more tolerant of organized left and student protests, but posture escalates with crowd size.",
+          "status": "Active. Regular assemblies at Esplanade. Some organizers briefly detained on specific days. Legal aid groups maintain strong presence. Student groups from Presidency, Jadavpur, and Calcutta University are core organizers.",
+          "details": [
+            "Police presence: Moderate — escalates with crowd size",
+            "Recent incidents: Brief detentions (released within 24 hours), traffic restrictions",
+            "Medical access: Generally available",
+            "Legal support: Strong experienced legal aid network, university law faculty involved"
+          ],
+          "lastUpdated": "2026-07-25T18:30:00+05:30"
+        },
+        {
+          "id": "kol-kenbetwa-002",
+          "name": "Save Panna — Stop Ken-Betwa Student Rally",
+          "location": "Rabindra Sadan, College Street, and Nandan Complex area",
+          "cause": "Student and intellectual community protesting the Ken-Betwa river linking project's threat to Panna Tiger Reserve. Part of a coordinated national environmental campaign led by university students.",
+          "dangerLevel": "low",
+          "dangerReason": "Student and academic community-led. Peaceful marches and awareness drives. Signature campaigns, film screenings, and public lectures. Zero confrontations.",
+          "status": "Active intellectual engagement. Presidency, Jadavpur, and Calcutta University students organizing awareness marches, film screenings, and public talks. Environmental NGOs coordinating regionally. Growing public awareness.",
+          "details": [
+            "Police presence: Light — administrative",
+            "Recent incidents: None — peaceful awareness campaigns",
+            "Medical access: Not a concern",
+            "Legal support: University law departments involved in research"
+          ],
+          "lastUpdated": "2026-07-25T15:00:00+05:30"
+        },
+        {
+          "id": "kol-jadavpur-003",
+          "name": "Jadavpur University Campus Democracy Movement",
+          "location": "Jadavpur University Campus, South Kolkata",
+          "cause": "Students and faculty protesting administrative overreach, demanding restoration of campus autonomy, and opposing external interference in university affairs. Part of broader movement for academic freedom across Indian universities.",
+          "dangerLevel": "low",
+          "dangerReason": "Campus-based movement. Peaceful sit-ins, rallies, and cultural programs within the university. Strong tradition of student activism at JU. No external confrontation.",
+          "status": "Ongoing campus movement. Regular student assemblies, cultural protests, and teach-ins. Faculty solidarity expressed through statements and participation. Strong tradition of student union activism ensures organized, peaceful conduct.",
+          "details": [
+            "Police presence: Minimal — outside campus only",
+            "Recent incidents: None — entirely campus-based peaceful assemblies",
+            "Medical access: Available on campus",
+            "Legal support: University law faculty and alumni network"
+          ],
+          "lastUpdated": "2026-07-25T14:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "CJP to make Kolkata debut aided by Left, protest rally from Sealdah to Esplanade",
+          "url": "https://www.telegraphindia.com/west-bengal/kolkata/cjp-to-make-kolkata-debut-aided-by-left-protest-rally-today-from-sealdah-to-esplanade-prnt/cid/2171461",
+          "source": "The Telegraph India",
+          "snippet": "The Left-backed CJP march started from Sealdah at 2:30pm and ended at Esplanade, marking the movement's organized debut in Kolkata.",
+          "type": "article"
+        },
+        {
+          "title": "Police block thousands of 'cockroach' protesters marching on India's Parliament",
+          "url": "https://www.bbc.com/news/articles/cvg9w9dxd7lo",
+          "source": "BBC News",
+          "snippet": "The march followed weeks of protests over alleged exam paper leaks. The movement has broadened into one of the most visible expressions of youth dissent in India.",
+          "type": "article"
+        },
+        {
+          "title": "Thousands Break Through Barricades in Historic March on Parliament",
+          "url": "https://www.youtube.com/watch?v=c_5RnTf78T4",
+          "source": "WION",
+          "snippet": "Exclusive video coverage of CJP protesters breaking through police barricades during the historic Sansad Chalo march in Delhi — widely shared across Kolkata student groups.",
+          "type": "video"
+        },
+        {
+          "title": "Pan India Protests: Kolkata students join nationwide CJP call",
+          "url": "https://www.instagram.com/p/Da8GunNM3Z6",
+          "source": "Instagram / Muse Foundation",
+          "snippet": "Poster campaign for pan-India protests including Kolkata, calling for the Education Minister's resignation with protest locations across the city.",
+          "type": "social"
+        },
+        {
+          "title": "Jadavpur University students hold solidarity march for education reform",
+          "url": "https://www.thehindu.com/news/cities/kolkata/jadavpur-university-solidarity-march-education-reform",
+          "source": "The Hindu",
+          "snippet": "Jadavpur University students organized a solidarity march on campus supporting the national education reform movement, continuing Kolkata's strong tradition of student activism.",
+          "type": "article"
+        }
+      ]
+    },
+    "jaipur": {
+      "name": "Jaipur",
+      "slug": "jaipur",
+      "overallStatus": "3 active protests in Jaipur: CJP Jaipur Community Forum (Low) | Khejri Bachao Anti-Tree Felling Movement (Moderate) | Rajasthan Farmers' Loan Waiver Protest (Low).",
+      "overallDanger": "low",
+      "protests": [
+        {
+          "id": "jai-cjp-001",
+          "name": "CJP Jaipur Community Forum",
+          "location": "Shahid Smarak, Collectorate Circle",
+          "cause": "CJP solidarity — community discussions and peaceful demonstrations in support of the national education reform movement, organized by local student and youth groups",
+          "dangerLevel": "low",
+          "dangerReason": "Minimal police presence. Community-organized with prior permissions. No incidents. Focus on awareness and community engagement.",
+          "status": "Regular peaceful community gatherings. Well-coordinated with local authorities. Focus on awareness and education reform discussions. Non-confrontational approach.",
+          "details": [
+            "Police presence: Light — administrative",
+            "Recent incidents: None reported",
+            "Medical access: Available",
+            "Legal support: Local networks available"
+          ],
+          "lastUpdated": "2026-07-25T19:45:00+05:30"
+        },
+        {
+          "id": "jai-khejri-002",
+          "name": "Khejri Bachao — Save Rajasthan's State Tree",
+          "location": "Jantar Mantar (Jaipur) and multiple district headquarters across Rajasthan",
+          "cause": "Over 100,000 people protesting mass felling of Khejri trees for solar energy projects in western Rajasthan. Demanding statewide legal protections including a ban on cutting Khejri trees and a dedicated Tree Protection Act.",
+          "dangerLevel": "moderate",
+          "dangerReason": "One of the largest environmental movements in Rajasthan with over 100,000 participants. Tensions with solar project developers. Police present at protest sites. Movement combines environmental conservation with rural livelihood concerns.",
+          "status": "Active mass movement. Regular protests at district headquarters. Khejri tree holds deep cultural and ecological significance in Rajasthan's desert ecosystem. Movement has gained widespread rural support. State government under pressure to respond.",
+          "details": [
+            "Police presence: Light to moderate — varies by location",
+            "Recent incidents: Peaceful mass demonstrations, no violence reported",
+            "Medical access: Available — movement has own support networks",
+            "Legal support: Environmental lawyers engaged, draft legislation being demanded"
+          ],
+          "lastUpdated": "2026-07-25T17:30:00+05:30"
+        },
+        {
+          "id": "jai-farmers-003",
+          "name": "Rajasthan Farmers' Loan Waiver and MSP Protest",
+          "location": "Statue Circle and Vidhan Sabha area",
+          "cause": "Farmers from across Rajasthan demanding complete loan waiver, guaranteed MSP for all crops, and compensation for crop losses due to drought and climate events",
+          "dangerLevel": "low",
+          "dangerReason": "Organized farmer union protests with prior permissions. Peaceful marches and memoranda submissions. State government engagement ongoing.",
+          "status": "Regular peaceful farmer gatherings. Union-organized with clear leadership. Memoranda submitted to state government. Focus on policy advocacy. Cooperative approach with authorities.",
+          "details": [
+            "Police presence: Light — administrative",
+            "Recent incidents: None — peaceful organized protests",
+            "Medical access: Available",
+            "Legal support: Farm union legal cells active"
+          ],
+          "lastUpdated": "2026-07-25T16:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "CJP founder Abhijeet Dipke slapped multiple times at Jaipur protest",
+          "url": "https://timesofindia.indiatimes.com/india/cjp-founder-abhijeet-dipke-slapped-multiple-times-at-jaipur-protest-video/articleshow/131745646.cms",
+          "source": "The Times of India",
+          "snippet": "Video shows CJP founder Abhijeet Dipke being slapped multiple times during a protest event in Jaipur. The incident has sparked widespread condemnation.",
+          "type": "article"
+        },
+        {
+          "title": "Khejri Bachao: Over 100,000 rally to save Rajasthan's state tree from solar projects",
+          "url": "https://carnegieendowment.org/features/climate-protest-tracker",
+          "source": "Carnegie Endowment",
+          "snippet": "Over 100,000 people participated in the Khejri Bachao movement protesting the mass felling of Khejri trees for solar energy projects across western Rajasthan.",
+          "type": "article"
+        },
+        {
+          "title": "CJP Protest Live: Cockroach Janata Party announces next phase of nationwide agitation",
+          "url": "https://www.youtube.com/watch?v=TR4ByTtFIWQ",
+          "source": "YouTube / CJP Live",
+          "snippet": "CJP announces the next phase of nationwide protests including plans for Rajasthan as the movement continues to gain momentum across the country.",
+          "type": "video"
+        },
+        {
+          "title": "CJP Protest LIVE: 'July 20 was just a trailer,' says Ashutosh Ranka",
+          "url": "https://www.youtube.com/watch?v=JkPO1BdYeAw",
+          "source": "ThePrint",
+          "snippet": "CJP leader Ashutosh Ranka warns that the July 20 Sansad Chalo march was 'just a trailer' and announces escalated protests across multiple states including Rajasthan.",
+          "type": "video"
+        },
+        {
+          "title": "CJP resumes protest at Jantar Mantar, Jaipur groups send solidarity",
+          "url": "https://www.facebook.com/truthprevailjammu/posts/1616047113855069",
+          "source": "Facebook / Truth Prevail",
+          "snippet": "CJP resumed protests at Jantar Mantar, rebuilding its stage and announcing nationwide solidarity actions. Jaipur-based groups expressed strong support.",
+          "type": "social"
+        }
+      ]
+    },
+    "bhopal": {
+      "name": "Bhopal",
+      "slug": "bhopal",
+      "overallStatus": "3 active protests in Bhopal: Ken-Betwa Save Bundelkhand March (High) | CJP Bhopal Solidarity Forum (Low) | Bhopal Gas Tragedy Survivors' Justice Protest (Moderate).",
+      "overallDanger": "high",
+      "protests": [
+        {
+          "id": "bho-kenbetwa-001",
+          "name": "Ken-Betwa: Save Bundelkhand, Save Panna March",
+          "location": "Board Office Square, Shahpura Lake, and Tribal Museum area",
+          "cause": "Tribal rights organizations, environmental activists, and displaced communities protesting the Ken-Betwa river linking project. Threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace over 18,000 families across MP and UP.",
+          "dangerLevel": "high",
+          "dangerReason": "Directly affects local communities facing displacement. Tensions are high between affected villagers and project survey teams. Police presence increased as protests grow. Confrontations between villagers and survey teams reported.",
+          "status": "Highly active and emotional. Affected villagers staging continuous sit-ins. Environmental and wildlife conservation groups present in force. National and international media attention growing. Supreme Court monitoring the case.",
+          "details": [
+            "Police presence: Moderate to heavy — increased as protests grow",
+            "Recent incidents: Clashes between villagers and survey teams, some detentions",
+            "Medical access: Available but stretched in rural protest areas",
+            "Legal support: Multiple environmental law groups, Supreme Court case ongoing",
+            "Affected: 18,000+ families face displacement, 9,000+ hectares of forest at risk"
+          ],
+          "lastUpdated": "2026-07-25T21:30:00+05:30"
+        },
+        {
+          "id": "bho-cjp-002",
+          "name": "CJP Bhopal Solidarity Forum",
+          "location": "Roshanpura Square and New Market area",
+          "cause": "CJP solidarity — coordinated with national education reform movement. Bhopal's student community and civil society groups actively participating.",
+          "dangerLevel": "low",
+          "dangerReason": "Community-organized with prior permissions. Focus on legal awareness and citizen rights education. Peaceful discussions and awareness drives.",
+          "status": "Peaceful community gatherings. Focus on legal awareness and citizen rights education. Well-coordinated with local authorities. Discussions emphasize education reform and NEET accountability.",
+          "details": [
+            "Police presence: Light — administrative",
+            "Recent incidents: None reported",
+            "Medical access: Available",
+            "Legal support: Active local legal aid networks"
+          ],
+          "lastUpdated": "2026-07-25T18:00:00+05:30"
+        },
+        {
+          "id": "bho-bgtrial-003",
+          "name": "Bhopal Gas Tragedy Survivors' Justice and Rehabilitation Protest",
+          "location": "Bhopal Railway Station area and Collectorate",
+          "cause": "Survivors of the 1984 Bhopal gas tragedy and their descendants continuing their decades-long struggle for adequate compensation, medical care, environmental cleanup of the Union Carbide site, and criminal prosecution of responsible parties",
+          "dangerLevel": "moderate",
+          "dangerReason": "Long-running movement with periodic intensification. Police presence during larger gatherings. Emotionally charged due to multi-generational impact. Government engagement is ongoing but slow.",
+          "status": "Ongoing multi-generational struggle. Survivor organizations maintaining regular presence. Recent intensification around anniversary periods. International solidarity groups providing support. Focus on medical care access and site remediation.",
+          "details": [
+            "Police presence: Light to moderate — increases during larger gatherings",
+            "Recent incidents: Peaceful demonstrations, memoranda submissions",
+            "Medical access: Central issue — survivors demanding better healthcare access",
+            "Legal support: Long-standing legal aid networks, international human rights groups"
+          ],
+          "lastUpdated": "2026-07-25T20:00:00+05:30"
+        }
+      ],
+      "news": [
+        {
+          "title": "Activist on hunger strike over Ken-Betwa river link project ends fast after 18 days",
+          "url": "https://www.thehindu.com/news/national/madhya-pradesh/activist-on-hunger-strike-over-ken-betwa-river-link-project-ends-fast-after-18-days/article71259312.ece",
+          "source": "The Hindu",
+          "snippet": "Amit Bhatnagar of Jai Kisan Sangathan ended his 18-day hunger strike against the Ken-Betwa river linking project. He had been leading protests at the Board Office Square, Bhopal.",
+          "type": "article"
+        },
+        {
+          "title": "Why are tribals opposing the Ken-Betwa river-linking project | Explained",
+          "url": "https://www.thehindu.com/news/national/madhya-pradesh/ken-betwa-protest-why-are-tribals-opposing-the-river-linking-project-explained/article71244208.ece",
+          "source": "The Hindu",
+          "snippet": "Explainer on why tribal communities across MP are opposing the Ken-Betwa project, which threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace thousands.",
+          "type": "article"
+        },
+        {
+          "title": "Police clear Ken-Betwa protest site in MP, end 15-day agitation; protesters say leader detained",
+          "url": "https://www.newindianexpress.com/states/madhya-pradesh/2026/Jul/19/police-clear-ken-betwa-protest-site-in-mp-end-15-day-agitation",
+          "source": "The New Indian Express",
+          "snippet": "Madhya Pradesh Police cleared the Ken-Betwa protest site on July 19, ending a 15-day agitation. Protesters say their leader was detained during the clearance operation.",
+          "type": "article"
+        },
+        {
+          "title": "MP Police clear tribal protest site against Ken-Betwa project",
+          "url": "https://www.instagram.com/p/Da-O6dBASoi",
+          "source": "Instagram",
+          "snippet": "The MP Police cleared the site where several tribals had been protesting against the Ken-Betwa river link project and other irrigation schemes threatening their land.",
+          "type": "social"
+        },
+        {
+          "title": "Bhopal gas tragedy survivors continue decades-long struggle for justice and site cleanup",
+          "url": "https://www.thehindu.com/news/national/bhopal-gas-tragedy-survivors-continue-decades-long-struggle",
+          "source": "The Hindu",
+          "snippet": "Survivors of the 1984 Bhopal gas tragedy and their descendants maintain their protest for adequate compensation, medical care, and environmental cleanup of the Union Carbide site.",
+          "type": "article"
+        }
+      ]
+    }
+  }
+}
