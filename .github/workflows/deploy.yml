@@ -1,0 +1,61 @@
+name: Deploy to azadi.wtf
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.css'
+      - '**.js'
+      - 'data/protests.json'
+      - 'Protest Safely.pdf'
+      - 'guide-print.html'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy changed files to azadi.wtf
+        env:
+          AZADI_CRON_SECRET: ${{ secrets.AZADI_CRON_SECRET }}
+        run: |
+          # Get list of changed files in this push
+          FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.(html|css|js|json|pdf)$' || echo "")
+
+          if [ -z "$FILES" ]; then
+            echo "No frontend files changed. Skipping deploy."
+            exit 0
+          fi
+
+          echo "Changed files:"
+          echo "$FILES"
+
+          for fn in $FILES; do
+            case "$fn" in
+              *.html|*.css|*.js)
+                CONTENT=$(cat "$fn")
+                curl -s -X POST "https://azadi.wtf/cron/push.php" \
+                  --data-urlencode "secret=$AZADI_CRON_SECRET" \
+                  --data-urlencode "file=$(basename $fn)" \
+                  --data-urlencode "content=$CONTENT" \
+                  -w "\n  %{http_code} — $fn\n"
+                ;;
+              data/protests.json)
+                curl -s -X POST "https://azadi.wtf/cron/sync.php" \
+                  --data-urlencode "secret=$AZADI_CRON_SECRET" \
+                  --data-urlencode "data=$(cat $fn)" \
+                  -w "\n  %{http_code} — $fn\n"
+                ;;
+              *.pdf)
+                curl -s -X POST "https://azadi.wtf/cron/push.php" \
+                  --data-urlencode "secret=$AZADI_CRON_SECRET" \
+                  --data-urlencode "file=$(basename $fn)" \
+                  --data-urlencode "content=$(base64 $fn)" \
+                  -w "\n  %{http_code} — $fn\n"
+                ;;
+            esac
+          done
+
+          echo "Deploy complete."
