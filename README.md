@@ -12,7 +12,7 @@ Real-time protest safety assessments for Indian cities. Know where to protest, w
 - **Latest news feed** — Every city page pulls 5–6 recent news links from The Hindu, BBC, CNN, Al Jazeera, Deccan Herald, NDTV, Times of India, and local sources. Powered by Tavily search.
 - **Protest safety guide** — 8 sections: Before a Protest, What to Bring, During a Protest, Protection Against Weapons (tear gas, batons, pellet guns, water cannons), After a Protest, Protest Roles, Legal Resources in India, Glossary.
 - **Downloadable PDF** — Clean, print-formatted guide with page breaks between sections. 1-click download from any page.
-- **Auto-updating** — Cron jobs trigger Tavily web search + DeepSeek analysis every 4 hours. Fresh danger assessments, updated statuses, and new news links without manual intervention.
+- **Auto-updating** — Cron job triggers Tavily web search + DeepSeek analysis every 4 hours for all protests. Fresh danger assessments, updated statuses, and new news links without manual intervention.
 - **Admin panel** — Password-protected dashboard at `/admin` for manual JSON editing.
 
 ## Architecture
@@ -115,7 +115,7 @@ Add a cron job (Hostinger cPanel → Cron Jobs):
 0 */4 * * *  php /home/your-user/public_html/cron/update.php
 ```
 
-This runs every 4 hours. The updater respects each protest's `lastUpdated` timestamp and only refreshes data whose interval has elapsed.
+This runs every 4 hours. All protests — critical, high, moderate, and low — are updated on the same schedule. The updater respects each protest's `lastUpdated` timestamp and `dangerLevel` interval, only refreshing data whose interval has elapsed.
 
 ### 5. Secure
 
