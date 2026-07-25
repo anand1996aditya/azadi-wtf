@@ -249,7 +249,18 @@ footer a { color:var(--accent); text-decoration:none; }
           else { lockedCode = code; d3.select(this).classed('selected', true); updatePanel(code); }
           e.stopPropagation();
         });
+
       svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
+
+      // Auto-select Delhi on load
+      setTimeout(function() {
+        var delhiPath = g.selectAll('.state-path').filter(function() { return d3.select(this).attr('data-code') === 'DL'; });
+        if (!delhiPath.empty()) {
+          lockedCode = 'DL';
+          delhiPath.classed('selected', true);
+          updatePanel('DL');
+        }
+      }, 300);
     })
     .catch(function() {
       panel.html('<div class="panel-placeholder" style="color:#e62e1e;">Failed to load map. Please refresh.</div>');
