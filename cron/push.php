@@ -20,11 +20,18 @@ if ($contentBase64) {
 }
 
 // Only allow specific file types in public_html
-$allowed = ['guide.html','index.html','style.css','city.html','script.js','cities.html',
+$allowedRoot = ['guide.html','index.html','style.css','city.html','script.js','cities.html',
             'Protest Safely.pdf','guide.pdf','guide-print.html'];
-if (!in_array($fn, $allowed, true)) { http_response_code(400); die('Invalid filename: ' . $fn); }
+$allowedCron = ['update.php'];
 
-$path = dirname(__DIR__) . '/' . $fn;
+$path = null;
+if (in_array($fn, $allowedRoot, true)) {
+    $path = dirname(__DIR__) . '/' . $fn;
+} elseif (in_array($fn, $allowedCron, true)) {
+    $path = dirname(__DIR__) . '/cron/' . $fn;
+} else {
+    http_response_code(400); die('Invalid filename: ' . $fn);
+}
 $flags = in_array(pathinfo($fn, PATHINFO_EXTENSION), ['pdf']) ? 0 : 0;
 $result = file_put_contents($path, $content, LOCK_EX);
 

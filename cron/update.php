@@ -35,11 +35,15 @@ if (!$isCLI) {
 $rawLevel = $_GET['level'] ?? ($argv[1] ?? null);
 $filterLevels = $rawLevel ? array_map('trim', explode(',', $rawLevel)) : null;
 
+// Accept comma-separated city slugs: "delhi,mumbai"
+$rawCity = $_GET['city'] ?? ($argv[2] ?? null);
+$filterCities = $rawCity ? array_map('trim', explode(',', $rawCity)) : null;
+
 // ==========================================
 // MAIN
 // ==========================================
 
-$filterLabel = $filterLevels ? implode(',', $filterLevels) : 'all';
+$filterLabel = ($filterLevels ? implode(',', $filterLevels) : 'all') . ' | ' . ($filterCities ? implode(',', $filterCities) : 'all cities');
 logUpdate("=== UPDATE RUN STARTED (filter: {$filterLabel}) ===");
 
 $data = loadData();
@@ -53,6 +57,11 @@ $skipped = 0;
 $errors = 0;
 
 foreach ($data['cities'] as $citySlug => &$city) {
+    // If filtering by cities, skip non-matching
+    if ($filterCities && !in_array($citySlug, $filterCities, true)) {
+        continue;
+    }
+
     foreach ($city['protests'] as &$protest) {
         $level = $protest['dangerLevel'];
 
@@ -134,7 +143,10 @@ function needsUpdate($protest, $level) {
     $lastUpdate = strtotime($protest['lastUpdated']);
     if ($lastUpdate === false) return true;
     $interval = getIntervalForLevel($level);
-    return (time() - $lastUpdate) >= ($interval - 60);
+    $elapsed = time() - $lastUpdate;
+    // If server clock is behind (negative elapsed), force update
+    if ($elapsed < 0) return true;
+    return $elapsed >= ($interval - 60);
 }
 
 // ==========================================
