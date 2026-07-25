@@ -112,7 +112,7 @@ Upload to any PHP-capable host (Hostinger, Apache/Nginx + PHP 7.4+). Set `data/`
 Add a cron job (Hostinger cPanel → Cron Jobs):
 
 ```
-0 */4 * * *  php /home/your-user/public_html/cron/update.php
+0 */4 * * * /usr/bin/php /home/your-user/domains/azadi.wtf/public_html/cron/update.php
 ```
 
 This runs every 4 hours. All protests — critical, high, moderate, and low — are updated on the same schedule. The updater respects each protest's `lastUpdated` timestamp and `dangerLevel` interval, only refreshing data whose interval has elapsed.
