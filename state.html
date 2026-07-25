@@ -15,7 +15,17 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; }
 
-.container { max-width:800px; margin:0 auto; padding:0 24px; }
+.container { max-width:880px; margin:0 auto; padding:0 24px; }
+
+/* NAV */
+.top-nav { position:sticky; top:0; z-index:100; background:rgba(6,6,6,0.88); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); height:50px; }
+.top-nav .container { display:flex; align-items:center; justify-content:space-between; height:100%; }
+.nav-logo { font-size:0.95rem; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
+.nav-links { display:flex; align-items:center; gap:4px; }
+.nav-links a { color:var(--text-dim); text-decoration:none; font-size:0.82rem; font-weight:500; padding:5px 12px; border-radius:5px; transition:all 0.1s; }
+.nav-links a:hover { color:var(--text); }
+.btn-pdf { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:0.76rem; font-weight:600; border-radius:5px; cursor:pointer; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text); text-decoration:none; transition:all 0.1s; font-family:var(--font); }
+.btn-pdf:hover { border-color:var(--accent); }
 
 header { padding:40px 0 24px; border-bottom:1px solid var(--border); text-align:center; }
 header h1 { font-size:1.8rem; font-weight:900; letter-spacing:-0.02em; }
@@ -106,6 +116,16 @@ footer a { color:var(--accent); text-decoration:none; }
 </style>
 </head>
 <body>
+
+<nav class="top-nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">&#9994; azadi.wtf</a>
+    <div class="nav-links">
+      <a href="guide.html">Protest Guide</a>
+      <a href="Protest%20Safely.pdf" class="btn-pdf" download>&#8595; PDF</a>
+    </div>
+  </div>
+</nav>
 
 <div class="container" id="app">
   <div class="error-text">Loading state data...</div>
