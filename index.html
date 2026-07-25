@@ -3,224 +3,270 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protest Safely — India Protest Guide &amp; City Assessments</title>
-<meta name="description" content="Real-time protest safety assessments across 8 Indian cities. Guides on what to bring, legal rights, and how to stay safe. Downloadable PDF for offline use.">
-<link rel="stylesheet" href="style.css">
+<title>azadi.wtf — India Protest Map & Safety Guide</title>
+<meta name="description" content="Real-time protest safety assessments across India. Interactive map with political leadership and active protests per state. Comprehensive protest safety guide with downloadable PDF.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9994;</text></svg>">
+<style>
+:root {
+  --bg:#060606; --bg-card:#0d0d0d; --bg-elevated:#141414;
+  --border:#1e1e1e; --text:#ededed; --text-dim:#7e7e7e; --text-muted:#484848;
+  --accent:#dc4536; --d-critical:#e62e1e; --d-high:#e86930;
+  --d-moderate:#d4a020; --d-low:#2ea85a;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+.top-nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(6,6,6,0.88); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border); height:50px;
+}
+.top-nav .container { max-width:1100px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; height:100%; }
+.nav-logo { font-size:0.95rem; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
+.nav-links { display:flex; align-items:center; gap:4px; }
+.nav-links a { color:var(--text-dim); text-decoration:none; font-size:0.82rem; font-weight:500; padding:5px 12px; border-radius:5px; transition:all 0.1s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--text); background:var(--bg-elevated); }
+.btn-pdf { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:0.76rem; font-weight:600; border-radius:5px; cursor:pointer; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text); text-decoration:none; transition:all 0.1s; font-family:var(--font); }
+.btn-pdf:hover { border-color:var(--accent); }
+
+/* HERO */
+.hero { text-align:center; padding:40px 20px 20px; border-bottom:1px solid var(--border); }
+.hero h1 { font-size:1.8rem; font-weight:900; letter-spacing:-0.02em; margin-bottom:4px; }
+.hero p { color:var(--text-dim); font-size:0.85rem; max-width:600px; margin:0 auto; }
+.legend-row { display:flex; justify-content:center; gap:16px; margin-top:10px; flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--text-dim); }
+.legend-dot { width:9px; height:9px; border-radius:50%; }
+.legend-dot.critical { background:var(--d-critical); }
+.legend-dot.high { background:var(--d-high); }
+.legend-dot.moderate { background:var(--d-moderate); }
+.legend-dot.low { background:var(--d-low); }
+.legend-dot.none { background:#1e1e1e; border:1px solid #333; }
+
+/* LAYOUT */
+.layout { display:flex; max-width:1100px; margin:16px auto 0; padding:0 16px; gap:18px; align-items:flex-start; }
+.map-col { flex:1; min-width:0; }
+.map-col svg { width:100%; height:auto; display:block; }
+.panel-col { width:340px; flex-shrink:0; position:sticky; top:66px; }
+
+/* MAP */
+.state-path { stroke:#1f1f1f; stroke-width:0.6; cursor:pointer; transition:all 0.1s; }
+.state-path:hover { stroke:#fff; stroke-width:2; }
+.state-path.critical { fill:var(--d-critical); }
+.state-path.high { fill:var(--d-high); }
+.state-path.moderate { fill:var(--d-moderate); }
+.state-path.low { fill:var(--d-low); }
+.state-path.no-protests { fill:#1e1e1e; }
+.state-path.no-data { fill:#1a1a1a; }
+.state-path.selected { stroke:#fff; stroke-width:2.5; filter:brightness(1.3); }
+
+/* PANEL */
+.panel { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; overflow:hidden; max-height:calc(100vh - 100px); overflow-y:auto; }
+.panel-placeholder { padding:48px 24px; text-align:center; color:var(--text-muted); font-size:0.82rem; line-height:1.55; }
+.panel-placeholder strong { color:var(--text-dim); }
+.panel-header { padding:14px 16px 10px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+.panel-header h3 { font-size:1rem; font-weight:800; }
+.panel-state-badge { font-size:0.6rem; font-weight:800; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.05em; }
+.panel-state-badge.critical { background:var(--d-critical); color:#fff; }
+.panel-state-badge.high { background:var(--d-high); color:#fff; }
+.panel-state-badge.moderate { background:var(--d-moderate); color:#000; }
+.panel-state-badge.low { background:var(--d-low); color:#fff; }
+.panel-state-badge.none { background:#1e1e1e; color:#888; }
+.panel-political { padding:8px 16px; border-bottom:1px solid var(--border); display:flex; flex-wrap:wrap; gap:4px 14px; font-size:0.73rem; }
+.panel-political span { color:var(--text-dim); }
+.panel-political strong { color:var(--text); }
+.party-badge { font-size:0.6rem; font-weight:700; padding:1px 7px; border-radius:100px; text-transform:uppercase; letter-spacing:0.04em; }
+.party-nda { background:rgba(255,153,51,0.15); color:#ff9933; }
+.party-india { background:rgba(0,136,255,0.15); color:#0088ff; }
+.party-other { background:rgba(255,255,255,0.06); color:#aaa; }
+.panel-section { padding:12px 16px; }
+.panel-section h4 { font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-dim); margin-bottom:8px; }
+.p-item { padding:8px 10px; margin-bottom:5px; background:var(--bg-elevated); border-radius:5px; border-left:3px solid; font-size:0.72rem; transition:background 0.1s; }
+.p-item:hover { background:#1a1a1a; }
+.p-item.clickable { cursor:pointer; }
+.p-item.clickable:hover { background:#1f1f1f; }
+.p-item.critical { border-left-color:var(--d-critical); }
+.p-item.high { border-left-color:var(--d-high); }
+.p-item.moderate { border-left-color:var(--d-moderate); }
+.p-item.low { border-left-color:var(--d-low); }
+.p-item-h { display:flex; justify-content:space-between; align-items:flex-start; gap:6px; margin-bottom:2px; }
+.p-item-h strong { font-size:0.76rem; }
+.d-tag { font-size:0.5rem; font-weight:800; letter-spacing:0.04em; padding:1px 5px; border-radius:100px; text-transform:uppercase; white-space:nowrap; }
+.d-tag.critical { background:var(--d-critical); color:#fff; }
+.d-tag.high { background:var(--d-high); color:#fff; }
+.d-tag.moderate { background:var(--d-moderate); color:#000; }
+.d-tag.low { background:var(--d-low); color:#fff; }
+.p-item-loc { font-size:0.65rem; color:var(--text-muted); margin-bottom:2px; }
+.p-item-st { font-size:0.67rem; color:var(--text-dim); line-height:1.3; }
+.none-text { color:var(--text-muted); font-style:italic; font-size:0.72rem; }
+.panel-footer { padding:8px 16px; border-top:1px solid var(--border); font-size:0.63rem; color:var(--text-muted); text-align:center; line-height:1.4; }
+
+/* CTA */
+.cta-section { text-align:center; padding:32px 20px; border-top:1px solid var(--border); margin-top:24px; }
+.cta-section h2 { font-size:1.2rem; margin-bottom:6px; }
+.cta-section p { color:var(--text-dim); font-size:0.85rem; margin-bottom:16px; }
+.btn { display:inline-flex; align-items:center; gap:7px; padding:10px 22px; font-size:0.86rem; font-weight:600; border-radius:5px; cursor:pointer; border:none; text-decoration:none; transition:all 0.12s; font-family:var(--font); }
+.btn-primary { background:var(--accent); color:#fff; }
+.btn-primary:hover { background:#ba372a; }
+.btn-secondary { background:var(--bg-elevated); color:var(--text); border:1px solid var(--border); }
+.btn-secondary:hover { border-color:var(--d-high); }
+
+/* FOOTER */
+footer { text-align:center; padding:28px 20px; border-top:1px solid var(--border); font-size:0.72rem; color:var(--text-muted); }
+footer a { color:var(--accent); text-decoration:none; }
+
+@media (max-width:860px) { .layout { flex-direction:column; } .panel-col { width:100%; position:static; } }
+@media (max-width:500px) { .hero h1 { font-size:1.3rem; } }
+</style>
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-graphic" aria-hidden="true">
-    <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1a0a0a"/>
-          <stop offset="100%" stop-color="#0a0a0a"/>
-        </linearGradient>
-        <linearGradient id="fistGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ff4d3a"/>
-          <stop offset="100%" stop-color="#cc2200"/>
-        </linearGradient>
-      </defs>
-      <rect width="900" height="400" fill="url(#sky)"/>
-
-      <!-- Crowd silhouette layer -->
-      <g fill="#141414" opacity="0.9">
-        <!-- Row 3 - back -->
-        <rect x="100" y="290" width="14" height="50" rx="3"/>
-        <rect x="120" y="285" width="14" height="55" rx="3"/>
-        <rect x="140" y="292" width="14" height="48" rx="3"/>
-        <rect x="160" y="280" width="14" height="60" rx="3"/>
-        <rect x="180" y="288" width="14" height="52" rx="3"/>
-        <rect x="210" y="285" width="14" height="55" rx="3"/>
-        <rect x="230" y="290" width="14" height="50" rx="3"/>
-        <rect x="250" y="283" width="14" height="57" rx="3"/>
-        <rect x="270" y="290" width="14" height="50" rx="3"/>
-        <rect x="300" y="280" width="14" height="60" rx="3"/>
-        <rect x="320" y="288" width="14" height="52" rx="3"/>
-        <rect x="340" y="285" width="14" height="55" rx="3"/>
-        <rect x="360" y="292" width="14" height="48" rx="3"/>
-        <rect x="380" y="280" width="14" height="60" rx="3"/>
-        <rect x="410" y="288" width="14" height="52" rx="3"/>
-        <rect x="430" y="285" width="14" height="55" rx="3"/>
-        <rect x="460" y="290" width="14" height="50" rx="3"/>
-        <rect x="480" y="280" width="14" height="60" rx="3"/>
-        <rect x="500" y="288" width="14" height="52" rx="3"/>
-        <rect x="520" y="285" width="14" height="55" rx="3"/>
-        <rect x="550" y="290" width="14" height="50" rx="3"/>
-        <rect x="570" y="280" width="14" height="60" rx="3"/>
-        <rect x="600" y="288" width="14" height="52" rx="3"/>
-        <rect x="620" y="283" width="14" height="57" rx="3"/>
-        <rect x="640" y="290" width="14" height="50" rx="3"/>
-        <rect x="670" y="280" width="14" height="60" rx="3"/>
-        <rect x="690" y="285" width="14" height="55" rx="3"/>
-        <rect x="710" y="290" width="14" height="50" rx="3"/>
-        <rect x="730" y="280" width="14" height="60" rx="3"/>
-        <rect x="760" y="288" width="14" height="52" rx="3"/>
-        <rect x="780" y="283" width="14" height="57" rx="3"/>
-        <rect x="800" y="290" width="14" height="50" rx="3"/>
-      </g>
-
-      <!-- Row 2 silhouettes with raised arms -->
-      <g fill="#1a1a1a" opacity="0.95">
-        <rect x="80" y="300" width="16" height="55" rx="4"/>
-        <rect x="150" y="295" width="16" height="60" rx="4"/>
-        <rect x="190" y="302" width="16" height="53" rx="4"/>
-        <rect x="260" y="295" width="16" height="60" rx="4"/>
-        <rect x="310" y="300" width="16" height="55" rx="4"/>
-        <rect x="380" y="298" width="16" height="57" rx="4"/>
-        <rect x="450" y="295" width="16" height="60" rx="4"/>
-        <rect x="530" y="300" width="16" height="55" rx="4"/>
-        <rect x="580" y="298" width="16" height="57" rx="4"/>
-        <rect x="650" y="295" width="16" height="60" rx="4"/>
-        <rect x="720" y="300" width="16" height="55" rx="4"/>
-        <rect x="770" y="298" width="16" height="57" rx="4"/>
-      </g>
-
-      <!-- Raised fists -->
-      <g fill="url(#fistGrad)" opacity="0.9">
-        <!-- Fist 1 -->
-        <rect x="243" y="230" width="12" height="36" rx="5"/>
-        <rect x="249" y="218" width="4" height="16" rx="2"/>
-        <circle cx="251" cy="214" r="8"/>
-        
-        <!-- Fist 2 -->
-        <rect x="443" y="210" width="14" height="40" rx="6"/>
-        <rect x="450" y="196" width="4" height="18" rx="2"/>
-        <circle cx="452" cy="190" r="9"/>
-        
-        <!-- Fist 3 -->
-        <rect x="643" y="225" width="12" height="36" rx="5"/>
-        <rect x="649" y="212" width="4" height="16" rx="2"/>
-        <circle cx="651" cy="208" r="8"/>
-        
-        <!-- Fist 4 (smaller, back) -->
-        <rect x="343" y="250" width="10" height="28" rx="4"/>
-        <rect x="348" y="242" width="3" height="10" rx="2"/>
-        <circle cx="350" cy="238" r="6"/>
-        <rect x="503" y="248" width="10" height="30" rx="4"/>
-        <rect x="508" y="238" width="3" height="12" rx="2"/>
-        <circle cx="510" cy="234" r="7"/>
-      </g>
-
-      <!-- Ground line -->
-      <rect x="0" y="350" width="900" height="50" fill="#0f0f0f"/>
-
-      <!-- Accent streaks -->
-      <g opacity="0.3">
-        <line x1="100" y1="280" x2="100" y2="350" stroke="#ff4d3a" stroke-width="2"/>
-        <line x1="300" y1="270" x2="300" y2="350" stroke="#ff4d3a" stroke-width="1.5"/>
-        <line x1="500" y1="265" x2="500" y2="350" stroke="#ff4d3a" stroke-width="2"/>
-        <line x1="700" y1="275" x2="700" y2="350" stroke="#ff4d3a" stroke-width="1.5"/>
-      </g>
-    </svg>
-  </div>
-
-  <div class="hero-content container">
-    <div class="hero-badge">&#9994; INDIA PROTEST SAFETY GUIDE</div>
-    <h1>Know Before You Go</h1>
-    <p class="hero-sub">Real-time safety assessments for protests across 8 Indian cities. Comprehensive guides on what to bring, your legal rights, and how to protect yourself and others.</p>
-    <div class="hero-actions">
-      <a href="city.html" class="btn btn-primary">&#128506; View City Assessments</a>
-      <a href="guide.html" class="btn btn-secondary">&#128214; Read Protest Guide</a>
-      <a href="Protest%20Safely.pdf" class="btn btn-download" download>&#8595; Download Guide PDF</a>
-    </div>
-    <p class="hero-updated">Data last updated: <span id="lastUpdated">Loading...</span></p>
-  </div>
-</header>
-
-<!-- CITY PREVIEW -->
-<section class="city-preview" id="cities">
+<nav class="top-nav">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title"><span class="section-icon">&#128506;</span> City-by-City Overview</h2>
-      <a href="city.html" class="btn btn-primary btn-small">View All Cities &rarr;</a>
-    </div>
-    <p class="section-desc">Tap any city for its current protest status, danger level, and active demonstrations.</p>
-    <div class="city-grid" id="cityGrid">
-      <div class="loading">Loading city data...</div>
-    </div>
-    <div class="disclaimer-box">
-      <strong>&#9888; Conditions change rapidly.</strong> This data is compiled from news reports and on-ground networks. Always verify with local organizers before attending.
+    <a href="index.html" class="nav-logo">&#9994; azadi.wtf</a>
+    <div class="nav-links">
+      <a href="guide.html">Protest Guide</a>
+      <a href="Protest%20Safely.pdf" class="btn-pdf" download>&#8595; Download PDF</a>
     </div>
   </div>
-</section>
+</nav>
 
-<!-- GUIDE PREVIEW -->
-<section class="guide-preview">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title"><span class="section-icon">&#128214;</span> Protest Guide</h2>
-      <a href="guide.html" class="btn btn-primary btn-small">Full Guide &rarr;</a>
-    </div>
-    <p class="section-desc">Everything you need to know before, during, and after a protest — adapted for Indian laws and conditions.</p>
-    <div class="guide-chunks">
-      <a href="guide.html#before" class="chunk-card">
-        <span class="chunk-icon">&#128221;</span>
-        <h3>Before</h3>
-        <p>Know your rights, prepare supplies, plan your route</p>
-      </a>
-      <a href="guide.html#bring" class="chunk-card">
-        <span class="chunk-icon">&#127890;</span>
-        <h3>Bring</h3>
-        <p>Essential supplies, protective gear, medical kit</p>
-      </a>
-      <a href="guide.html#during" class="chunk-card">
-        <span class="chunk-icon">&#128170;</span>
-        <h3>During</h3>
-        <p>Stay safe, handle police, protect others</p>
-      </a>
-      <a href="guide.html#protection" class="chunk-card">
-        <span class="chunk-icon">&#128737;</span>
-        <h3>Protection</h3>
-        <p>Tear gas, batons, pellet guns, water cannons</p>
-      </a>
-      <a href="guide.html#after" class="chunk-card">
-        <span class="chunk-icon">&#128682;</span>
-        <h3>After</h3>
-        <p>Wellness check, digital reset, legal follow-up</p>
-      </a>
-      <a href="guide.html#roles" class="chunk-card">
-        <span class="chunk-icon">&#128101;</span>
-        <h3>Roles</h3>
-        <p>Marshal, medic, legal observer, participant</p>
-      </a>
-      <a href="guide.html#legal" class="chunk-card">
-        <span class="chunk-icon">&#9878;</span>
-        <h3>Legal</h3>
-        <p>NALSA, DLSA, your rights under Indian law</p>
-      </a>
-      <a href="guide.html#tech" class="chunk-card">
-        <span class="chunk-icon">&#128187;</span>
-        <h3>Tech</h3>
-        <p>Encrypted chat, offline maps, local AI</p>
-      </a>
-    </div>
+<div class="hero">
+  <h1>India Protest Map</h1>
+  <p>Hover over any state to preview protests. Click to lock — then click any protest for full details. Map stays visible.</p>
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-dot critical"></span>Critical</span>
+    <span class="legend-item"><span class="legend-dot high"></span>High</span>
+    <span class="legend-item"><span class="legend-dot moderate"></span>Moderate</span>
+    <span class="legend-item"><span class="legend-dot low"></span>Low</span>
+    <span class="legend-item"><span class="legend-dot none"></span>None</span>
   </div>
-</section>
+</div>
 
-<!-- PDF CTA -->
-<section class="pdf-cta">
-  <div class="container">
-    <h2>&#128196; Offline-Ready PDF</h2>
-    <p>Download the complete guide and city assessments as a printable PDF. Works without internet — share it, print it, keep it.</p>
-    <a href="Protest%20Safely.pdf" class="btn btn-download btn-large" download>&#8595; Download Complete Guide PDF</a>
+<div class="layout">
+  <div class="map-col" id="map"></div>
+  <div class="panel-col">
+    <div class="panel" id="panel">
+      <div class="panel-placeholder">
+        <strong>Hover over a state</strong><br>on the map to preview details<br><br>
+        <span style="font-size:0.72rem;color:var(--text-muted)">Click a state to lock the selection.<br>Then click any protest for full details.</span>
+      </div>
+    </div>
   </div>
-</section>
+</div>
+
+<div class="cta-section">
+  <h2>Complete Protest Safety Guide</h2>
+  <p>Legal rights, protective gear, tech tools, and what to do before, during &amp; after a protest.</p>
+  <a href="guide.html" class="btn btn-primary">&#128214; Read the Guide</a>
+  <a href="Protest%20Safely.pdf" class="btn btn-secondary" download style="margin-left:8px;">&#8595; Download PDF</a>
+</div>
 
 <footer>
-  <div class="container">
-    <p>This guide does not constitute legal or medical advice. Laws vary by jurisdiction. Consult qualified professionals for guidance.</p>
-    <p>Inspired by <a href="https://protest.wtf" target="_blank" rel="noopener">protest.wtf</a>. Built for the people of India. Free to share, adapt, and translate.</p>
-    <p class="footer-tag">&#9994; Stay safe. Protect each other.</p>
-  </div>
+  <a href="guide.html">Protest Safety Guide</a> &nbsp;·&nbsp;
+  <a href="Protest%20Safely.pdf" download>Download PDF</a> &nbsp;·&nbsp;
+  azadi.wtf — Stay safe. Protect each other. &#9994;
 </footer>
 
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script src="data.js"></script>
 <script>
-// Embedded protest data — works offline and without a server
-window.__PROTEST_DATA__ = {"lastUpdated":"2026-07-25T23:30:00+05:30","cities":{"delhi":{"name":"Delhi","slug":"delhi","overallStatus":"Multiple active protests. Jantar Mantar remains the epicenter with extremely heavy police presence. Several Section 163 BNSS prohibitory orders in central Delhi. Coordinated crackdowns have been reported in the past 72 hours.","overallDanger":"critical","protests":[{"id":"del-cjp-001","name":"CJP Solidarity Demonstration","location":"Jantar Mantar, Central Delhi","cause":"Citizens for Justice and Peace — demanding judicial accountability and transparency in ongoing proceedings","dangerLevel":"critical","dangerReason":"Heavy paramilitary + Delhi Police presence. Water cannons and lathi charges reported. Multiple mass detentions. Medical access to protest site is being restricted. Legal observers report coordinated crackdowns.","status":"Extremely volatile. Police have cordoned off Jantar Mantar road. Protesters are facing aggressive dispersal tactics. Multiple arrests reported in the last 48 hours. Water cannons deployed against peaceful demonstrators.","details":["Police presence: Heavy — Delhi Police + 2 battalions paramilitary","Recent incidents: Water cannons, lathi charges, at least 40+ detentions in past 72 hours","Medical access: Severely restricted — ambulances and medics blocked from site","Legal support: NALSA and DLSA active but overwhelmed. Lawyers' collective coordinating defense.","Section 144/163: Imposed in Central Delhi, New Delhi, and surrounding areas","Metro: Rajiv Chowk and Patel Chowk stations may close without notice"],"lastUpdated":"2026-07-25T22:15:00+05:30"},{"id":"del-farmers-002","name":"Farmers' MSP Guarantee March","location":"Singhu Border and Ramlila Maidan","cause":"Demanding legal guarantee for Minimum Support Price (MSP) and farm loan waivers","dangerLevel":"high","dangerReason":"Large gatherings at border points. Police barricades and restrictions on movement. Tense standoffs reported but no major violence in the past week.","status":"Active. Farmers groups have been stationed at Singhu border for extended period. Intermittent negotiations with government. Situation at Ramlila Maidan is tense but organized.","details":["Police presence: Moderate to heavy at border points, lighter in central Delhi","Recent incidents: Peaceful marches, some scuffles at barricades","Medical access: Available — farmer unions have their own medical teams","Legal support: Farm union legal cells active across Delhi borders"],"lastUpdated":"2026-07-25T18:00:00+05:30"}]},"mumbai":{"name":"Mumbai","slug":"mumbai","overallStatus":"Multiple protest fronts active. Azad Maidan remains the primary gathering point. Tensions elevated but protests remain largely peaceful with periodic confrontations with police.","overallDanger":"high","protests":[{"id":"mum-cjp-001","name":"CJP Mumbai Solidarity Rally","location":"Azad Maidan, South Mumbai","cause":"CJP solidarity — coordinated with national protests demanding judicial reforms and transparency","dangerLevel":"high","dangerReason":"Moderate to heavy police presence. Some detentions reported at larger gatherings. Police have imposed area restrictions on certain days. Situation can escalate quickly depending on crowd size.","status":"Active and ongoing. Protests have been held daily at Azad Maidan with varying crowd sizes. Police generally allow peaceful assembly but have detained organizers on specific occasions. Legal observer networks are active and present.","details":["Police presence: Moderate to heavy — varies by day and expected crowd size","Recent incidents: Some detentions of organizers, area restrictions under Sec 163","Medical access: Street medics generally allowed access","Legal support: Strong network — Mumbai legal aid groups and law college volunteers present"],"lastUpdated":"2026-07-25T21:00:00+05:30"},{"id":"mum-datacenter-002","name":"Anti-Data Center Expansion Protest","location":"Kalwa and Airoli areas, Navi Mumbai","cause":"Residents opposing large-scale data center construction citing water scarcity, environmental damage, and land acquisition concerns","dangerLevel":"moderate","dangerReason":"Localized protests in Navi Mumbai area. Police presence is administrative. Some tension between residents and construction security.","status":"Active community resistance. Residents have organized daily sit-ins near proposed data center sites. Environmental activists have joined. No major police action yet but permits are being challenged.","details":["Police presence: Light to moderate — standard crowd management","Recent incidents: Verbal confrontations with construction security, no violence","Medical access: Not a concern — protests are in residential areas","Legal support: Environmental lawyers involved, PIL under consideration"],"lastUpdated":"2026-07-25T19:30:00+05:30"}]},"bangalore":{"name":"Bangalore","slug":"bangalore","overallStatus":"Generally peaceful protest environment. Multiple causes are being demonstrated simultaneously without major incident. Police presence is present but restrained.","overallDanger":"low","protests":[{"id":"blr-cjp-001","name":"CJP Bangalore Solidarity Gathering","location":"Freedom Park, Central Bangalore","cause":"CJP solidarity protest — peaceful assembly demanding judicial accountability","dangerLevel":"low","dangerReason":"Light police presence — mostly observational. No incidents reported. Protests are well-organized and peaceful.","status":"Peaceful and well-attended. Daily gatherings at Freedom Park have been conducted without any police intervention. Organizers have maintained good communication with local authorities.","details":["Police presence: Light — standard crowd management, mostly observational","Recent incidents: None reported — protests have been entirely peaceful","Medical access: Good — medical facilities and volunteers readily available","Legal support: Active legal observer networks present and coordinating"],"lastUpdated":"2026-07-25T20:45:00+05:30"},{"id":"blr-datacenter-002","name":"Save Lakes, Stop Data Centers Protest","location":"Whitefield and Sarjapur Road areas","cause":"Environmental activists and residents protesting unchecked data center construction in lake catchment areas, citing water depletion and ecological damage","dangerLevel":"low","dangerReason":"Community-led protests with environmental NGOs. Peaceful marches and awareness campaigns. No confrontations reported.","status":"Active and growing. Environmental groups have organized awareness marches and lake cleanup drives combined with protest signage. Gaining media attention. Peaceful throughout.","details":["Police presence: Minimal — administrative only","Recent incidents: None — completely peaceful assemblies","Medical access: Not a concern","Legal support: Environmental law groups involved, NGT petition filed"],"lastUpdated":"2026-07-25T17:00:00+05:30"}]},"pune":{"name":"Pune","slug":"pune","overallStatus":"Peaceful. Protests are well-organized with cooperative crowd management. No incidents of police action against peaceful protesters.","overallDanger":"low","protests":[{"id":"pun-cjp-001","name":"CJP Pune Solidarity Meeting","location":"Collector's Office, Camp Area","cause":"CJP solidarity — organized discussions and peaceful demonstrations","dangerLevel":"low","dangerReason":"Minimal police presence. Protests are conducted with prior permissions and are entirely peaceful.","status":"Regular peaceful gatherings. Well-organized with clear communication between organizers and authorities. No disruptions or incidents reported.","details":["Police presence: Minimal — standard crowd management","Recent incidents: None reported","Medical access: Readily available","Legal support: Available if needed — local legal aid groups active"],"lastUpdated":"2026-07-25T20:00:00+05:30"}]},"hyderabad":{"name":"Hyderabad","slug":"hyderabad","overallStatus":"Generally peaceful with occasional elevated tensions. Police monitor closely but rarely intervene in peaceful gatherings. Student and civil society groups are active.","overallDanger":"moderate","protests":[{"id":"hyd-cjp-001","name":"CJP Hyderabad Solidarity Forum","location":"Dharna Chowk, Indira Park","cause":"CJP solidarity — coordinated forum discussions and peaceful demonstrations","dangerLevel":"moderate","dangerReason":"Moderate police presence. Generally restrained but occasional stop-and-frisk and identity checks on participants.","status":"Active. Protests have been largely peaceful with good crowd management by organizers. Some reports of police recording participant identities. Overall, no violent incidents.","details":["Police presence: Moderate — present but restrained","Recent incidents: Minor altercations, identity documentation by police","Medical access: Available","Legal support: Local legal aid groups active, Osmania University law faculty involved"],"lastUpdated":"2026-07-25T19:00:00+05:30"},{"id":"hyd-kenbetwa-002","name":"Stop Ken-Betwa River Linking Protest","location":"Necklace Road and Tank Bund areas","cause":"Environmental activists, tribal rights groups, and affected communities protesting the Ken-Betwa river linking project citing displacement of thousands and environmental destruction of Panna Tiger Reserve","dangerLevel":"moderate","dangerReason":"NGOs and activists have organized large awareness rallies. Some tension with authorities. The project affects multiple states, so protests are coordinated nationally.","status":"Active and growing. Environmental groups from across the country are coordinating. Hyderabad has become a key organizing hub for the anti-Ken-Betwa movement in the southern states.","details":["Police presence: Light to moderate — administrative","Recent incidents: Peaceful rallies, some detentions of organizers for permit issues","Medical access: Available","Legal support: Environmental law groups actively involved, multiple PILs filed"],"lastUpdated":"2026-07-25T16:30:00+05:30"}]},"kolkata":{"name":"Kolkata","slug":"kolkata","overallStatus":"Historically active protest culture. Multiple movements converge regularly. Police presence varies significantly — generally tolerant of organized left and civil society protests but escalates with crowd size and perceived threat.","overallDanger":"moderate","protests":[{"id":"kol-cjp-001","name":"CJP Kolkata Solidarity Assembly","location":"Esplanade / Dorina Crossing area","cause":"CJP solidarity — coordinated with national movement","dangerLevel":"moderate","dangerReason":"Moderate police presence. Some detentions reported during larger gatherings. Traffic restrictions imposed during protest hours. Police posture escalates with crowd size.","status":"Active. Regular assemblies have been held at Esplanade. Some organizers detained briefly on certain days. Legal aid groups maintain a strong presence. Protest culture in Kolkata is deeply rooted and resilient.","details":["Police presence: Moderate — escalates with crowd size","Recent incidents: Some detentions (released within 24 hours), traffic restrictions","Medical access: Generally available","Legal support: Strong and experienced legal aid network in the city"],"lastUpdated":"2026-07-25T18:30:00+05:30"},{"id":"kol-kenbetwa-002","name":"Save Panna — Stop Ken-Betwa Rally","location":"Rabindra Sadan and College Street area","cause":"Protesting the Ken-Betwa river linking project and its impact on Panna Tiger Reserve and tribal displacement","dangerLevel":"low","dangerReason":"Student and intellectual community-led. Peaceful marches and awareness drives. No confrontations reported.","status":"Active. Student groups from Presidency, Jadavpur, and Calcutta University have organized awareness marches and signature campaigns. Environmental NGOs coordinating regionally.","details":["Police presence: Light — administrative","Recent incidents: None — peaceful awareness campaigns","Medical access: Not a concern","Legal support: University law departments involved in research and documentation"],"lastUpdated":"2026-07-25T15:00:00+05:30"}]},"jaipur":{"name":"Jaipur","slug":"jaipur","overallStatus":"Calm. Small to medium-scale protests with minimal police intervention. Community-organized events remain peaceful with cooperative coordination between organizers and authorities.","overallDanger":"low","protests":[{"id":"jai-cjp-001","name":"CJP Jaipur Community Forum","location":"Shahid Smarak, Collectorate Circle","cause":"CJP solidarity — community discussions and peaceful demonstrations","dangerLevel":"low","dangerReason":"Minimal police presence. Community-organized events with prior permissions. No incidents reported.","status":"Regular peaceful community gatherings. Well-coordinated with local authorities. Focus on awareness and community engagement rather than confrontation.","details":["Police presence: Light — administrative","Recent incidents: None reported","Medical access: Available","Legal support: Local networks available"],"lastUpdated":"2026-07-25T19:45:00+05:30"}]},"bhopal":{"name":"Bhopal","slug":"bhopal","overallStatus":"Active protest hub, particularly for environmental and tribal rights movements. The Ken-Betwa project directly affects Madhya Pradesh, making Bhopal a key center for opposition. Multiple civil society groups are coordinating.","overallDanger":"moderate","protests":[{"id":"bho-kenbetwa-001","name":"Ken-Betwa: Save Bundelkhand, Save Panna March","location":"Board Office Square and Shahpura Lake area","cause":"Tribal rights organizations, environmental activists, and displaced communities protesting the Ken-Betwa river linking project. The project threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace over 18,000 families across MP and UP.","dangerLevel":"high","dangerReason":"The issue directly affects local communities facing displacement. Tensions are high between affected villagers and project authorities. Police presence has increased as protests grow. Some clashes between villagers and survey teams reported.","status":"Highly active and emotional. Affected villagers have been staging continuous sit-ins. Environmental groups and wildlife conservationists have joined in significant numbers. National and international media attention is growing. The protest has become a flashpoint for the broader debate on development vs. displacement.","details":["Police presence: Moderate to heavy — increased as protests have grown","Recent incidents: Clashes between villagers and survey teams, some detentions","Medical access: Available but stretched in rural protest areas","Legal support: Multiple environmental law groups involved, Supreme Court monitoring the case","Affected population: Over 18,000 families face displacement","Environmental impact: 9,000+ hectares of Panna Tiger Reserve at risk of submersion"],"lastUpdated":"2026-07-25T21:30:00+05:30"},{"id":"bho-cjp-002","name":"CJP Bhopal Solidarity Forum","location":"Roshanpura Square and New Market area","cause":"CJP solidarity — coordinated with national movement for judicial accountability","dangerLevel":"low","dangerReason":"Community-organized with prior permissions. Peaceful discussions and awareness drives.","status":"Peaceful community gatherings. Focus on legal awareness and citizen rights education. Well-coordinated with local authorities.","details":["Police presence: Light — administrative","Recent incidents: None reported","Medical access: Available","Legal support: Active local legal aid networks"],"lastUpdated":"2026-07-25T18:00:00+05:30"}]}}};
+(function() {
+  var svg = d3.select('#map').append('svg')
+    .attr('viewBox', '0 0 600 680')
+    .attr('preserveAspectRatio', 'xMidYMid meet');
+  var g = svg.append('g');
+  var panel = d3.select('#panel');
+  var dangerW = { critical:3, high:2, moderate:1, low:0 };
+  var lockedCode = null;
+
+  function highest(protests) {
+    if (!protests.length) return 'no-protests';
+    var m = 0;
+    protests.forEach(function(p) { m = Math.max(m, dangerW[p.dangerLevel]||0); });
+    return ['low','moderate','high','critical'][m] || 'low';
+  }
+
+  var nameToCode = {
+    'Andhra Pradesh':'AP','Arunachal Pradesh':'AR','Assam':'AS','Bihar':'BR',
+    'Chhattisgarh':'CG','Goa':'GA','Gujarat':'GJ','Haryana':'HR',
+    'Himachal Pradesh':'HP','Jharkhand':'JH','Karnataka':'KA','Kerala':'KL',
+    'Madhya Pradesh':'MP','Maharashtra':'MH','Manipur':'MN','Meghalaya':'ML',
+    'Mizoram':'MZ','Nagaland':'NL','Odisha':'OD','Punjab':'PB',
+    'Rajasthan':'RJ','Sikkim':'SK','Tamil Nadu':'TN','Telangana':'TG',
+    'Tripura':'TR','Uttarakhand':'UK','Uttar Pradesh':'UP','West Bengal':'WB',
+    'Delhi':'DL','Jammu and Kashmir':'JK'
+  };
+
+  d3.json('https://raw.githubusercontent.com/covid19india/covid19india-react/master/public/maps/india.json')
+    .then(function(topo) {
+      var states = topojson.feature(topo, topo.objects.states);
+      var projection = d3.geoMercator().center([80, 23]).scale(1000).translate([300, 340]);
+      var path = d3.geoPath().projection(projection);
+
+      g.selectAll('path').data(states.features).enter().append('path')
+        .attr('d', path)
+        .attr('class', function(d) {
+          var code = nameToCode[d.properties.st_nm];
+          if (code && STATE_DATA[code]) return 'state-path ' + highest(STATE_DATA[code].protests);
+          return 'state-path no-data';
+        })
+        .attr('data-code', function(d) { return nameToCode[d.properties.st_nm] || ''; })
+        .on('mouseenter', function() {
+          var code = d3.select(this).attr('data-code');
+          if (code && STATE_DATA[code]) updatePanel(code);
+        })
+        .on('click', function(e) {
+          var code = d3.select(this).attr('data-code');
+          if (!code || !STATE_DATA[code]) return;
+          g.selectAll('.state-path').classed('selected', false);
+          if (lockedCode === code) { lockedCode = null; updatePanel(null); }
+          else { lockedCode = code; d3.select(this).classed('selected', true); updatePanel(code); }
+          e.stopPropagation();
+        });
+      svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
+    })
+    .catch(function() {
+      panel.html('<div class="panel-placeholder" style="color:#e62e1e;">Failed to load map. Please refresh.</div>');
+    });
+
+  d3.select(document).on('keydown', function(e) {
+    if (e.key === 'Escape') { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); }
+  });
+
+  function updatePanel(code) {
+    if (lockedCode !== null) code = lockedCode;
+    if (!code) {
+      panel.html('<div class="panel-placeholder"><strong>Hover over a state</strong><br>on the map to preview details<br><br><span style="font-size:0.72rem;color:var(--text-muted)">Click a state to lock the selection.<br>Then click any protest for full details.</span></div>');
+      return;
+    }
+    var d = STATE_DATA[code]; if (!d) return;
+    var highestDanger = highest(d.protests);
+    var ab = d.alliance==='NDA'?'party-nda':(d.alliance==='INDIA'?'party-india':'party-other');
+    var sorted = d.protests.slice().sort(function(a,b){return (dangerW[b.dangerLevel]||0)-(dangerW[a.dangerLevel]||0);});
+    var isLocked = (lockedCode !== null);
+    var h = '';
+    h += '<div class="panel-header"><h3>'+d.name+'</h3><div style="display:flex;gap:8px;align-items:center;">';
+    if (isLocked) h += '<span style="font-size:0.55rem;color:var(--d-high);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">● Locked</span>';
+    h += '<span class="panel-state-badge '+highestDanger+'">'+highestDanger.toUpperCase()+'</span></div></div>';
+    h += '<div class="panel-political"><span>CM: <strong>'+d.cm+'</strong></span><span class="party-badge '+ab+'">'+d.party+'</span></div>';
+    h += '<div class="panel-political" style="border-top:0;padding-top:4px;"><span>Opposition: <strong>'+d.opposition+'</strong></span><span>Election: '+d.lastElection+'</span>';
+    if (d.alliance) h += '<span style="font-size:0.65rem;color:var(--text-muted)">Alliance: '+d.alliance+'</span></div>';
+    h += '<div class="panel-section"><h4>Active Protests ('+d.totalProtests+')</h4>';
+    if (!sorted.length) { h += '<p class="none-text">No active protests reported.</p>'; }
+    else { sorted.forEach(function(p) {
+      h += '<div class="p-item '+p.dangerLevel+(isLocked?' clickable':'')+'"'+(isLocked?' onclick="location.href=\'state.html?code='+code+'\'"':'')+'>';
+      h += '<div class="p-item-h"><strong>'+p.name+'</strong><span class="d-tag '+p.dangerLevel+'">'+p.dangerLevel.toUpperCase()+'</span></div>';
+      h += '<div class="p-item-loc">'+p.location+'</div><div class="p-item-st">'+p.status+'</div></div>';
+    });}
+    h += '</div>';
+    h += '<div class="panel-footer">'+(isLocked?'Click a protest to see full details →':'Click state to lock selection')+'</div>';
+    panel.html(h);
+  }
+})();
 </script>
-<script src="script.js"></script>
 </body>
 </html>
