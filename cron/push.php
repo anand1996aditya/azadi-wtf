@@ -21,7 +21,7 @@ if ($contentBase64) {
 
 // Only allow specific file types in public_html
 $allowedRoot = ['guide.html','index.html','style.css','city.html','script.js','cities.html',
-            'Protest Safely.pdf','guide.pdf','guide-print.html','state.html','data.js'];
+            'Protest Safely.pdf','guide.pdf','guide-print.html','state.html','data.js','history.html'];
 $allowedCron = ['update.php'];
 
 $path = null;
