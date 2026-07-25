@@ -1,6 +1,6 @@
-# azadi.wtf ✊
+# azadi.wtf ✊ — v2.0
 
-Interactive India protest map with real-time safety assessments. Know what's happening in every state before you go.
+Interactive India protest map with real-time safety assessments. 28 states, 100+ protests, 10 historic movements. Know what's happening in every state before you go.
 
 **[azadi.wtf](https://azadi.wtf)** is live. 28 states tracked. 100+ protests. Auto-updated every 4 hours.
 
