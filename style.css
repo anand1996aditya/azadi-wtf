@@ -44,7 +44,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
 /* ============================================
    BUTTONS
