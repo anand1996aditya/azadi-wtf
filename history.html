@@ -10,7 +10,7 @@
   --border:#1e1e1e; --text:#ededed; --text-dim:#7e7e7e; --text-muted:#484848;
   --accent:#dc4536; --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
 body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; }
 
 .top-nav {
@@ -21,7 +21,7 @@ body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit
 .top-nav .container { max-width:1100px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; height:100%; }
 .nav-logo { font-size:0.95rem; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:-0.02em; }
 .nav-links { display:flex; align-items:center; gap:4px; }
-.nav-links a { color:var(--text-dim); text-decoration:none; font-size:0.82rem; font-weight:500; padding:5px 12px; border-radius:5px; }
+.nav-links a { color:var(--text-dim); text-decoration:none; font-size:0.82rem; font-weight:500; padding:5px 12px; border-radius:5px; transition:all 0.1s; }
 .nav-links a:hover { color:var(--text); }
 .nav-links a.active { color:var(--text); background:var(--bg-elevated); }
 .btn-pdf { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:0.76rem; font-weight:600; border-radius:5px; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text); text-decoration:none; }
@@ -47,11 +47,11 @@ body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit
 
 .container { max-width:1100px; margin:0 auto; padding:0 24px; }
 
-.history-layout { display:grid; grid-template-columns:200px 1fr; gap:44px; margin-top:8px; }
+.history-layout { display:grid; grid-template-columns:230px 1fr; gap:44px; margin-top:8px; }
 .history-nav { position:sticky; top:66px; align-self:start; }
 .history-nav ul { list-style:none; }
 .history-nav li { margin-bottom:1px; }
-.history-nav a { display:block; padding:7px 12px; font-size:0.8rem; font-weight:500; color:var(--text-dim); text-decoration:none; border-radius:5px; transition:all 0.1s; }
+.history-nav a { display:block; padding:7px 12px 7px 0; font-size:0.8rem; font-weight:500; color:var(--text-dim); text-decoration:none; border-radius:5px; transition:all 0.1s; }
 .history-nav a:hover { color:var(--text); background:var(--bg-elevated); }
 .history-nav a.active { color:var(--accent); background:rgba(220,69,54,0.08); }
 
@@ -224,7 +224,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 1973: Chipko Movement -->
-<div class="movement" id="quit">
+<div class="movement" id="chipko">
   <div class="movement-header">
     <h2>Chipko Movement (Tree Hugging)</h2>
     <span class="movement-year">1973–Present</span>
@@ -263,7 +263,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 1975: JP Movement / Emergency -->
-<div class="movement" id="chipko">
+<div class="movement" id="emergency">
   <div class="movement-header">
     <h2>JP Movement &amp; The Emergency</h2>
     <span class="movement-year">1974–1977</span>
@@ -301,7 +301,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 1985: Narmada Bachao Andolan -->
-<div class="movement" id="emergency">
+<div class="movement" id="narmada">
   <div class="movement-header">
     <h2>Narmada Bachao Andolan (Save the Narmada)</h2>
     <span class="movement-year">1985–Present</span>
@@ -339,7 +339,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 1990: Mandal Commission -->
-<div class="movement" id="narmada">
+<div class="movement" id="mandal">
   <div class="movement-header">
     <h2>Mandal Commission Protests</h2>
     <span class="movement-year">1990</span>
@@ -376,7 +376,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 2011: Anna Andolan -->
-<div class="movement" id="mandal">
+<div class="movement" id="anna">
   <div class="movement-header">
     <h2>India Against Corruption (Anna Andolan)</h2>
     <span class="movement-year">2011</span>
@@ -414,7 +414,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 2012: Nirbhaya -->
-<div class="movement" id="anna">
+<div class="movement" id="nirbhaya">
   <div class="movement-header">
     <h2>Nirbhaya Movement (Anti-Rape Protests)</h2>
     <span class="movement-year">2012</span>
@@ -452,7 +452,7 @@ footer a { color:var(--accent); text-decoration:none; }
 </div>
 
 <!-- 2020: Farmers Protest -->
-<div class="movement" id="nirbhaya">
+<div class="movement" id="farmers">
   <div class="movement-header">
     <h2>Farmers' Protest (Kisan Andolan)</h2>
     <span class="movement-year">2020–2021</span>
