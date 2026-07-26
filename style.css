@@ -84,6 +84,10 @@ body {
 .nav-links a:hover { color: var(--text); }
 .nav-links a.active { color: var(--text); background: var(--bg-elevated); }
 
+/* PDF nav button — must match all pages */
+.btn-pdf { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; font-size:0.76rem; font-weight:600; border-radius:5px; cursor:pointer; border:1px solid var(--border); background:var(--bg-elevated); color:var(--text); text-decoration:none; transition:all 0.1s; font-family:var(--font); }
+.btn-pdf:hover { border-color:var(--accent); }
+
 /* Hamburger menu — mobile only */
 .nav-toggle { display:none; }
 .nav-toggle-label { display:none; cursor:pointer; padding:4px; }
