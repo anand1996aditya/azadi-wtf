@@ -281,6 +281,28 @@ footer a { color:var(--accent); text-decoration:none; }
 
       svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
 
+      // Visible markers for tiny regions (too small to render on map)
+       var tinyRegions = [
+         { code:'LDK', cx:155, cy:590, r:8 },
+         { code:'PY',  cx:295, cy:555, r:7 },
+         { code:'CH',  cx:225, cy:185, r:8 }
+       ];
+      tinyRegions.forEach(function(tr) {
+        if (STATE_DATA[tr.code]) {
+          g.append('circle')
+            .attr('cx', tr.cx).attr('cy', tr.cy).attr('r', tr.r)
+            .attr('class', 'state-path ' + highest(STATE_DATA[tr.code].protests))
+            .attr('data-code', tr.code)
+            .on('mouseenter', function() { updatePanel(tr.code); })
+            .on('click', function(e) {
+              g.selectAll('.state-path').classed('selected', false);
+              if (lockedCode === tr.code) { lockedCode = null; updatePanel(null); }
+              else { lockedCode = tr.code; d3.select(this).classed('selected', true); updatePanel(tr.code); }
+              e.stopPropagation();
+            });
+        }
+      });
+
       // Auto-select the most critical state on load
       setTimeout(function() {
         var bestCode = null, bestScore = [0,0,0,0];
