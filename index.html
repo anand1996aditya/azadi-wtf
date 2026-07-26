@@ -277,6 +277,11 @@ footer a { color:var(--accent); text-decoration:none; }
           if (lockedCode === code) { lockedCode = null; updatePanel(null); }
           else { lockedCode = code; d3.select(this).classed('selected', true); updatePanel(code); }
           e.stopPropagation();
+        })
+        .on('dblclick', function(e) {
+          var code = d3.select(this).attr('data-code');
+          if (code && STATE_DATA[code]) location.href = 'state.html?code='+code;
+          e.stopPropagation();
         });
 
       svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
@@ -298,6 +303,10 @@ footer a { color:var(--accent); text-decoration:none; }
               g.selectAll('.state-path').classed('selected', false);
               if (lockedCode === tr.code) { lockedCode = null; updatePanel(null); }
               else { lockedCode = tr.code; d3.select(this).classed('selected', true); updatePanel(tr.code); }
+              e.stopPropagation();
+            })
+            .on('dblclick', function(e) {
+              if (STATE_DATA[tr.code]) location.href = 'state.html?code='+tr.code;
               e.stopPropagation();
             });
         }

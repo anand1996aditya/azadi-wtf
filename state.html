@@ -13,9 +13,30 @@
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 60px; }
 body { font-family:var(--font); background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased; }
 
 .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+
+/* Sidebar layout */
+.state-layout { display:grid; grid-template-columns:200px 1fr; gap:44px; margin-top:8px; align-items:start; }
+.state-nav { position:sticky; top:66px; }
+.state-nav ul { list-style:none; }
+.state-nav li { margin-bottom:1px; }
+.state-nav .nav-section { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); padding:10px 12px 4px; }
+.state-nav a { display:block; padding:5px 12px; font-size:0.76rem; font-weight:500; color:var(--text-dim); text-decoration:none; border-radius:5px; transition:all 0.1s; }
+.state-nav a:hover { color:var(--text); background:var(--bg-elevated); }
+.state-nav a.active { color:var(--accent); background:rgba(220,69,54,0.08); }
+.state-nav .nav-sub { padding-left:16px; font-size:0.72rem; opacity:0.85; }
+
+@media (max-width:840px) {
+  .state-layout { grid-template-columns:1fr; gap:20px; }
+  .state-nav { position:static; overflow-x:auto; white-space:nowrap; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .state-nav ul { display:flex; gap:2px; }
+  .state-nav li { margin-bottom:0; }
+  .state-nav a { white-space:nowrap; font-size:0.74rem; padding:5px 10px; }
+  .state-nav .nav-section { display:none; }
+}
 
 /* NAV */
 .top-nav { position:sticky; top:0; z-index:100; background:rgba(6,6,6,0.88); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); height:50px; }
@@ -74,6 +95,28 @@ header h1 { font-size:1.8rem; font-weight:900; letter-spacing:-0.02em; }
 main { padding:32px 0 60px; }
 .section-title { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-dim); margin:32px 0 12px; }
 .section-title:first-child { margin-top:0; }
+
+/* Demographics — two-column layout */
+.demo-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; margin:20px 0; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.demo-grid .col { padding:0; }
+.demo-grid .col:first-child { border-right:1px solid var(--border); }
+.demo-row { display:flex; padding:10px 16px; border-bottom:1px solid var(--border); font-size:0.78rem; align-items:flex-start; }
+.demo-row:last-child { border-bottom:none; }
+.demo-label { color:var(--text-muted); font-weight:600; min-width:110px; flex-shrink:0; }
+.demo-value { color:var(--text-dim); line-height:1.4; }
+.demo-religion { display:flex; flex-wrap:wrap; gap:2px 10px; }
+.demo-religion span { font-size:0.73rem; }
+.demo-crops { display:flex; flex-wrap:wrap; gap:3px; }
+.demo-crop { background:var(--bg-elevated); padding:1px 8px; border-radius:100px; font-size:0.7rem; color:var(--text-dim); }
+.party-badge { font-size:0.58rem; font-weight:700; padding:1px 6px; border-radius:100px; text-transform:uppercase; letter-spacing:0.03em; }
+.party-nda { background:rgba(255,153,51,0.15); color:#ff9933; }
+.party-india { background:rgba(0,136,255,0.15); color:#0088ff; }
+.party-other { background:rgba(255,255,255,0.06); color:#aaa; }
+
+@media (max-width:600px) {
+  .demo-grid { grid-template-columns:1fr; }
+  .demo-grid .col:first-child { border-right:none; border-bottom:1px solid var(--border); }
+}
 
 .protest-card {
   background:var(--bg-card); border:1px solid var(--border);
@@ -187,35 +230,126 @@ footer a { color:var(--accent); text-decoration:none; }
 
   var html = '';
 
-  // Header
+  // Header — state name + danger badge (above the layout)
   html += '<header>';
   html += '<h1>'+d.name+'</h1>';
   html += '<div class="state-meta">';
   html += '<span class="danger-badge '+danger+'">'+(danger==='none'?'No Protests':danger.toUpperCase())+'</span>';
   html += '<span style="font-size:0.8rem;color:var(--text-dim);">'+d.totalProtests+' active protest'+(d.totalProtests!==1?'s':'')+'</span>';
   html += '</div>';
-  html += '<div class="political-bar">';
-  html += '<span>Chief Minister: <strong>'+d.cm+'</strong></span>';
-  html += '<span class="party-badge '+ab+'">'+d.party+'</span>';
-  if (d.alliance) html += '<span style="font-size:0.72rem;color:var(--text-muted);">'+d.alliance+'</span>';
-  html += '</div>';
-  html += '<div class="political-bar" style="margin-top:6px;">';
-  html += '<span>Opposition: <strong>'+d.opposition+'</strong></span>';
-  html += '<span>Last Election: <strong>'+d.lastElection+'</strong></span>';
-  html += '</div>';
   html += '<a href="index.html" class="back-link">← Back to India Map</a>';
   html += '</header>';
 
+  // Sidebar + content layout
+  html += '<div class="state-layout">';
+  html += '<aside class="state-nav" id="stateNav">';
+  html += '<ul>';
+  html += '<li class="nav-section">Sections</li>';
+  html += '<li><a href="#overview">State Overview</a></li>';
+  html += '<li><a href="#protests">All Protests</a></li>';
+  var sp = d.protests.slice().sort(function(a,b){return (dangerW[b.dangerLevel]||0)-(dangerW[a.dangerLevel]||0);});
+  sp.forEach(function(p, i) {
+    html += '<li><a href="#protest-'+i+'" class="nav-sub">'+p.name.substring(0,32)+(p.name.length>32?'...':'')+'</a></li>';
+  });
+  if (d.news && d.news.length) {
+    html += '<li><a href="#news">Latest News</a></li>';
+  }
+  html += '</ul>';
+  html += '</aside>';
+  html += '<div class="state-content">';
+
+  // Two-column overview table
+  html += '<main class="container">';
+  html += '<div class="section-title" id="overview">State Overview</div>';
+  html += '<div class="demo-grid">';
+  // Left column
+  html += '<div class="col">';
+  html += '<div class="demo-row"><span class="demo-label">Chief Minister</span><span class="demo-value">'+d.cm+'</span></div>';
+  html += '<div class="demo-row"><span class="demo-label">Party</span><span class="demo-value"><span class="party-badge '+ab+'">'+d.party+'</span>'+(d.alliance?' <span style="font-size:0.68rem;color:var(--text-muted)">('+d.alliance+')</span>':'')+'</span></div>';
+  html += '<div class="demo-row"><span class="demo-label">Opposition</span><span class="demo-value">'+d.opposition+'</span></div>';
+  html += '<div class="demo-row"><span class="demo-label">Last Election</span><span class="demo-value">'+d.lastElection+'</span></div>';
+  if (d.demographics) {
+    var dm = d.demographics;
+    html += '<div class="demo-row"><span class="demo-label">Population</span><span class="demo-value">'+dm.population+'</span></div>';
+    html += '<div class="demo-row"><span class="demo-label">Area</span><span class="demo-value">'+dm.area+'</span></div>';
+    html += '<div class="demo-row"><span class="demo-label">Terrain</span><span class="demo-value">'+dm.terrain+'</span></div>';
+  }
+  html += '</div>';
+  // Right column
+  html += '<div class="col">';
+  if (d.demographics) {
+    var dm = d.demographics;
+    html += '<div class="demo-row"><span class="demo-label">Literacy</span><span class="demo-value">'+dm.literacy+'</span></div>';
+    html += '<div class="demo-row"><span class="demo-label">GDP</span><span class="demo-value">'+dm.gdp+'</span></div>';
+    html += '<div class="demo-row"><span class="demo-label">Avg Income</span><span class="demo-value">'+dm.avgIncome+'</span></div>';
+    if (dm.hdi) html += '<div class="demo-row"><span class="demo-label">Human Dev.<br>Index</span><span class="demo-value">'+dm.hdi+'</span></div>';
+    if (dm.languages) html += '<div class="demo-row"><span class="demo-label">Languages</span><span class="demo-value">'+dm.languages+'</span></div>';
+    if (dm.religion) {
+      var rel = '';
+      Object.keys(dm.religion).forEach(function(k) { rel += '<span><strong>'+k+':</strong> '+dm.religion[k]+'</span>'; });
+      html += '<div class="demo-row"><span class="demo-label">Religion</span><span class="demo-value"><div class="demo-religion">'+rel+'</div></span></div>';
+    }
+    if (dm.topCrops && dm.topCrops.length) {
+      var crops = '';
+      dm.topCrops.forEach(function(c) { crops += '<span class="demo-crop">'+c+'</span>'; });
+      html += '<div class="demo-row"><span class="demo-label">Top Crops</span><span class="demo-value"><div class="demo-crops">'+crops+'</div></span></div>';
+    }
+  } else {
+    html += '<div class="demo-row"><span class="demo-label">Info</span><span class="demo-value" style="color:var(--text-muted);font-style:italic;">Coming soon</span></div>';
+  }
+  html += '</div></div>';
+
+  // Economy section
+  if (d.demographics && (d.demographics.exports || d.demographics.topCities)) {
+    var dm = d.demographics;
+    html += '<div class="demo-grid" style="margin-top:16px;" id="overview-table2">';
+    html += '<div class="col">';
+    if (dm.exports) {
+      html += '<div class="demo-row"><span class="demo-label">Top Exports</span><span class="demo-value">';
+      if (dm.exportsTotal) html += '<div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;">Total: '+dm.exportsTotal+'</div>';
+      dm.exports.forEach(function(e,i) { html += '<div style="margin-bottom:2px;">'+(i+1)+'. '+e+'</div>'; });
+      html += '</span></div>';
+    }
+    if (dm.imports) {
+      html += '<div class="demo-row"><span class="demo-label">Top Imports</span><span class="demo-value">';
+      if (dm.importsTotal) html += '<div style="font-size:0.7rem;color:var(--text-muted);margin-bottom:4px;">Total: '+dm.importsTotal+'</div>';
+      dm.imports.forEach(function(e,i) { html += '<div style="margin-bottom:2px;">'+(i+1)+'. '+e+'</div>'; });
+      html += '</span></div>';
+    }
+    html += '</div><div class="col">';
+    if (dm.topCities) {
+      html += '<div class="demo-row"><span class="demo-label">Top Cities</span><span class="demo-value">';
+      dm.topCities.forEach(function(c) { html += '<div style="margin-bottom:2px;">'+c+'</div>'; });
+      html += '</span></div>';
+    }
+    if (dm.sources) {
+      html += '<div class="demo-row"><span class="demo-label">Sources</span><span class="demo-value" style="font-size:0.7rem;">';
+      dm.sources.forEach(function(s,i) {
+        var url = '#';
+        var stateSlug = d.name.replace(/\s+/g,'_').replace(/&/g,'and');
+        if (s.indexOf('Census') === 0) url = 'https://censusindia.gov.in/census.website/data/census-tables';
+        else if (s.indexOf('Economic Survey') === 0) url = 'https://'+d.name.toLowerCase().replace(/\s+/g,'').replace('&','')+'.gov.in';
+        else if (s === 'Wikipedia') url = 'https://en.wikipedia.org/wiki/'+stateSlug;
+        else if (s.indexOf('NSSO') === 0) url = 'https://mospi.gov.in';
+        html += '<div>'+(i+1)+'. <a href="'+url+'" target="_blank" style="color:var(--accent);">'+s+'</a></div>';
+      });
+      html += '</span></div>';
+    }
+    html += '</div></div>';
+  }
+
+  html += '</main>';
+
   // Protests
   html += '<main class="container">';
+  html += '<div class="section-title" id="protests">All Active Protests ('+d.totalProtests+')</div>';
   var sorted = d.protests.slice().sort(function(a,b){return (dangerW[b.dangerLevel]||0)-(dangerW[a.dangerLevel]||0);});
 
   if (!sorted.length) {
     html += '<p class="none-text">No active protests currently reported in '+d.name+'.</p>';
   } else {
-    html += '<div class="section-title">All Active Protests ('+d.totalProtests+')</div>';
-    sorted.forEach(function(p) {
-      html += '<div class="protest-card '+p.dangerLevel+'">';
+    sorted.forEach(function(p, i) {
+      html += '<div class="protest-card '+p.dangerLevel+'" id="protest-'+i+'">';
       html += '<div class="protest-header">';
       html += '<h3>'+p.name+'</h3>';
       html += '<span class="d-tag '+p.dangerLevel+'">'+p.dangerLevel.toUpperCase()+'</span>';
@@ -237,7 +371,7 @@ footer a { color:var(--accent); text-decoration:none; }
 
   // News section
   if (d.news && d.news.length) {
-    html += '<div class="news-section">';
+    html += '<div class="news-section" id="news">';
     html += '<h2>Latest News — '+d.name+'</h2>';
     d.news.forEach(function(item) {
       html += '<a href="'+item.url+'" class="news-item" target="_blank" rel="noopener">';
@@ -251,7 +385,31 @@ footer a { color:var(--accent); text-decoration:none; }
 
   html += '</main>';
 
+  // Close layout
+  html += '</div>'; // state-content
+  html += '</div>'; // state-layout
+
   app.innerHTML = html;
+
+  // Sidebar scroll tracking
+  var nav = document.getElementById('stateNav');
+  if (nav) {
+    var links = nav.querySelectorAll('a');
+    var sections = [];
+    links.forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (href && href.startsWith('#')) { var el = document.querySelector(href); if (el) sections.push({link:link, el:el}); }
+    });
+    function update() {
+      var scroll = window.scrollY + 120;
+      var active = null;
+      sections.forEach(function(s) { if (s.el.offsetTop <= scroll) active = s.link; });
+      links.forEach(function(l) { l.classList.remove('active'); });
+      if (active) active.classList.add('active');
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  }
 })();
 </script>
 </body>
