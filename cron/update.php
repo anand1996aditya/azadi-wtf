@@ -16,6 +16,7 @@
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/sync_datajs.php';
 
 // ==========================================
 // AUTHENTICATION
@@ -117,6 +118,8 @@ foreach ($data['cities'] as $citySlug => &$city) {
 $data['lastUpdated'] = date('c');
 if (saveData($data)) {
     logUpdate("SAVED: {$updated} updated, {$skipped} skipped, {$errors} errors");
+    // Sync fresh data to data.js for homepage map
+    $synced = syncDataJs();
 } else {
     logUpdate("ERROR: Failed to write protests.json — check file permissions");
 }
