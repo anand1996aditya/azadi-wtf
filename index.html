@@ -56,6 +56,8 @@ body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit
 .hero { text-align:center; padding:40px 20px 20px; border-bottom:1px solid var(--border); }
 .hero h1 { font-size:1.8rem; font-weight:900; letter-spacing:-0.02em; margin-bottom:4px; }
 .hero p { color:var(--text-dim); font-size:0.85rem; max-width:600px; margin:0 auto; }
+.hero-updated { margin-top:8px; font-size:0.7rem; color:var(--text-muted); }
+.hero-updated span { color:var(--text-dim); }
 .legend-row { display:flex; justify-content:center; gap:16px; margin-top:10px; flex-wrap:wrap; }
 .legend-item { display:flex; align-items:center; gap:5px; font-size:0.7rem; color:var(--text-dim); }
 .legend-dot { width:9px; height:9px; border-radius:50%; }
@@ -171,6 +173,7 @@ footer a { color:var(--accent); text-decoration:none; }
 <div class="hero">
   <h1>India Protest Map</h1>
   <p>Hover over any state to preview protests. Click to lock — then click any protest for full details. Map stays visible.</p>
+  <div class="hero-updated">Data last refreshed: <span id="lastRefresh">loading...</span></div>
   <div class="legend-row">
     <span class="legend-item"><span class="legend-dot critical"></span>Critical</span>
     <span class="legend-item"><span class="legend-dot high"></span>High</span>
@@ -277,7 +280,7 @@ footer a { color:var(--accent); text-decoration:none; }
 
       // Auto-select the most critical state on load
       setTimeout(function() {
-        var bestCode = null, bestScore = [0,0,0,0]; // [critical, high, moderate, low]
+        var bestCode = null, bestScore = [0,0,0,0];
         Object.keys(STATE_DATA).forEach(function(code) {
           var counts = [0,0,0,0];
           (STATE_DATA[code].protests || []).forEach(function(p) {
@@ -300,6 +303,21 @@ footer a { color:var(--accent); text-decoration:none; }
           }
         }
       }, 300);
+
+      // Fetch last updated timestamp from API
+      fetch('api/protests.php')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          var el = document.getElementById('lastRefresh');
+          if (el && d.lastUpdated) {
+            var date = new Date(d.lastUpdated);
+            el.textContent = date.toLocaleString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short' });
+          }
+        })
+        .catch(function() {
+          var el = document.getElementById('lastRefresh');
+          if (el) el.textContent = 'unavailable';
+        });
     })
     .catch(function() {
       panel.html('<div class="panel-placeholder" style="color:#e62e1e;">Failed to load map. Please refresh.</div>');
