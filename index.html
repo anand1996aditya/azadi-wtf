@@ -275,13 +275,29 @@ footer a { color:var(--accent); text-decoration:none; }
 
       svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
 
-      // Auto-select Delhi on load
+      // Auto-select the most critical state on load
       setTimeout(function() {
-        var delhiPath = g.selectAll('.state-path').filter(function() { return d3.select(this).attr('data-code') === 'DL'; });
-        if (!delhiPath.empty()) {
-          lockedCode = 'DL';
-          delhiPath.classed('selected', true);
-          updatePanel('DL');
+        var bestCode = null, bestScore = [0,0,0,0]; // [critical, high, moderate, low]
+        Object.keys(STATE_DATA).forEach(function(code) {
+          var counts = [0,0,0,0];
+          (STATE_DATA[code].protests || []).forEach(function(p) {
+            if (p.dangerLevel === 'critical') counts[0]++;
+            else if (p.dangerLevel === 'high') counts[1]++;
+            else if (p.dangerLevel === 'moderate') counts[2]++;
+            else if (p.dangerLevel === 'low') counts[3]++;
+          });
+          for (var i = 0; i < 4; i++) {
+            if (counts[i] > bestScore[i]) { bestScore = counts; bestCode = code; break; }
+            if (counts[i] < bestScore[i]) break;
+          }
+        });
+        if (bestCode) {
+          var bestPath = g.selectAll('.state-path').filter(function() { return d3.select(this).attr('data-code') === bestCode; });
+          if (!bestPath.empty()) {
+            lockedCode = bestCode;
+            bestPath.classed('selected', true);
+            updatePanel(bestCode);
+          }
         }
       }, 300);
     })
