@@ -1,4 +1,14 @@
-# azadi.wtf — Design System
+# azadi.wtf — Design System & Workflow
+
+## Deployment Workflow
+1. **Build locally** — Make changes in `protest-site/`
+2. **Preview locally** — Open `.html` files in browser, verify visually
+3. **Get approval** — Share screenshot or local preview with Aditya
+4. **Deploy to prod** — Only after explicit approval: upload via push.php or commit + GitHub Actions
+
+**Never push changes to azadi.wtf without prior approval.**
+
+## Design System
 
 Reference for building new pages. Every page must follow these rules.
 
