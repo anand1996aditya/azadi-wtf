@@ -184,6 +184,7 @@ footer a { color:var(--accent); text-decoration:none; }
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <label for="nav-toggle" class="nav-toggle-label"><span></span><span></span><span></span></label>
     <div class="nav-links">
+      <a href="checklist.html">Checklist</a>
       <a href="history.html">Historical Movements</a>
       <a href="guide.html">Protest Guide</a>
       <a href="Protest%20Safely.pdf" class="btn-pdf" download>PDF</a>
@@ -246,6 +247,7 @@ footer a { color:var(--accent); text-decoration:none; }
   html += '<ul>';
   html += '<li class="nav-section">Sections</li>';
   html += '<li><a href="#overview">State Overview</a></li>';
+  html += '<li><a href="#help">Help & Resources</a></li>';
   html += '<li><a href="#protests">All Protests</a></li>';
   var sp = d.protests.slice().sort(function(a,b){return (dangerW[b.dangerLevel]||0)-(dangerW[a.dangerLevel]||0);});
   sp.forEach(function(p, i) {
@@ -339,6 +341,43 @@ footer a { color:var(--accent); text-decoration:none; }
   }
 
   html += '</main>';
+
+  // Legal Aid + NGOs section
+  if (d.legalAid || d.ngos) {
+    html += '<main class="container">';
+    html += '<div class="section-title" id="help">Help & Resources</div>';
+    html += '<div class="demo-grid">';
+    
+    // Legal Aid column
+    html += '<div class="col">';
+    if (d.legalAid) {
+      var la = d.legalAid;
+      if (la.dlsaNote) html += '<div class="demo-row"><span class="demo-label"></span><span class="demo-value" style="font-size:0.72rem;color:var(--text-muted);font-style:italic;padding:6px 0;">'+la.dlsaNote+'</span></div>';
+      if (la.dlsa) html += '<div class="demo-row"><span class="demo-label">DLSA</span><span class="demo-value">'+la.dlsa+'</span></div>';
+      html += '<div class="demo-row"><span class="demo-label">NALSA Helpline</span><span class="demo-value" style="color:var(--accent);font-weight:700;">15100</span></div>';
+      if (la.hrc) html += '<div class="demo-row"><span class="demo-label">Human Rights</span><span class="demo-value">'+la.hrc+'</span></div>';
+      if (la.lawyerCollectives && la.lawyerCollectives.length) {
+        html += '<div class="demo-row"><span class="demo-label">Lawyer Networks</span><span class="demo-value">';
+        la.lawyerCollectives.forEach(function(lc) { html += '<div style="margin-bottom:2px;">• '+lc+'</div>'; });
+        html += '</span></div>';
+      }
+    }
+    html += '</div>';
+
+    // NGOs column
+    html += '<div class="col">';
+    if (d.ngos) {
+      var ng = d.ngos;
+      html += '<div class="demo-row"><span class="demo-label">NGOs</span><span class="demo-value">';
+      ng.top.forEach(function(n) { html += '<div style="margin-bottom:3px;">• '+n+'</div>'; });
+      html += '</span></div>';
+    }
+    html += '<div class="demo-row"><span class="demo-label">Emergency</span><span class="demo-value" style="color:var(--d-high);">112 — Police / Ambulance / Fire</span></div>';
+    html += '</div>';
+
+    html += '</div>';
+    html += '</main>';
+  }
 
   // Protests
   html += '<main class="container">';
