@@ -14,14 +14,26 @@ require __DIR__ . '/update.php';
 
 echo "\n";
 
-// 2. Verify political data + guide content (once daily — only runs at midnight UTC)
+// 2. Verify news links (every 4h — Node.js script)
+echo "=== NEWS LINK VERIFICATION ===\n";
+$verifyJs = __DIR__ . '/verify_news.js';
+if (file_exists($verifyJs)) {
+    $output = shell_exec('node ' . escapeshellarg($verifyJs) . ' 2>&1');
+    echo $output;
+} else {
+    echo "verify_news.js not found\n";
+}
+
+echo "\n";
+
+// 3. Verify political data + guide content (once daily — only runs at midnight UTC)
 $hour = (int) date('H');
 if ($hour >= 0 && $hour <= 2) {
-    echo "=== VERIFICATION ===\n";
+    echo "=== POLITICAL VERIFICATION ===\n";
     require __DIR__ . '/verify.php';
     echo "\n";
 } else {
-    echo "=== VERIFICATION SKIPPED (not midnight window) ===\n\n";
+    echo "=== POLITICAL VERIFICATION SKIPPED (not midnight window) ===\n\n";
 }
 
 echo "All tasks complete.\n";
