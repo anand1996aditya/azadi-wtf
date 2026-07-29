@@ -374,7 +374,7 @@ footer a { color:var(--accent); text-decoration:none; }
     var sorted = d.protests.slice().sort(function(a,b){return (dangerW[b.dangerLevel]||0)-(dangerW[a.dangerLevel]||0);});
     var isLocked = (lockedCode !== null);
     var h = '';
-    h += '<div class="panel-header"><h3>'+d.name+'</h3><div style="display:flex;gap:8px;align-items:center;">';
+    h += '<div class="panel-header"><h3><a href="state.html?code='+code+'" style="color:inherit;text-decoration:none;">'+d.name+'</a></h3><div style="display:flex;gap:8px;align-items:center;">';
     if (isLocked) h += '<span style="font-size:0.55rem;color:var(--d-high);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;">● Locked</span>';
     h += '<span class="panel-state-badge '+highestDanger+'">'+highestDanger.toUpperCase()+'</span></div></div>';
     h += '<div class="panel-political"><span>CM: <strong>'+d.cm+'</strong></span><span class="party-badge '+ab+'">'+d.party+'</span></div>';
@@ -382,8 +382,8 @@ footer a { color:var(--accent); text-decoration:none; }
     if (d.alliance) h += '<span style="font-size:0.65rem;color:var(--text-muted)">Alliance: '+d.alliance+'</span></div>';
     h += '<div class="panel-section"><h4>Active Protests ('+d.totalProtests+')</h4>';
     if (!sorted.length) { h += '<p class="none-text">No active protests reported.</p>'; }
-    else { sorted.forEach(function(p) {
-      h += '<div class="p-item '+p.dangerLevel+(isLocked?' clickable':'')+'"'+(isLocked?' onclick="location.href=\'state.html?code='+code+'\'"':'')+'>';
+    else { sorted.forEach(function(p, pi) {
+      h += '<div class="p-item '+p.dangerLevel+(isLocked?' clickable':'')+'"'+(isLocked?' onclick="location.href=\'state.html?code='+code+'#protest-'+pi+'\'"':'')+'>';
       h += '<div class="p-item-h"><strong>'+p.name+'</strong><span class="d-tag '+p.dangerLevel+'">'+p.dangerLevel.toUpperCase()+'</span></div>';
       h += '<div class="p-item-loc">'+p.location+'</div><div class="p-item-st">'+p.status+'</div></div>';
     });}

@@ -85,11 +85,11 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "20 July 2026 Student Protest in Delhi: A Blow by ...",
-        "url": "https://www.youtube.com/watch?v=aM36ooXVhPI",
-        "source": "YouTube",
-        "snippet": "# 20 July 2026 Student Protest in Delhi: A Blow by Blow Account\n## The Wire\n5960000 subscribers\n741 likes\n\n### Description\n9472 views\nPosted: 21 Jul 2026\nAs thousands of protesters",
-        "type": "video"
+        "title": "In India, fear has switched sides | Protests | Al Jazeera",
+        "url": "https://www.aljazeera.com/amp/opinions/2026/7/23/in-india-fear-has-switched-sides",
+        "source": "Al Jazeera",
+        "snippet": "Link copied!\n\nTear gas fills the air as police in riot gear face protesters during a demonstration led by the Cockroach Janta Party near Parliament Street on July 22, 2026, in New ",
+        "type": "article"
       },
       {
         "title": "India: Excessive Force Used Against Student Protesters",
@@ -99,11 +99,11 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "In India, fear has switched sides | Protests | Al Jazeera",
-        "url": "https://www.aljazeera.com/amp/opinions/2026/7/23/in-india-fear-has-switched-sides",
-        "source": "Al Jazeera",
-        "snippet": "Link copied!\n\nTear gas fills the air as police in riot gear face protesters during a demonstration led by the Cockroach Janta Party near Parliament Street on July 22, 2026, in New ",
-        "type": "article"
+        "title": "20 July 2026 Student Protest in Delhi: A Blow by ...",
+        "url": "https://www.youtube.com/watch?v=aM36ooXVhPI",
+        "source": "YouTube",
+        "snippet": "# 20 July 2026 Student Protest in Delhi: A Blow by Blow Account\n## The Wire\n5960000 subscribers\n741 likes\n\n### Description\n9472 views\nPosted: 21 Jul 2026\nAs thousands of protesters",
+        "type": "video"
       },
       {
         "title": "Instagram",
@@ -111,13 +111,6 @@ var STATE_DATA = {
         "source": "Instagram",
         "snippet": "Video by India Today on July 25, 2026. May be a Twitter screenshot of one or more people, beard, poster, microphone and text that says 'INDIA TODAY 'We have done Wehavedoneit:Dipke",
         "type": "social"
-      },
-      {
-        "title": "India protest movement holds capital sit-in as police crack down on demonstrators - The Washington Post",
-        "url": "https://www.washingtonpost.com/world/2026/07/23/india-cockroach-party-youth-movement-protest-modi/bf898b40-8667-11f1-9cec-0fb26676f07e_story.html",
-        "source": "Web",
-        "snippet": "# India protest movement holds capital sit-in as police crack down on demonstrators\n\nYoung protesters in India are camping on the streets of New Delhi\n\nNEW DELHI — Thousands of you",
-        "type": "article"
       },
       {
         "title": "India’s Young Protesters Are Bloodied but Unbowed - The New York Times",
@@ -291,45 +284,10 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "How Azad Maidan became Mumbai's site of agitations, with restrictions",
-        "url": "https://indianexpress.com/article/explained/cjp-protest-mumbai-azad-maidan-restrictions-10793775",
-        "source": "The Indian Express",
-        "snippet": "Activists and citizens have been gathering at Azad Maidan since last week in solidarity with the CJP protest being held at Jantar Mantar, New Delhi.",
-        "type": "article"
-      },
-      {
-        "title": "CJP Mumbai protest: Rally at Azad Maidan draws thousands",
-        "url": "https://www.youtube.com/watch?v=t1ZO1Bnj7e8",
-        "source": "ABP Majha",
-        "snippet": "Marathi news coverage of Mumbai CJP solidarity protests at Azad Maidan with thousands in attendance.",
-        "type": "video"
-      },
-      {
-        "title": "Why farmers in Maharashtra's Vidarbha are protesting again",
-        "url": "https://www.thehindu.com/news/national/maharashtra/vidarbha-farmers-protest-loan-waiver",
-        "source": "The Hindu",
-        "snippet": "Farmers from Vidarbha region demanding loan waiver, higher MSP for cotton and soybean. Long-running agrarian distress continues.",
-        "type": "article"
-      },
-      {
         "title": "Aarey Forest: Citizens continue vigil as tree felling threat looms",
         "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
         "source": "The Hindu",
         "snippet": "Citizens continue to protect Aarey Colony trees. Bombay High Court intervention has provided partial protection.",
-        "type": "article"
-      },
-      {
-        "title": "Navi Mumbai: Residents protest Amazon data center, citing water crisis",
-        "url": "https://timesofindia.indiatimes.com/city/navi-mumbai/amazon-data-center-protest-water-crisis",
-        "source": "The Times of India",
-        "snippet": "Residents of Kalwa and Airoli protest Amazon's proposed data center, citing severe water scarcity in the area. Environmental groups join the resistance.",
-        "type": "article"
-      },
-      {
-        "title": "Pune IT workers unionize against mass layoffs in tech sector",
-        "url": "https://www.livemint.com/companies/news/pune-it-professionals-unionize-against-mass-layoffs",
-        "source": "Mint",
-        "snippet": "IT workers in Pune's Hinjewadi and Kharadi tech parks are organizing through unions to demand fair layoff practices and stronger labor protections.",
         "type": "article"
       },
       {
@@ -340,17 +298,17 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Save Vetal Tekdi: Citizens file PIL against hill destruction in Pune",
-        "url": "https://www.thehindu.com/news/cities/pune/vetal-tekdi-citizens-group-files-pil",
-        "source": "The Hindu",
-        "snippet": "Pune citizens file PIL against destruction of Vetal Tekdi — one of city's last green hill ecosystems.",
-        "type": "article"
+        "title": "CJP Mumbai protest: Rally at Azad Maidan draws thousands",
+        "url": "https://www.youtube.com/watch?v=t1ZO1Bnj7e8",
+        "source": "ABP Majha",
+        "snippet": "Marathi news coverage of Mumbai CJP solidarity protests at Azad Maidan with thousands in attendance.",
+        "type": "video"
       },
       {
-        "title": "Mumbai's green lung under threat: Aarey forest battle continues",
-        "url": "https://www.bbc.com/news/world-asia-india-aarey-forest-mumbai",
-        "source": "BBC News",
-        "snippet": "The fight to save Mumbai's Aarey forest enters another year as citizens maintain vigil against tree felling for metro projects.",
+        "title": "How Azad Maidan became Mumbai's site of agitations, with restrictions",
+        "url": "https://indianexpress.com/article/explained/cjp-protest-mumbai-azad-maidan-restrictions-10793775",
+        "source": "The Indian Express",
+        "snippet": "Activists and citizens have been gathering at Azad Maidan since last week in solidarity with the CJP protest being held at Jantar Mantar, New Delhi.",
         "type": "article"
       }
     ],
@@ -509,6 +467,13 @@ var STATE_DATA = {
     },
     "news": [
       {
+        "title": "As trees fall in thousands, innovative protests erupt across India",
+        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
+        "source": "The Hindu",
+        "snippet": "From Bengaluru to Uttarakhand, citizens rise up against mass tree felling. Lake protection and urban forestry campaigns continue Chipko's legacy.",
+        "type": "article"
+      },
+      {
         "title": "CJP protest in Bengaluru urges more participation, sustained questioning",
         "url": "https://www.thehindu.com/news/cities/bangalore/cjp-protest-in-bengaluru-urges-more-participation-sustained-questioning/article71240946.ece",
         "source": "The Hindu",
@@ -523,34 +488,6 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Freedom Park, Bengaluru — CJP Protest gathering",
-        "url": "https://www.instagram.com/p/DbGaPsCmPlB",
-        "source": "Instagram / ScoopWhoop",
-        "snippet": "Photo coverage from Freedom Park showing July 22 CJP solidarity gathering with creative posters and large youth turnout.",
-        "type": "social"
-      },
-      {
-        "title": "As trees fall in thousands, innovative protests erupt across India",
-        "url": "https://www.thehindu.com/sci-tech/energy-and-environment/as-trees-fall-in-the-thousands-innovative-protests-erupt-across-india/article70966897.ece",
-        "source": "The Hindu",
-        "snippet": "From Bengaluru to Uttarakhand, citizens rise up against mass tree felling. Lake protection and urban forestry campaigns continue Chipko's legacy.",
-        "type": "article"
-      },
-      {
-        "title": "Karnataka: Farmers protest AI township land acquisition in Devanahalli",
-        "url": "https://www.deccanherald.com/india/karnataka/farmers-protest-ai-township-land-acquisition-devanahalli",
-        "source": "Deccan Herald",
-        "snippet": "Farmers in Devanahalli and Doddaballapur protest land acquisition for AI township, refusing compensation packages.",
-        "type": "article"
-      },
-      {
-        "title": "Bengaluru lakes: Data center construction in catchment areas faces legal challenge",
-        "url": "https://www.thehindu.com/news/cities/bangalore/lakes-data-centers-legal-challenge",
-        "source": "The Hindu",
-        "snippet": "NGT petition filed against data center construction in Bengaluru's lake catchment areas. Environmental groups document groundwater depletion.",
-        "type": "article"
-      },
-      {
         "title": "AISA Karnataka leads student solidarity protest in Bengaluru",
         "url": "https://www.instagram.com/reel/Da-Ndy_zOAB",
         "source": "Instagram / AISA Karnataka",
@@ -558,25 +495,11 @@ var STATE_DATA = {
         "type": "social"
       },
       {
-        "title": "Mysuru: Citizens launch Chamundi Hill protection campaign",
-        "url": "https://www.thehindu.com/news/cities/mysuru/chamundi-hill-protection-campaign",
-        "source": "The Hindu",
-        "snippet": "Heritage activists and citizens launch campaign to protect Chamundi Hill from construction and commercialization.",
-        "type": "article"
-      },
-      {
-        "title": "Mangaluru: Fisherfolk protest industrial pollution affecting coastal waters",
-        "url": "https://www.thehindu.com/news/cities/mangaluru/fisherfolk-protest-coastal-pollution",
-        "source": "The Hindu",
-        "snippet": "Fishing communities protest industrial pollution affecting fish stocks and coastal livelihoods in Mangaluru.",
-        "type": "article"
-      },
-      {
-        "title": "Karnataka IT sector: Tech workers demand fair layoff practices",
-        "url": "https://www.livemint.com/companies/news/karnataka-it-workers-layoff-protests",
-        "source": "Mint",
-        "snippet": "IT employees in Bengaluru's Electronic City protest mass layoffs, demand stronger labor protections for tech workers.",
-        "type": "article"
+        "title": "Freedom Park, Bengaluru — CJP Protest gathering",
+        "url": "https://www.instagram.com/p/DbGaPsCmPlB",
+        "source": "Instagram / ScoopWhoop",
+        "snippet": "Photo coverage from Freedom Park showing July 22 CJP solidarity gathering with creative posters and large youth turnout.",
+        "type": "social"
       }
     ],
     "protests": [
@@ -1122,24 +1045,10 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Top 100 News Today | 100 बड़ी खबरें I Monsoon Session 2026 | CJP Protest | Madhya Pradesh UCC",
-        "url": "https://www.youtube.com/watch?v=n7dLGOZevDo",
-        "source": "YouTube",
-        "snippet": "### Description\n6806 views\nPosted: 22 Jul 2026\nपेपर लीक के आरोपों को लेकर देशभर में राजनीतिक और सामाजिक बहस तेज हो गई है। विपक्ष लगातार सरकार से जवाब मांग रहा है और शिक्षा मंत्री क",
-        "type": "video"
-      },
-      {
         "title": "PM Modi Announces Fast-Track Courts For Paper Leak Cases | News - Times of India Videos",
         "url": "https://timesofindia.indiatimes.com/videos/news/pm-modi-announces-fast-track-courts-for-paper-leak-cases/amp_videoshow/132576224.cms",
         "source": "Times of India",
         "snippet": "NEET-UG 2026. Protesters at Delhi's Jantar Mantar are demanding accountability, education reforms, and action against those responsible for exam fraud. Activist Sonam Wangchuk has ",
-        "type": "article"
-      },
-      {
-        "title": "Madhya Pradesh Congress Protests In House And Out On Day 1 Of Winter ...",
-        "url": "https://www.ndtv.com/india-news/madhya-pradesh-congress-protests-in-house-and-out-on-day-1-of-winter-session-7264016/amp/1",
-        "source": "NDTV",
-        "snippet": "The protest began with Congress MLAs entering the assembly carrying empty sacks of fertilizer, symbolizing the shortage of fertilizers faced by",
         "type": "article"
       },
       {
@@ -1150,11 +1059,11 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "\"Dharmendra Pradhan Should Join Us At Jantar Mantar\": Abhijeet Dipke To NDTV",
-        "url": "https://www.ndtv.com/india-news/dharmendra-pradhan-should-join-us-at-jantar-mantar-abhijeet-dipke-to-ndtv-11813248/amp/1",
-        "source": "NDTV",
-        "snippet": "\"There are protests going on in Mumbai, Nashik, Mizoram, Jaipur, Madhya Pradesh, Bangalore, I mean across all India. So if so many people in lakhs are demanding a resignation of th",
-        "type": "article"
+        "title": "Top 100 News Today | 100 बड़ी खबरें I Monsoon Session 2026 | CJP Protest | Madhya Pradesh UCC",
+        "url": "https://www.youtube.com/watch?v=n7dLGOZevDo",
+        "source": "YouTube",
+        "snippet": "### Description\n6806 views\nPosted: 22 Jul 2026\nपेपर लीक के आरोपों को लेकर देशभर में राजनीतिक और सामाजिक बहस तेज हो गई है। विपक्ष लगातार सरकार से जवाब मांग रहा है और शिक्षा मंत्री क",
+        "type": "video"
       }
     ],
     "protests": [
@@ -1516,13 +1425,6 @@ var STATE_DATA = {
         "source": "YouTube",
         "snippet": "ABP Majha LIVE | 05 PM | 26 July 2026 | Raj Uddhav Rally | Dadar CJP Protest | Dharmendra Pradhan · Comments.",
         "type": "video"
-      },
-      {
-        "title": "Tamil Nadu Congress Calls Statewide Protest Over Government Formation ...",
-        "url": "https://www.ndtv.com/india-news/tamil-nadu-congress-calls-statewide-protest-over-government-formation-delay-11462689/amp/1",
-        "source": "NDTV",
-        "snippet": "The Tamil Nadu Congress Committee chief announced that protests would be held at all district headquarters across Tamil Nadu on Friday morning.",
-        "type": "article"
       }
     ],
     "protests": [
@@ -1678,18 +1580,11 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Rajasthan Cong to hold protest against 'irregularities' in NEET exam ...",
-        "url": "https://theprint.in/india/rajasthan-cong-to-hold-protest-against-irregularities-in-neet-exam-on-may-21/2934309?amp=",
-        "source": "Web",
-        "snippet": "The Rajasthan Pradesh Congress Committee on Monday said it will hold a protest against alleged irregularities in NEET-2026 exam on May 21",
+        "title": "India-U.S. deal: Rajasthan Congress MLAs protest in Assembly wearing ' ...",
+        "url": "https://www.thehindu.com/news/national/rajasthan/india-us-deal-rajasthan-congress-mlas-protest-in-assembly-wearing-pm-is-compromised-t-shirts/article70678545.ece/amp",
+        "source": "The Hindu",
+        "snippet": "Rajasthan Congress MLAs protest in Assembly against the India-U.S. deal, wearing \"PM is compromised\" t-shirts and raising concerns.",
         "type": "article"
-      },
-      {
-        "title": "Congress Marches to BJP HQ in Jaipur Over NEET UG 2026 Paper Leak",
-        "url": "https://www.youtube.com/watch?v=D5epS90szL4",
-        "source": "YouTube",
-        "snippet": "Congress workers staged a massive protest march in Jaipur over the NEET UG 2026 paper leak case, demanding the resignation of Union Education",
-        "type": "video"
       },
       {
         "title": "Congress Protests in Jaipur Over NEET UG 2026 Leak, Demands ...",
@@ -1699,17 +1594,17 @@ var STATE_DATA = {
         "type": "video"
       },
       {
-        "title": "India-U.S. deal: Rajasthan Congress MLAs protest in Assembly wearing ' ...",
-        "url": "https://www.thehindu.com/news/national/rajasthan/india-us-deal-rajasthan-congress-mlas-protest-in-assembly-wearing-pm-is-compromised-t-shirts/article70678545.ece/amp",
-        "source": "The Hindu",
-        "snippet": "Rajasthan Congress MLAs protest in Assembly against the India-U.S. deal, wearing \"PM is compromised\" t-shirts and raising concerns.",
-        "type": "article"
+        "title": "Congress Marches to BJP HQ in Jaipur Over NEET UG 2026 Paper Leak",
+        "url": "https://www.youtube.com/watch?v=D5epS90szL4",
+        "source": "YouTube",
+        "snippet": "Congress workers staged a massive protest march in Jaipur over the NEET UG 2026 paper leak case, demanding the resignation of Union Education",
+        "type": "video"
       },
       {
-        "title": "Anti-CAA Protest: Don't Know Parents' Birthplace, Will Go To Detention Camp",
-        "url": "https://www.ndtv.com/india-news/anti-caa-protest-i-will-be-the-first-to-go-to-detention-centre-says-rajasthans-ashok-gehlot-2180504",
-        "source": "NDTV",
-        "snippet": "CAA protest: Rajasthan Chief Minister Ashok Gehlot said, \"If I am not able to furnish the details, I too would be asked to live in a detention",
+        "title": "Rajasthan Cong to hold protest against 'irregularities' in NEET exam ...",
+        "url": "https://theprint.in/india/rajasthan-cong-to-hold-protest-against-irregularities-in-neet-exam-on-may-21/2934309?amp=",
+        "source": "Web",
+        "snippet": "The Rajasthan Pradesh Congress Committee on Monday said it will hold a protest against alleged irregularities in NEET-2026 exam on May 21",
         "type": "article"
       }
     ],
@@ -2427,32 +2322,18 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Instagram",
-        "url": "https://www.instagram.com/reel/DbJS9n2SasI",
-        "source": "Instagram",
-        "snippet": "A viral video sparked intense debate online on July 23, 2026, after a media representative questioned Home Minister Amit Shah about his traditional Odisha-style outfit outside Parl",
-        "type": "social"
-      },
-      {
-        "title": "Indian students vow to continue 'cockroach movement ...",
-        "url": "https://www.france24.com/en/indian-students-vow-to-continue-cockroach-movement-protests-despite-crackdown",
-        "source": "Web",
-        "snippet": "## India: Youth-led 'Cockroach' protests increase pressure on Modi's government\n\nCockroach protests\n\n## India's Cockroach protests vow to continue despite police crackdown\n\nA Cockr",
-        "type": "article"
-      },
-      {
-        "title": "India’s 'Cockroach' movement ends protests after education minister resigns - France 24",
-        "url": "https://www.france24.com/en/india-s-cockroach-movement-ends-protests-after-education-minister-resigns",
-        "source": "Web",
-        "snippet": "Police accused of exercising absolute brutality against student protesters\n\n## India's police accused of exercising 'absolute brutality' against peaceful protesters\n\nProtesters at ",
-        "type": "article"
-      },
-      {
         "title": "'Laws flouted': Congress slams govt over Odisha protest against bauxite ...",
         "url": "https://www.newindianexpress.com/amp/story/india/2026/Jun/03/laws-flouted-congress-slams-govt-over-odisha-protest-against-bauxite-mining",
         "source": "Indian Express",
         "snippet": "'Laws flouted': Congress slams govt over Odisha protest against bauxite mining. Kalinga Alumina Ltd is being accused of illegally diverting",
         "type": "article"
+      },
+      {
+        "title": "Instagram",
+        "url": "https://www.instagram.com/reel/DbJS9n2SasI",
+        "source": "Instagram",
+        "snippet": "A viral video sparked intense debate online on July 23, 2026, after a media representative questioned Home Minister Amit Shah about his traditional Odisha-style outfit outside Parl",
+        "type": "social"
       },
       {
         "title": "Instagram",
@@ -2913,18 +2794,18 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Indian auto hub hikes minimum wage after protests over soaring costs due to Iran war",
-        "url": "https://www.reuters.com/business/world-at-work/indian-auto-hub-hikes-minimum-wage-after-protests-over-soaring-costs-due-iran-2026-04-10",
-        "source": "Web",
-        "snippet": "## Browse World. ## Browse Business. Item 1 of 5 Factory workers hold a protest demanding wage hikes from their company, in Manesar, Haryana, India, April 7, 2026. **[1/5]**Factory",
+        "title": "India farmers' protest: Tear gas fired as thousands march on fortress Delhi",
+        "url": "https://www.bbc.com/news/world-asia-india-68271356",
+        "source": "BBC",
+        "snippet": "# India farmers' protest: Tear gas fired as thousands march on fortress Delhi. **Police in northern India have fired tear gas to prevent thousands of protesting farmers demanding m",
         "type": "article"
       },
       {
-        "title": "Instagram",
-        "url": "https://www.instagram.com/p/DbFhBFyASMo",
-        "source": "Instagram",
-        "snippet": "May be an image of text that says 'Video:PTI Video: PTI TH Punjab farmers stopped en route to rally in Delhi, return after assurances'. Farmers from Punjab under the banner of ‘Des",
-        "type": "social"
+        "title": "Protests spread across Punjab, Haryana over Jantar ...",
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh/protests-spread-across-punjab-haryana-over-jantar-mantar-crackdown/articleshow/132566824.cms",
+        "source": "Times of India",
+        "snippet": "Protests against the police action on students at Delhi's Jantar Mantar spread across Punjab and Haryana on Wednesday, with farmers, student",
+        "type": "article"
       },
       {
         "title": "Farmers stopped at Punjab-Haryana boundary en route to Delhi rally against India-U.S. trade deal - The Hindu",
@@ -2941,18 +2822,11 @@ var STATE_DATA = {
         "type": "video"
       },
       {
-        "title": "Protests spread across Punjab, Haryana over Jantar ...",
-        "url": "https://timesofindia.indiatimes.com/city/chandigarh/protests-spread-across-punjab-haryana-over-jantar-mantar-crackdown/articleshow/132566824.cms",
-        "source": "Times of India",
-        "snippet": "Protests against the police action on students at Delhi's Jantar Mantar spread across Punjab and Haryana on Wednesday, with farmers, student",
-        "type": "article"
-      },
-      {
-        "title": "India farmers' protest: Tear gas fired as thousands march on fortress Delhi",
-        "url": "https://www.bbc.com/news/world-asia-india-68271356",
-        "source": "BBC",
-        "snippet": "# India farmers' protest: Tear gas fired as thousands march on fortress Delhi. **Police in northern India have fired tear gas to prevent thousands of protesting farmers demanding m",
-        "type": "article"
+        "title": "Instagram",
+        "url": "https://www.instagram.com/p/DbFhBFyASMo",
+        "source": "Instagram",
+        "snippet": "May be an image of text that says 'Video:PTI Video: PTI TH Punjab farmers stopped en route to rally in Delhi, return after assurances'. Farmers from Punjab under the banner of ‘Des",
+        "type": "social"
       }
     ],
     "protests": [
@@ -3079,10 +2953,10 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Assam ❘ History, Map, Population, Capital, & Facts",
-        "url": "https://www.britannica.com/place/Assam",
+        "title": "Assam",
+        "url": "https://www.incredibleindia.gov.in/en/assam",
         "source": "Web",
-        "snippet": "Rice, tea, and jute are the main agricultural products. Tea and jute are important foreign-exchange earners.\n\n## News •\n\n7,948 Assam schools without ideal pupil-teacher ratio\n\n• Ju",
+        "snippet": "#### Celebrations to witness once in a lifetime [...] Amidst the northeastern corner of India, Assam emerges as a mesmerising place known for nature's wonders and cultural splendou",
         "type": "article"
       },
       {
@@ -3093,31 +2967,10 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "THE 15 BEST Things to Do in Assam (2026) - Must-See Attractions",
-        "url": "https://www.tripadvisor.com/Attractions-g297590-Activities-Assam.html",
-        "source": "Web",
-        "snippet": "### 8-Day Discovering Mechuka and Arunachal Pradesh Private Tour\n\n### 3 Days Kaziranga National Park Wildlife Adventure with Safaris\n\n### Kaziranga National Park & Guwahati\n\n### 5 ",
-        "type": "article"
-      },
-      {
         "title": "Assam Tourism Your Next Travel Destination",
         "url": "https://assamtourism.gov.in",
         "source": "Web",
         "snippet": "Site Map\n\nContact Us\n\nTerms of Use\n\nPrivacy Policy\n\nCopyrights © 2026 All Rights Reserved by Assam Tourism Development Corporation.\n\nPowered By: Span Communications\n\nSite Map\n\nCont",
-        "type": "article"
-      },
-      {
-        "title": "Assam State Portal: Home",
-        "url": "https://assam.gov.in",
-        "source": "Web",
-        "snippet": "+ Capital: Dispur\n  + Largest City: Guwahati\n  + Districts: 35\n  + Total Area: 78,438 sq km\n  + Latitude:  24 N° - 28 N°\n  + Longitude: 90 E° - 96 E°\n  + Population: 31205576\n\n### ",
-        "type": "article"
-      },
-      {
-        "title": "Assam",
-        "url": "https://www.incredibleindia.gov.in/en/assam",
-        "source": "Web",
-        "snippet": "#### Celebrations to witness once in a lifetime [...] Amidst the northeastern corner of India, Assam emerges as a mesmerising place known for nature's wonders and cultural splendou",
         "type": "article"
       }
     ],
@@ -3392,13 +3245,6 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Jharkhand – Travel guide at Wikivoyage",
-        "url": "https://en.wikivoyage.org/wiki/Jharkhand",
-        "source": "Web",
-        "snippet": "## Stay safe\n\n|  |  |\n --- |\n| Caution | Note: Naxalite (Maoist extremist) insurgents target police officers, paramilitary forces and government officials leading to injuries and d",
-        "type": "article"
-      },
-      {
         "title": "Jharkhand - Wikipedia",
         "url": "https://en.wikipedia.org/wiki/Jharkhand",
         "source": "Web",
@@ -3406,10 +3252,10 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Visit Jharkhand: 2026 Travel Guide for Jharkhand, India | Expedia",
-        "url": "https://www.expedia.com/Jharkhand.dx6049935",
+        "title": "Jharkhand – Travel guide at Wikivoyage",
+        "url": "https://en.wikivoyage.org/wiki/Jharkhand",
         "source": "Web",
-        "snippet": "Expedia logo\nUnited States\n\n# Jharkhand\n\n## India\n\nA multi-tiered waterfall cascading over rocky cliffs into a pool below, surrounded by dense forest.\nA rural road flanked by trees",
+        "snippet": "## Stay safe\n\n|  |  |\n --- |\n| Caution | Note: Naxalite (Maoist extremist) insurgents target police officers, paramilitary forces and government officials leading to injuries and d",
         "type": "article"
       },
       {
@@ -3417,13 +3263,6 @@ var STATE_DATA = {
         "url": "https://www.jhpolice.gov.in/about-jharkhand",
         "source": "Web",
         "snippet": "The name \"Jharkhand\" means \"The Land of Forests\". The 28th state of the Indian Union was brought into existence by the Bihar reorganization Act on November 15, 2000 - the birth ann",
-        "type": "article"
-      },
-      {
-        "title": "Jharkhand | History, Map, Population, Capital, & Government | Britannica",
-        "url": "https://www.britannica.com/place/Jharkhand",
-        "source": "Web",
-        "snippet": "## News •\n\nJharkhand, state of India, located in the northeastern part of the country. Jharkhand is bordered by the states of Bihar to the north, West Bengal to the east, Odisha to",
         "type": "article"
       }
     ],
@@ -3536,24 +3375,10 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Christians in India Stage March to Protest New Law - International Christian Concern",
-        "url": "https://persecution.org/2026/03/23/christians-in-india-stage-march-to-protest-new-law",
-        "source": "Web",
-        "snippet": "## Christians in India Stage March to Protest New Law. India  South Asia  ICC News  Newsroom & Reports. Thousands of Christians marched with torches on March 22 in Raipur, Chhattis",
-        "type": "article"
-      },
-      {
         "title": "'BJP diluting rural job scheme': Chhattisgarh Congress stages protest",
         "url": "https://www.thehindu.com/news/national/chhattisgarh/bjpdiluting-rural-job-scheme-chhattisgarh-cong-stages-protest/article70754480.ece/amp",
         "source": "The Hindu",
         "snippet": "'BJP diluting rural job scheme': Chhattisgarh Congress stages protest. Updated - March 18, 2026 02:43 am IST - Raipur. Shubhomoy Sikdar.",
-        "type": "article"
-      },
-      {
-        "title": "Christians Protest Anti-Conversion Law in Chhattisgarh",
-        "url": "https://persecution.org/2026/04/21/christians-protest-anti-conversion-law-in-chhattisgarh",
-        "source": "Web",
-        "snippet": "More than 30000 people gathered in Jagdalpur, Chhattisgarh, on April 13 to protest the Chhattisgarh Freedom of Religion Bill, 2026.",
         "type": "article"
       },
       {
@@ -3564,18 +3389,25 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Congress Versus BJP In Chhattisgarh Assembly Over Anti-Conversion Bill",
-        "url": "https://www.ndtv.com/india-news/congress-versus-bjp-in-chhattisgarh-assembly-over-anti-conversion-bill-11239128/amp/1",
-        "source": "NDTV",
-        "snippet": "High drama unfolded in the Chhattisgarh Assembly on Thursday as the Freedom of Religion Bill, 2026, triggered a fierce political showdown.",
-        "type": "article"
-      },
-      {
         "title": "LIVE: 208 Naxals Surrender in Chhattisgarh | Amit Shah's 2026 ...",
         "url": "https://www.youtube.com/watch?v=SMfs9ITeOXI",
         "source": "YouTube",
         "snippet": "Over 10,000 Mauists surrendered between 15 and 25 recent mass surreners of 170 and 210 carders in single ceremonies.",
         "type": "video"
+      },
+      {
+        "title": "Christians in India Stage March to Protest New Law - International Christian Concern",
+        "url": "https://persecution.org/2026/03/23/christians-in-india-stage-march-to-protest-new-law",
+        "source": "Web",
+        "snippet": "## Christians in India Stage March to Protest New Law. India  South Asia  ICC News  Newsroom & Reports. Thousands of Christians marched with torches on March 22 in Raipur, Chhattis",
+        "type": "article"
+      },
+      {
+        "title": "Christians Protest Anti-Conversion Law in Chhattisgarh",
+        "url": "https://persecution.org/2026/04/21/christians-protest-anti-conversion-law-in-chhattisgarh",
+        "source": "Web",
+        "snippet": "More than 30000 people gathered in Jagdalpur, Chhattisgarh, on April 13 to protest the Chhattisgarh Freedom of Religion Bill, 2026.",
+        "type": "article"
       }
     ],
     "protests": [
@@ -3687,6 +3519,13 @@ var STATE_DATA = {
     },
     "news": [
       {
+        "title": "Muslims 'in constant fear' amid hate campaign in India's ...",
+        "url": "https://www.aljazeera.com/news/2024/10/17/muslims-in-constant-fear-amid-hate-campaign-in-indias-himachal-pradesh",
+        "source": "Al Jazeera",
+        "snippet": "Oct 17, 2024 — The campaign against the Sanjauli mosque soon turned into broader anti-Muslim protests across Himachal Pradesh, a state where only 2 percent of",
+        "type": "article"
+      },
+      {
         "title": "Congress holds sit-in protests across Himachal, Haryana, Punjab over student issues - The Hindu",
         "url": "https://www.thehindu.com/news/national/congress-holds-sit-in-protests-across-himachal-haryana-punjab-over-student-issues/article71250564.ece",
         "source": "The Hindu",
@@ -3708,24 +3547,10 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "\"People Being Instigated\": Himachal Governor On CJP ...",
-        "url": "https://www.ndtv.com/india-news/people-are-being-instigated-himachal-governor-on-cjp-protest-11820854",
-        "source": "NDTV",
-        "snippet": "2 days ago — Himachal Pradesh Governor Kavinder Gupta has questioned the motive behind the ongoing Cockroach Janta Party (CJP) protest,",
-        "type": "article"
-      },
-      {
         "title": "Thousands of Himachal Pradesh teachers launch indefinite ...",
         "url": "https://www.facebook.com/TimesofIndia/videos/thousands-of-himachal-pradesh-teachers-launch-indefinite-hunger-strike-in-shimla/2496958144135418",
         "source": "Web",
         "snippet": "Thousands of Himachal Pradesh teachers launch indefinite hunger strike in Shimla against School Complex System Thousands of primary teachers",
-        "type": "article"
-      },
-      {
-        "title": "Muslims 'in constant fear' amid hate campaign in India's ...",
-        "url": "https://www.aljazeera.com/news/2024/10/17/muslims-in-constant-fear-amid-hate-campaign-in-indias-himachal-pradesh",
-        "source": "Al Jazeera",
-        "snippet": "Oct 17, 2024 — The campaign against the Sanjauli mosque soon turned into broader anti-Muslim protests across Himachal Pradesh, a state where only 2 percent of",
         "type": "article"
       }
     ],
@@ -3822,50 +3647,7 @@ var STATE_DATA = {
         "Wikipedia"
       ]
     },
-    "news": [
-      {
-        "title": "Uttarakhand halts felling of 3000 trees for Dehradun ...",
-        "url": "/goto?url=CAESyAEB7keqTUT3zOODb9cvXdKoN7ZvwgPhK-HupQt5_1vt4xNDE8FIrasLzwjTcShhKHGa6XUWN3NMgb_OnrDlKWQadxZ9qxZl7OnCkmylrrvqfE3FK5fE8fh011i77NXWlYEB9ol9ukLZBWbMhJ-51oYkypG_crS2OqpGFGRpgvag7I6sNVbOOBDpQ0tIFbMVjOMHap4Ms1rpz3cIM6LgzJWy3sbrmexPV4V_eBOGobmPGqEuOPpsD31zyh_tRvO1P5XegUL1fDvoPw%3D%3D",
-        "source": "Web",
-        "snippet": "Jul 18, 2026 — Environmental activists protest against the proposed felling of nearly 3,000 trees for a highway project in Uttarakhand.( ...Read more",
-        "type": "article"
-      },
-      {
-        "title": "High drama unfolded at the Himachal Pradesh ...",
-        "url": "/goto?url=CAESYwHuR6pNlWmAeevhHjYESbcuyBONpGg_S2TEfoNLWem6O52BgNg7NfUcFTh-UVUadzG3B0nPFgUAD88NyAJyDu0uwctf4GcS8AK0RHEwxdIaZDekq4KVA3eRwca_YhovxNS87A%3D%3D",
-        "source": "Web",
-        "snippet": "High drama unfolded at the Himachal Pradesh-Uttarakhand border on Thursday evening, June 25, 2026, when a group of Nihang Sikhs breached police ...Read more",
-        "type": "article"
-      },
-      {
-        "title": "Dehradun Residents Halt Felling of 4369 Trees for Rs 743- ...",
-        "url": "/goto?url=CAESlgEB7keqTXUhcTle4UMfyrkQxKyrJ-5nqIQ2Z5zWlRhPI7kl-J2ysuKvludkeYEhTiEAaNyfIdoS6v1OdIYLwpIAGrZY4kdExRKy_V_92kFlWq_QrWBXrEUI6dPHMQ1IJLe2XS-tFVczCYAievNY0ba_JFTmlDn1UKcCvZKUghXq0GktqM1E8ooRoeKAVAzLhrFetGN48QI%3D",
-        "source": "Web",
-        "snippet": "3 days ago — Uttarakhand CM Dhami halts tree-felling on Dehradun's \"Saat Mod\" amid public outcry': by IANS for The Hans India, Published on 18 July 2026. ' ...Read more",
-        "type": "article"
-      },
-      {
-        "title": "Uttarakhand: BJP Protests in Dehradun Against Congress ...",
-        "url": "/goto?url=CAESygEB7keqTZ8hWEnjbury45aoIswz9xQd6juNZympIWax5QjE4kDE2CbbQ7u5S5Gaa317ZwH-yO8rI3txECCwTER080Lv14TA7AIX7_PXk9SK4kzBN_rfh1V-CVnsP5EV_91hPxzFbiH53a1PrEZrPRlkGwEEp1kmik8BUNermKjZPJNoNy1VC5L2Gwzv52XsTspVdeXPU66lqHVf_PYahcYyfN2mbsPaY6Rkt_hG94g8SsHYQpufEQvFz2tqprmFReSGnaOITbbMv0Uo",
-        "source": "Web",
-        "snippet": "BJP workers staged a protest in Dehradun, Uttarakhand, against the Congress demonstration held outside Lok Kalyan Marg (LKM) in Delhi.",
-        "type": "article"
-      },
-      {
-        "title": "BJP protests Rahul Gandhi's sit-in at PM's residence ...",
-        "url": "/goto?url=CAESwwEB7keqTYotFkpI1J75DB2lrQJO1g7zZNXCDAswkyf0eKPS-xTqjxWl9q2vXJ98gApiC5sCnuoO_RqL_7qJ0-ZOCrD1FFY2GGv7yWiUEDn7P6D5xgw6mSF1A9pTis0tO7Wgr6bvz5MjvCied1Dz-sz4phfzWWe4P2_GtpVhZGuRopJhwZFxN2GumQAt99NuKmK4PP-qMVOmlc_vXDrDRi6C2VkwYifTv3NlEwu7uqz8Q-6Gx6nYdr_XTQCl0aOdPnKxsoc%3D",
-        "source": "Web",
-        "snippet": "Congress launches nationwide protests across MP, Uttarakhand, Rajasthan & Chhattisgarh BJP launches counter protests; BJP protests Rahul",
-        "type": "article"
-      },
-      {
-        "title": "Outrage Erupts Over Plan to Fell 4000 Trees in Dehradun",
-        "url": "/goto?url=CAESYwHuR6pNVvcfVGv2Uaoo-XasBg5X9Po-VoQZrswe7TtRhUAbKHm5iXdLLIPrH4czznOWCtrt9-1Srr_BSnHoa_O-tACeTvRDZYTxRT71c_HI2jIphndfBufNC2aJKfBRRBZJqA%3D%3D",
-        "source": "Web",
-        "snippet": "Hundreds of residents, environmentalists and activists took to the streets in Dehradun to protest the proposed felling of around 4,000 trees ...Read more",
-        "type": "article"
-      }
-    ],
+    "news": [],
     "protests": [
       {
         "name": "Save Shivalik & Himalayan Forest Movement",
@@ -4243,18 +4025,11 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Inside India's Manipur State, Where Violence and Division Are Routine",
-        "url": "https://www.nytimes.com/2026/05/26/world/asia/india-manipur-violence-ethnic-conflict.html",
-        "source": "Web",
-        "snippet": "May 26, 2026. A fresh outbreak of ethnic conflict is rocking India's remote eastern state of Manipur. Deadly ambushes, abductions and protest",
-        "type": "article"
-      },
-      {
-        "title": "2026 Manipur bombing",
-        "url": "https://en.wikipedia.org/wiki/2026_Manipur_bombing",
-        "source": "Web",
-        "snippet": "During the rioting, two protesters were shot dead, another thirty-one protesters suffered gunshot wounds, and a third protester died of injuries on 8 April.",
-        "type": "article"
+        "title": "Manipur Protests: Thousands March To Manipur CM Residence, Clash ...",
+        "url": "https://www.youtube.com/watch?v=mUcLCKeMmQY",
+        "source": "YouTube",
+        "snippet": "Thousands of people calling for lasting peace in violence-hit Manipur clashed with police on Saturday after being stopped from marching towards",
+        "type": "video"
       },
       {
         "title": "Protests Erupt as Ethnic Conflict Engulfs Manipur – Human Rights & Public Liberties",
@@ -4262,13 +4037,6 @@ var STATE_DATA = {
         "source": "Al Jazeera",
         "snippet": "Some groups from India’s northeastern Manipur state are heading toward New Delhi and will begin protests in the Indian capital on December 22, as tensions between two ethnic commun",
         "type": "article"
-      },
-      {
-        "title": "Manipur Protests: Thousands March To Manipur CM Residence, Clash ...",
-        "url": "https://www.youtube.com/watch?v=mUcLCKeMmQY",
-        "source": "YouTube",
-        "snippet": "Thousands of people calling for lasting peace in violence-hit Manipur clashed with police on Saturday after being stopped from marching towards",
-        "type": "video"
       },
       {
         "title": "Manipur: Curfew in Indian state after protests turn violent",
@@ -4374,11 +4142,11 @@ var STATE_DATA = {
     },
     "news": [
       {
-        "title": "Instagram",
-        "url": "https://www.instagram.com/reel/DbLQ5NRCKdm",
-        "source": "Instagram",
-        "snippet": "Video by The Hindu on July 24, 2026. May be a meme of one or more people, poster and text that says 'TH TH Protesters take turns fanning fellow protesters in in Jantar Mantar'.\n\nVi",
-        "type": "social"
+        "title": "Kindness or cruelty, Shillong's first protest of 2026 forces a ...",
+        "url": "https://www.youtube.com/watch?v=sEjuGFZcWQI",
+        "source": "YouTube",
+        "snippet": "Shillong witnessed its first protest of the year at Kyndailad on Sunday, where citizens and animal rights advocates gathered for a silent",
+        "type": "video"
       },
       {
         "title": "Military Exercise Pragati 2026 Concludes In Meghalaya ...",
@@ -4395,24 +4163,17 @@ var STATE_DATA = {
         "type": "article"
       },
       {
-        "title": "Meghalaya villagers protest border fencing plan: HT",
-        "url": "https://bdnews24.com/neighbours/e4df51e62452",
-        "source": "Web",
-        "snippet": "Residents of a village on the India-Bangladesh border in the northeastern Indian state of Meghalaya have protested the proposed border fencing",
-        "type": "article"
-      },
-      {
-        "title": "Kindness or cruelty, Shillong's first protest of 2026 forces a ...",
-        "url": "https://www.youtube.com/watch?v=sEjuGFZcWQI",
-        "source": "YouTube",
-        "snippet": "Shillong witnessed its first protest of the year at Kyndailad on Sunday, where citizens and animal rights advocates gathered for a silent",
-        "type": "video"
-      },
-      {
         "title": "Instagram",
         "url": "https://www.instagram.com/reel/DbGD2SHTTjw",
         "source": "Instagram",
         "snippet": "Video by 24 Hours in North East on July 22, 2026. May be an image of one or more people, people standing, poster, banner and text that says 'BREAKING AIZAWL SHOWS THE POWER OF PEAC",
+        "type": "social"
+      },
+      {
+        "title": "Instagram",
+        "url": "https://www.instagram.com/reel/DbLQ5NRCKdm",
+        "source": "Instagram",
+        "snippet": "Video by The Hindu on July 24, 2026. May be a meme of one or more people, poster and text that says 'TH TH Protesters take turns fanning fellow protesters in in Jantar Mantar'.\n\nVi",
         "type": "social"
       }
     ],
