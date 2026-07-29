@@ -110,6 +110,30 @@ foreach ($data['cities'] as $citySlug => &$city) {
 
 // Recalculate city-level overviews
 foreach ($data['cities'] as $citySlug => &$city) {
+    // Auto-remove ended protests
+    $activeProtests = [];
+    $removed = 0;
+    foreach ($city['protests'] as $protest) {
+        $status = strtolower($protest['status']);
+        $isEnded = false;
+        $endWords = ['ended','concluded','formally ended','sit-in has ended','protest has ended',
+                     'no longer active','disbanded','called off','wound down','wrapped up'];
+        foreach ($endWords as $word) {
+            if (strpos($status, $word) !== false) { $isEnded = true; break; }
+        }
+        // Only remove if danger is low AND status indicates it ended
+        if ($isEnded && $protest['dangerLevel'] === 'low') {
+            $removed++;
+            logUpdate("  Archived: {$city['name']} — {$protest['name']} (ended)");
+        } else {
+            $activeProtests[] = $protest;
+        }
+    }
+    if ($removed > 0) {
+        $city['protests'] = $activeProtests;
+        logUpdate("  Removed $removed ended protests from {$city['name']}");
+    }
+    
     $city['overallDanger'] = calculateOverallDanger($city['protests']);
     $city['overallStatus'] = generateOverallStatus($city['name'], $city['protests']);
 }
