@@ -3647,7 +3647,43 @@ var STATE_DATA = {
         "Wikipedia"
       ]
     },
-    "news": [],
+    "news": [
+      {
+        "title": "Uttarakhand News | Tribune India: Breaking News & Updates from the Mountains",
+        "url": "https://www.tribuneindia.com/news/state/uttarakhand/amp",
+        "source": "News Source",
+        "snippet": "09 Jul 2026\n ## Dehradun soon to become home to Uttarakhand's first 'Pink Park', but what is it?\n\n  The park is being planned as a combined recreation, wellness and learning hub\n\n ",
+        "type": "article"
+      },
+      {
+        "title": "Monsoon tracker updates: Monsoon activity subdued in large parts of India, Uttarakhand on red alert - The Hindu",
+        "url": "https://www.thehindu.com/news/national/india-monsoon-tracker-live-weather-forecast-imd-alerts-flood-rainfall-landslip-july-12-2026-updates/article71213197.ece/amp",
+        "source": "The Hindu",
+        "snippet": "# Monsoon tracker updates: Monsoon activity subdued in large parts of India, Uttarakhand on red alert\n\n## The IMD said that most parts of the state are likely to witness weak monso",
+        "type": "article"
+      },
+      {
+        "title": "Uttarakhand glacier burst: Dozens missing after India dam collapses",
+        "url": "https://www.bbc.com/news/world-asia-india-55969669",
+        "source": "BBC",
+        "snippet": "## Watch: Torrential rain hits New York and New Jersey triggering flash floods\n\nA protester throws back a tear gas canister toward police as supporters of the Cockroach Janta Party",
+        "type": "article"
+      },
+      {
+        "title": "Himachal, Uttarakhand Reel From Landslides, Mizoram, Tripura Battle Floods",
+        "url": "https://www.ndtv.com/india-news/india-monsoon-weather-news-himachal-pradesh-uttarakhand-reel-from-landslides-mizoram-tripura-battle-floods-11756643/amp/1",
+        "source": "NDTV",
+        "snippet": "NDTV News\n\n## Trending News\n\n#### \"You Partied, Protesters Starved\": Backlash To CJP Leaders' Dancing Videos\n\n#### Startup CEO Moves From London To Gurgaon, Says India Is The Best ",
+        "type": "article"
+      },
+      {
+        "title": "Flash flooding in Uttarakhand, India, kills 4, dozens still missing, local officials say - ABC News",
+        "url": "https://abcnews.com/amp/International/flash-flooding-uttarakhand-india-kills-dozens-missing-local/story?id=124404685",
+        "source": "News Source",
+        "snippet": "#### Video\n\n#### Live\n\n#### Shows\n\n#### Sections\n\n#### U.S.\n\n#### Politics\n\n#### International\n\n#### Coronavirus\n\n#### Jan. 6 Riot\n\n#### Entertainment\n\n#### Business\n\n#### Technolo",
+        "type": "article"
+      }
+    ],
     "protests": [
       {
         "name": "Save Shivalik & Himalayan Forest Movement",
@@ -4715,6 +4751,43 @@ var STATE_DATA = {
           "Legal support: Fisherfolk cooperatives"
         ]
       }
+    ],
+    "news": [
+      {
+        "title": "Puducherry News: Breaking Updates & Latest Headlines ...",
+        "url": "https://timesofindia.indiatimes.com/city/puducherry",
+        "source": "Times of India",
+        "snippet": "Discover the latest Puducherry news, covering crime, politics, education, and real estate. Puducherry elections 2026: Personality politics dominates as NDA and",
+        "type": "article"
+      },
+      {
+        "title": "2026 Puducherry Legislative Assembly election - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/2026_Puducherry_Legislative_Assembly_election",
+        "source": "Wikipedia",
+        "snippet": "13. 1 2 3 \"Puducherry polls: Congress-DMK seal seat-sharing pact; sitting MP Vaithilingam to take on CM Rangasamy\". India TV. 23 March 2026. Retrieved 23 March 2026.\n14. ↑ \"Puduche",
+        "type": "article"
+      },
+      {
+        "title": "Puducherry - Latest News, Politics, Events, Entertainment",
+        "url": "https://www.thehindu.com/news/cities/puducherry",
+        "source": "The Hindu",
+        "snippet": "Chief Minister N. Rangasamy flagging off Ocean Sailing Expedition — SWARNUM 2026 — at Thengaithittu. Rangasamy, after visiting Lok Niwas on July 20, informed",
+        "type": "article"
+      },
+      {
+        "title": "Puducherry Election Results 2026 LIVE: AINRC-led NDA ...",
+        "url": "https://www.youtube.com/watch?v=YkO7aR2u-Tg",
+        "source": "YouTube",
+        "snippet": "Puducherry Election Results 2026 LIVE: AINRC-led NDA seeks second term as people's mandate awaited · Comments.",
+        "type": "video"
+      },
+      {
+        "title": "GOs/Notifications/Circulars | Official Website of Government of Puducherry, India",
+        "url": "https://py.gov.in/gos-and-notification",
+        "source": "News Source",
+        "snippet": "Press Information\n Tenders\nReserve Bank\nCentralized Public Grievance Redress And Monitoring System\nGuidelines for Indian Government Websites (GIGW)\")\nDigilocker\nFacebook Logo\nTwitt",
+        "type": "article"
+      }
     ]
   },
   "LD": {
@@ -4821,6 +4894,43 @@ var STATE_DATA = {
           "Legal support: Local organizations"
         ]
       }
+    ],
+    "news": [
+      {
+        "title": "Reach Ladakh Bulletin- Ladakh online news portal",
+        "url": "https://www.reachladakh.com",
+        "source": "News Source",
+        "snippet": "### Headlines\n\n DC Kargil reviews PM Poshan scheme, stresses nutrition for school children  Kargil , Jul 24, 2026\n L-G launches heritage conservation and beautification project in ",
+        "type": "article"
+      },
+      {
+        "title": "Ladakh news, Latest and Live Updates on Weather news, Politics, Events - The Hindu",
+        "url": "https://www.thehindu.com/news/national/ladakh",
+        "source": "The Hindu",
+        "snippet": "Union Minister of Road Transport and Highways Nitin Gadkari, Jammu and Kashmir CM Omar Abdullah pose in front of the Zojila tunnel, India's longest road tunnel project connecting J",
+        "type": "article"
+      },
+      {
+        "title": "News | The Administration of Union Territory of Ladakh | India",
+        "url": "https://ladakh.gov.in/category/news",
+        "source": "News Source",
+        "snippet": "2026 the department of Agriculture Leh organised one day 'Farmer-Scientist' Establishes Drugs and Cyber Crime Counselling Helpline. Nyoma, July 2026: 2026",
+        "type": "article"
+      },
+      {
+        "title": "Ladakh Creates 17 New Tehsils To Cut 300-Km Trips For ...",
+        "url": "https://www.ndtv.com/india-news/ladakh-creates-17-new-tehsils-to-cut-300-km-trips-for-government-services-11761523",
+        "source": "NDTV",
+        "snippet": "Jul 12, 2026 — Ladakh has created 17 new tehsils, taking the total from 15 to 32, to make five newly created districts fully functional and bring government ...Read more",
+        "type": "article"
+      },
+      {
+        "title": "Ladakh - BBC News",
+        "url": "https://www.bbc.com/news/topics/czpnxldvl0et",
+        "source": "BBC",
+        "snippet": "Copyright 2026 BBC. All rights reserved. The BBC is not responsible for the content of external sites. Read about our approach to external linking. [...] ## The Indian activist who",
+        "type": "article"
+      }
     ]
   },
   "CH": {
@@ -4910,6 +5020,43 @@ var STATE_DATA = {
           "Medical access: Available",
           "Legal support: Panjab University law department"
         ]
+      }
+    ],
+    "news": [
+      {
+        "title": "Chandigarh News, Latest Chandigarh News, Chandigarh News Today and Headlines | Hindustan Times",
+        "url": "https://www.hindustantimes.com/cities/chandigarh-news",
+        "source": "News Source",
+        "snippet": "chandigarh news\n\nPublished on Jul 26, 2026 02:58 IST\n\n## 11 accident-prone corridors identified in Himachal: Union minister\n\nchandigarh news\n\nUpdated on Jul 24, 2026 02:46 IST\n\n## ",
+        "type": "article"
+      },
+      {
+        "title": "Chandigarh - Latest news, Live Updates, Politics, Events - The Hindu",
+        "url": "https://www.thehindu.com/news/national/chandigarh",
+        "source": "The Hindu",
+        "snippet": "### Fire at Chandigarh hospital's blood bank, none injured\n\nPolice personnel use water cannons on farmers trying to break through police barricades during a protest march towards t",
+        "type": "article"
+      },
+      {
+        "title": "Chandigarh News | Latest and Breaking Chandigarh News – NDTV.com",
+        "url": "https://www.ndtv.com/chandigarh-news",
+        "source": "NDTV",
+        "snippet": "Video: Bags Of Rs 500 Note Bundles Thrown From Mohali Flat During Raid\n\n  May 07, 2026 12:43 pm IST\n\n  ## Video: Bags Of Rs 500 Note Bundles Thrown From Mohali Flat During Raid\n 8 ",
+        "type": "article"
+      },
+      {
+        "title": "Chandigarh News, Latest Chandigarh News Headlines & Live Updates - Times of India",
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh",
+        "source": "Times of India",
+        "snippet": "Iran WarPatrick and Brittany Mahomes DonationRoston ChaseRahul GandhiUS Saudi Nuclear DealKhawaja AsifLamine YamalPatrick MahomesNolan WellsKangana RanautDehradun Bridge CollapesCo",
+        "type": "article"
+      },
+      {
+        "title": "Chandigarh News | Tribune India: Latest Updates & Breaking ...",
+        "url": "https://www.tribuneindia.com/news/city/chandigarh/amp",
+        "source": "News Source",
+        "snippet": "Stay updated with the latest news from Chandigarh on Tribune India. Get breaking news ... Chandigarh Tenancy Rules, 2026. Ahead of its rollout, DC Nishant Kumar",
+        "type": "article"
       }
     ]
   },
@@ -5003,6 +5150,43 @@ var STATE_DATA = {
           "Legal support: Tribal rights organizations"
         ]
       }
+    ],
+    "news": [
+      {
+        "title": "Andaman and Nicobar Islands - Latest news, Live Updates, Politics, Events - The Hindu",
+        "url": "https://www.thehindu.com/news/national/andaman-and-nicobar-islands",
+        "source": "The Hindu",
+        "snippet": "In this image posted on June 5, 2026, Congress leader Rahul Gandhi does scuba diving during a visit to the Andaman and Nicobar Islands. Photo: X/@INCIndia via PTI\n\n### Great Nicoba",
+        "type": "article"
+      },
+      {
+        "title": "Latest News on Andaman And Nicobar Islands",
+        "url": "https://indianexpress.com/about/andaman-and-nicobar-islands",
+        "source": "Indian Express",
+        "snippet": "Great Nicobar Island Project: Jairam Ramesh confronts Environment Minister Bhupender Yadav again on green nod. June 03, 2026 12:42 pm. Advertisement.",
+        "type": "article"
+      },
+      {
+        "title": "Andaman and Nicobar Islands",
+        "url": "https://www.deccanherald.com/india/andaman-and-nicobar-islands",
+        "source": "News Source",
+        "snippet": "'Benefitting Gautam Adani to build casinos': Rahul Gandhi attacks Modi govt over Great Nicobar Project · 05 June 2026, 02:09 IST.",
+        "type": "article"
+      },
+      {
+        "title": "India's Nicobar Island push threatens China's Malacca lifeline - Asia Times",
+        "url": "https://asiatimes.com/2026/06/indias-nicobar-island-push-threatens-chinas-malacca-lifeline",
+        "source": "News Source",
+        "snippet": "Construction is being carried out in phases, with an initial opening planned for 2028 and expansion continuing over the next 20 years. New Delhi also expects to make money from pro",
+        "type": "article"
+      },
+      {
+        "title": "all aimed at boosting trade routes, strengthening India's presence in ...",
+        "url": "https://www.instagram.com/p/DU0Jf1_jZG9?hl=en",
+        "source": "Instagram",
+        "snippet": "India has officially cleared the mega infrastructure project on Great Nicobar Island, marking a major step toward transforming the remote region",
+        "type": "social"
+      }
     ]
   },
   "LDK": {
@@ -5093,6 +5277,43 @@ var STATE_DATA = {
           "Legal support: Environmental lawyers"
         ]
       }
+    ],
+    "news": [
+      {
+        "title": "The Lakshadweep administration has significantly relaxed its tourist entry ...",
+        "url": "https://www.instagram.com/p/DXwQ6BYD4f6",
+        "source": "Instagram",
+        "snippet": "As per a new circular issued on April 29, 2026, visitors no longer need a local sponsor to apply for an entry permit—removing one of the biggest",
+        "type": "social"
+      },
+      {
+        "title": "Lakshadweep | Official Website of Administration of Lakshadweep | India",
+        "url": "https://lakshadweep.gov.in",
+        "source": "News Source",
+        "snippet": "NEW Notification regarding commencement of the Lakshadweep Town and Country Planning and Development Regulation, 2026 (Gazette Vol. LXII No.31) Water Supply",
+        "type": "article"
+      },
+      {
+        "title": "Lakshadweep - Latest news, Live Updates, Politics, Events",
+        "url": "https://www.thehindu.com/news/national/lakshadweep",
+        "source": "The Hindu",
+        "snippet": "Lakshadweep administration mulls over acquiring Bitra island for defence purposes. PTI. In this image via Indian Army on June 9, 2025, Mortal remains of Sepoy.",
+        "type": "article"
+      },
+      {
+        "title": "Lakshadweep: India's paradise islands in turmoil over new plans",
+        "url": "https://www.bbc.com/news/world-asia-india-57497446",
+        "source": "BBC",
+        "snippet": "A woman protesting in Lakshadweep BBC Protesters say the new proposals are an attack on their identity, culture, religion and land.",
+        "type": "article"
+      },
+      {
+        "title": "Lakshadweep",
+        "url": "https://timesofindia.indiatimes.com/india/lakshadweep",
+        "source": "Times of India",
+        "snippet": "Rainfall deficit in Kerala touches 31% as monsoon falters · Scattered rain likely in state till July 17 · Five north Kerala districts on yellow alert on July 9",
+        "type": "article"
+      }
     ]
   },
   "DD": {
@@ -5182,6 +5403,43 @@ var STATE_DATA = {
           "Medical access: Available",
           "Legal support: Labour unions"
         ]
+      }
+    ],
+    "news": [
+      {
+        "title": "From vision to transformation, India's growth story ...",
+        "url": "https://www.instagram.com/reel/DZPUfmDzKH2?hl=en",
+        "source": "Instagram",
+        "snippet": "June 6, 2026: Dadra & Nagar Haveli, Daman and Diu are not merely Union Territories, but an integral part of India's rich identity and heritage.",
+        "type": "social"
+      },
+      {
+        "title": "RECENT UPDATES | Dadra & Nagar Haveli District Website | India",
+        "url": "https://dnh.gov.in/document-category/recent-updates",
+        "source": "News Source",
+        "snippet": "| Department of Land Acquisition – Final SIA report for Khanvel Riverfront | 15/07/2026 | View (6 MB) |\n| Election Branch – Press Note regarding Publication of Draft Electoral SIR-",
+        "type": "article"
+      },
+      {
+        "title": "Daman, Diu, Dadra and Nagar Haveli - Latest news, Live Updates, Politics, Events - The Hindu",
+        "url": "https://www.thehindu.com/news/national/daman-diu-dadra-and-nagar-haveli",
+        "source": "The Hindu",
+        "snippet": "newsletterimg\n\nGender Agenda\nStories from beyond the binary.\n\nnewsletterimg\n\nThe Hindu On Books\nBooks of the week, reviews, excerpts, new titles and features.\n\nJuly 12, 2026e-Paper",
+        "type": "article"
+      },
+      {
+        "title": "Homepage | UT of Dadra and Nagar Haveli and Daman and Diu | UT of Dadra and Nagar Haveli and Daman and Diu | India",
+        "url": "https://ddd.gov.in",
+        "source": "News Source",
+        "snippet": "Developed and hosted by National Informatics Centre,   \nMinistry of Electronics & Information Technology, Government of India\n\nLast Updated:\nJune 10, 2026\n\nSecure, Scalable and Sug",
+        "type": "article"
+      },
+      {
+        "title": "Dadra and Nagar Haveli and Daman and Diu - Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Dadra_and_Nagar_Haveli_and_Daman_and_Diu",
+        "source": "Wikipedia",
+        "snippet": "Dadra and Nagar Haveli and Daman and Diu is a union territory in India. The territory was constituted through the merger of the former territories of Dadra and Nagar Haveli and Dam",
+        "type": "article"
       }
     ]
   }
