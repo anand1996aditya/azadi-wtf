@@ -83,6 +83,7 @@ body { font-family:var(--font); background:var(--bg); color:var(--text); -webkit
 .state-path.no-protests { fill:#1e1e1e; }
 .state-path.no-data { fill:#1a1a1a; }
 .state-path.selected { stroke:#fff; stroke-width:2.5; filter:brightness(1.3); }
+.state-path.dimmed { opacity:0.35; transition:opacity 0.3s; }
 
 /* PANEL */
 .panel { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; overflow:hidden; max-height:calc(100vh - 100px); overflow-y:auto; }
@@ -274,9 +275,9 @@ footer a { color:var(--accent); text-decoration:none; }
         .on('click', function(e) {
           var code = d3.select(this).attr('data-code');
           if (!code || !STATE_DATA[code]) return;
-          g.selectAll('.state-path').classed('selected', false);
-          if (lockedCode === code) { lockedCode = null; updatePanel(null); }
-          else { lockedCode = code; d3.select(this).classed('selected', true); updatePanel(code); }
+          g.selectAll('.state-path').classed('selected', false).classed('dimmed', false);
+          if (lockedCode === code) { lockedCode = null; updatePanel(null); g.selectAll('.state-path').classed('dimmed', false); }
+          else { lockedCode = code; d3.select(this).classed('selected', true); updatePanel(code); g.selectAll('.state-path').classed('dimmed', true); d3.select(this).classed('dimmed', false); }
           e.stopPropagation();
         })
         .on('dblclick', function(e) {
@@ -285,7 +286,7 @@ footer a { color:var(--accent); text-decoration:none; }
           e.stopPropagation();
         });
 
-      svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); });
+      svg.on('click', function() { lockedCode = null; g.selectAll('.state-path').classed('selected',false).classed('dimmed',false); updatePanel(null); });
 
       // Visible markers for tiny regions (too small to render on map)
        var tinyRegions = [
@@ -301,9 +302,9 @@ footer a { color:var(--accent); text-decoration:none; }
             .attr('data-code', tr.code)
             .on('mouseenter', function() { updatePanel(tr.code); })
             .on('click', function(e) {
-              g.selectAll('.state-path').classed('selected', false);
-              if (lockedCode === tr.code) { lockedCode = null; updatePanel(null); }
-              else { lockedCode = tr.code; d3.select(this).classed('selected', true); updatePanel(tr.code); }
+              g.selectAll('.state-path').classed('selected', false).classed('dimmed', false);
+              if (lockedCode === tr.code) { lockedCode = null; updatePanel(null); g.selectAll('.state-path').classed('dimmed', false); }
+              else { lockedCode = tr.code; d3.select(this).classed('selected', true); updatePanel(tr.code); g.selectAll('.state-path').classed('dimmed', true); d3.select(this).classed('dimmed', false); }
               e.stopPropagation();
             })
             .on('dblclick', function(e) {
@@ -359,7 +360,7 @@ footer a { color:var(--accent); text-decoration:none; }
     });
 
   d3.select(document).on('keydown', function(e) {
-    if (e.key === 'Escape') { lockedCode = null; g.selectAll('.state-path').classed('selected',false); updatePanel(null); }
+    if (e.key === 'Escape') { lockedCode = null; g.selectAll('.state-path').classed('selected',false).classed('dimmed',false); updatePanel(null); }
   });
 
   function updatePanel(code) {
