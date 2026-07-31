@@ -147,6 +147,54 @@ main { padding:32px 0 60px; }
 .protest-details li:last-child { border:none; }
 .protest-details li strong { color:var(--text); font-weight:600; }
 
+.btn-trend {
+  display:inline-flex; align-items:center; gap:5px; padding:6px 14px;
+  font-size:0.72rem; font-weight:600; border-radius:5px; cursor:pointer;
+  border:1px solid var(--border); background:var(--bg-elevated); color:var(--text-dim);
+  transition:all 0.12s; font-family:var(--font); margin-top:8px;
+}
+.btn-trend:hover { border-color:var(--accent); color:var(--accent); background:rgba(220,69,54,0.06); }
+
+/* Trend modal */
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+  padding:28px 30px; width:640px; max-width:92vw; max-height:85vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.modal-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; gap:12px; }
+.modal-header h2 { font-size:1.1rem; font-weight:700; }
+.modal-close {
+  background:none; border:none; color:var(--text-dim); cursor:pointer;
+  font-size:1.3rem; padding:4px 8px; line-height:1; border-radius:4px;
+}
+.modal-close:hover { color:var(--text); background:var(--bg-elevated); }
+.chart-area { display:flex; gap:0; margin:8px 0 0; }
+.chart-yaxis {
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:4px 8px 28px 0; font-size:0.62rem; font-weight:600;
+  letter-spacing:0.04em; text-transform:uppercase; width:60px; flex-shrink:0;
+}
+.chart-yaxis span:nth-child(1) { color:var(--d-critical); }
+.chart-yaxis span:nth-child(2) { color:var(--d-high); }
+.chart-yaxis span:nth-child(3) { color:var(--d-moderate); }
+.chart-yaxis span:nth-child(4) { color:var(--d-low); }
+.chart-main { flex:1; }
+.chart-wrap { position:relative; height:120px; }
+.chart-wrap svg { width:100%; height:100%; }
+.trend-events { margin-top:16px; }
+.trend-event { display:flex; gap:10px; padding:5px 0; font-size:0.74rem; border-bottom:1px solid var(--border); align-items:flex-start; }
+.trend-event:last-child { border:none; }
+.trend-event .dot { width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+.trend-event .date { color:var(--text-muted); min-width:80px; font-size:0.7rem; }
+.trend-event .desc { color:var(--text-dim); line-height:1.35; }
+.trend-note { text-align:center; padding:14px; color:var(--text-muted); font-size:0.7rem; border-top:1px solid var(--border); margin-top:14px; }
+
 .news-section { margin-top:40px; padding-top:28px; border-top:1px solid var(--border); }
 .news-section h2 { font-size:1.1rem; font-weight:800; margin-bottom:16px; letter-spacing:-0.01em; }
 .news-item {
@@ -191,6 +239,10 @@ footer a { color:var(--accent); text-decoration:none; }
     </div>
   </div>
 </nav>
+
+<div class="modal-overlay" id="trendModal" onclick="closeTrend(event)">
+  <div class="modal" id="trendContent" onclick="event.stopPropagation()"></div>
+</div>
 
 <div class="container" id="app">
   <div class="error-text">Loading state data...</div>
@@ -404,6 +456,10 @@ footer a { color:var(--accent); text-decoration:none; }
         p.details.forEach(function(d) { html += '<li>'+d+'</li>'; });
         html += '</ul>';
       }
+      // Trend button
+      if (p.trendHistory && p.trendHistory.length >= 2) {
+        html += '<button class="btn-trend" onclick="event.stopPropagation();openTrend(\''+p.name.replace(/'/g,"\\'")+'\')">📈 Severity Trend ('+p.trendHistory.length+' points)</button>';
+      }
       html += '</div>';
     });
   }
@@ -450,6 +506,74 @@ footer a { color:var(--accent); text-decoration:none; }
     update();
   }
 })();
+
+// Trend chart popup
+window.openTrend = function(name) {
+  var protest = null;
+  Object.keys(STATE_DATA).forEach(function(code) {
+    (STATE_DATA[code].protests||[]).forEach(function(p) {
+      if (p.name === name) protest = p;
+    });
+  });
+  if (!protest || !protest.trendHistory || protest.trendHistory.length < 2) return;
+  
+  var pts = protest.trendHistory;
+  var W=540, H=120, padL=0;
+  var levelMap = {critical:10, high:35, moderate:60, low:85};
+  
+  var polyPoints = pts.map(function(p,i) {
+    var x = padL + (i/(pts.length-1))*(W-padL);
+    var y = levelMap[p.level] || 60;
+    return x+','+y;
+  }).join(' ');
+  
+  var circles = pts.map(function(p,i) {
+    var x = padL + (i/(pts.length-1))*(W-padL);
+    var y = levelMap[p.level] || 60;
+    var color = {critical:'#e62e1e',high:'#e86930',moderate:'#d4a020',low:'#2ea85a'}[p.level]||'#888';
+    return '<circle cx="'+x+'" cy="'+y+'" r="3.5" fill="'+color+'"/>';
+  }).join('');
+  
+  var dateLabels = pts.map(function(p,i) {
+    var x = padL + (i/(pts.length-1))*(W-padL);
+    var d = new Date(p.date);
+    var label = d.getDate()+' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+    return '<text x="'+x+'" y="'+(H+14)+'" fill="#888" font-size="8.5" font-family="-apple-system,sans-serif" text-anchor="middle">'+label+'</text>';
+  }).join('');
+  
+  var events = pts.map(function(p) {
+    var color = {critical:'#e62e1e',high:'#e86930',moderate:'#d4a020',low:'#2ea85a'}[p.level]||'#888';
+    var d = new Date(p.date);
+    var label = d.getDate()+' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+    return '<div class="trend-event"><span class="dot" style="background:'+color+';"></span><span class="date">'+label+'</span><span class="desc">'+(p.status||'').substring(0,150)+'</span></div>';
+  }).join('');
+  
+  var h='';
+  h+='<div class="modal-header"><h2>'+name+'</h2><button class="modal-close" onclick="closeTrend()">&times;</button></div>';
+  h+='<div class="chart-area">';
+  h+='<div class="chart-yaxis"><span>Critical</span><span>High</span><span>Moderate</span><span>Low</span></div>';
+  h+='<div class="chart-main"><div class="chart-wrap"><svg viewBox="0 0 '+W+' '+(H+18)+'">';
+  h+='<rect x="0" y="0" width="'+W+'" height="25" fill="rgba(230,46,30,0.07)"/>';
+  h+='<rect x="0" y="25" width="'+W+'" height="25" fill="rgba(232,105,48,0.04)"/>';
+  h+='<rect x="0" y="50" width="'+W+'" height="25" fill="rgba(212,160,32,0.03)"/>';
+  h+='<rect x="0" y="75" width="'+W+'" height="25" fill="rgba(46,168,90,0.03)"/>';
+  h+='<polyline points="'+polyPoints+'" fill="none" stroke="#dc4536" stroke-width="2" stroke-linecap="round"/>';
+  h+=circles+dateLabels;
+  h+='</svg></div></div></div>';
+  h+='<div class="trend-events">'+events+'</div>';
+  h+='<div class="trend-note">Trend data tracked by the cron. Updates every 4 hours.</div>';
+  
+  document.getElementById('trendContent').innerHTML=h;
+  document.getElementById('trendModal').classList.add('open');
+};
+
+window.closeTrend = function(e) {
+  if (e && e.target !== document.getElementById('trendModal')) return;
+  document.getElementById('trendModal').classList.remove('open');
+};
+document.addEventListener('keydown',function(e) {
+  if (e.key==='Escape') document.getElementById('trendModal').classList.remove('open');
+});
 </script>
 </body>
 </html>

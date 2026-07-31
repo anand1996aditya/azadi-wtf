@@ -90,6 +90,25 @@ foreach ($data['cities'] as $citySlug => &$city) {
 
             if ($analysis) {
                 $oldLevel = $protest['dangerLevel'];
+                
+                // Track trend history — save BEFORE applying new analysis
+                if (!isset($protest['trendHistory'])) $protest['trendHistory'] = [];
+                $lastEntry = end($protest['trendHistory']);
+                $newLevel = $analysis['dangerLevel'] ?? $oldLevel;
+                $shouldAdd = !$lastEntry || 
+                    $lastEntry['level'] !== $oldLevel ||
+                    (time() - strtotime($lastEntry['date'])) > 21600;
+                if ($shouldAdd) {
+                    $protest['trendHistory'][] = [
+                        'date' => date('c'),
+                        'level' => $oldLevel,
+                        'status' => substr($protest['status'], 0, 200)
+                    ];
+                    if (count($protest['trendHistory']) > 60) {
+                        $protest['trendHistory'] = array_slice($protest['trendHistory'], -60);
+                    }
+                }
+                
                 $protest = applyAnalysis($protest, $analysis);
                 $updated++;
                 $levelChange = ($oldLevel !== $protest['dangerLevel']) ? " [{$oldLevel} -> {$protest['dangerLevel']}]" : "";
