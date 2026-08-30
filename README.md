@@ -1,76 +1,100 @@
-# azadi.wtf ✊ — v2.0
+# azadi.wtf ✊ — v3.0
 
-Interactive India protest map with real-time safety assessments. 28 states, 100+ protests, 10 historic movements. Know what's happening in every state before you go.
+Real-time protest-safety platform for India. Interactive map, per-state protest details, and a downloadable safety guide.
 
-**[azadi.wtf](https://azadi.wtf)** is live. 28 states tracked. 100+ protests. Auto-updated every 4 hours.
+**[azadi.wtf](https://azadi.wtf)** is live. **37 states/UTs tracked, 95+ protests monitored**, 10 historic movements, auto-updated **every 12 hours**.
 
 ---
 
 ## What It Does
 
-- **Interactive India map** — Hover any state to preview protests. Click to lock — then click any protest for full details with risk assessments, police presence, medical access, and legal support. Delhi auto-selected on load.
-- **State detail pages** — Each state has a dedicated page with all active protests, full danger assessments, multi-line risk analysis, and 5–10 latest news articles from The Hindu, BBC, CNN, Al Jazeera, NDTV, Guardian, and more.
-- **Protest safety guide** — 9 sections: Before a Protest, What to Bring, During a Protest, Protection Against Weapons (tear gas, batons, pellet guns, water cannons), After a Protest, Protest Roles, Legal Resources in India, Tech Tools, Glossary.
-- **Downloadable PDF** — Clean, print-formatted guide with page breaks. 1-click download from any page.
-- **Auto-updating** — Cron job triggers Tavily web search + DeepSeek analysis every 4 hours. Fresh danger assessments without manual intervention.
-- **Admin panel** — Password-protected dashboard at `/admin` for manual data editing.
+- **Interactive India map** — hover any state to preview, click to lock, click a protest for full details (risk assessment, police presence, medical access, legal support). All map assets are **self-hosted** for fast, reliable loads.
+- **State detail pages** — full danger assessment, risk analysis, and the latest news per protest.
+- **Protest safety guide** — 9 sections + downloadable PDF.
+- **Auto-updating** — a multi-source search fallback chain feeds DeepSeek analysis every 12 hours.
+- **Admin panel** — password-protected dashboard at `/admin`.
+- **Deterministic data-quality engine** — deduplication, staleness demotion, anti-hallucination, and URL hygiene (see below).
 
 ## Architecture
 
 ```
-Tavily Search API          DeepSeek API
-      │                        │
-      ▼                        ▼
- cron/update.php  ────  analyzes news, updates risk
-      │
-      ▼
- data/protests.json   ◄──  admin/index.php (manual edits)
-      │
-      ▼
- api/protests.php     ◄──  frontend fetches live data
-      │
-      ▼
- index.html · state.html · guide.html
+Search fallback chain          DeepSeek (deepseek-chat)
+  TinyFish → Tavily →             │
+  Firecrawl → SerpAI              ▼
+        │                   cron/update.php ── analyzes news, updates risk
+        ▼                         │
+  search.php (shared)             ▼
+                              data/protests.json  ◄── admin/index.php (manual edits)
+                                   │
+                                   ▼
+                              api/protests.php  ◄── frontend fetches live data
+                                   │
+                                   ▼
+                              index.html · state.html · guide.html
 ```
 
-The homepage (`index.html`) uses d3.js + TopoJSON from covid19india dataset for an accurate, interactive India map. State data is loaded from `data.js` with 100+ protests across 28 states.
+The homepage uses d3.js + TopoJSON (both self-hosted in `assets/`) for the map. State data is served from `data.js`, synced from `protests.json`.
 
-### Data Loading Priority (Frontend)
+## Search Fallback Chain (cost-optimised)
 
-1. **PHP API** — live data from cron-updated `protests.json`
-2. **Static JSON file** — fallback for simple hosting
-3. **Embedded data** — offline/local fallback
+Order: **TinyFish → Tavily → Firecrawl → SerpAI** (free-first, most expensive last).
+
+| # | Tool | Cost (approx) |
+|---|---|---|
+| 1 | TinyFish | Free |
+| 2 | Tavily | Free tier, then ~$0.008/search |
+| 3 | Firecrawl | Free tier, then $16–83/mo |
+| 4 | SerpAI | Free 250, then $75–150/mo |
+
+The chain lives **only** in `cron/search.php` (`searchWeb()`). If one source fails or hits its quota, it automatically falls through to the next — verified live.
+
+## Deterministic Data-Quality Checks
+
+These run at the code level (not relying on the LLM), layered across the pipeline:
+
+- **Pre-analysis (token savers)** — `lastChecked` re-check cadence; "no new info" short-circuit (skips DeepSeek when search results are empty/unchanged); headline dedup; discovery dedup (exact + fuzzy).
+- **Post-analysis validation** — strict JSON schema validation + one retry; cross-field consistency (auto-downgrade on "calm"/"concluded" status vs. high/critical level); URL stripping (zero URLs allowed in prose).
+- **Recency & staleness** — `recencyDays` + `confidence` from DeepSeek; recency demotion (critical/high with incident > 7d → moderate); staleness cap (no fresh analysis > 7d → moderate); dormant auto-archive (low + stale → removed).
+- **Cross-source reliability** — level changes require 2 consecutive runs to commit (anti-flapping); every protest records its `source` (which search API supplied the data).
+- **Data hygiene** — stable protest IDs (hash of name); per-protest staleness monitor.
 
 ## File Structure
 
 ```
-├── index.html              India map homepage (d3.js + TopoJSON)
-├── state.html              State detail page (?code=MH)
-├── guide.html              Full protest guide with sidebar navigation
-├── data.js                 State protest data (100+ protests, 28 states)
-├── style.css               Design system for guide + state pages
-├── guide-print.html        Print-optimized HTML (generates PDF)
-├── Protest Safely.pdf      Downloadable guide PDF
-├── .htaccess               Apache security rules + HTTPS redirect
-├── SECURITY.md             Security & integrity assessment checklist
+├── index.html / state.html / guide.html / history.html / checklist.html
+├── style.css / script.js / data.js         (frontend)
+├── .htaccess                                (Apache security + HTTPS)
+├── SECURITY.md
 │
-├── config.php              API keys & settings (EXCLUDED from git)
+├── config.php                               (PHP API keys — GITIGNORED)
+│
+├── assets/                                  (self-hosted, no CDN)
+│   ├── india.json                           (map TopoJSON)
+│   ├── d3.v7.min.js
+│   └── topojson-client.min.js
 │
 ├── data/
-│   ├── protests.json       City-level protest data (legacy, cron-updated)
-│   ├── auth.json           Admin bcrypt hash (EXCLUDED from git)
-│   └── .htaccess           Block direct web access
+│   ├── protests.json                        (live protest data)
+│   ├── auth.json                            (admin bcrypt — GITIGNORED)
+│   └── .htaccess
 │
 ├── api/
-│   └── protests.php        Public JSON API endpoint
+│   ├── protests.php                         (public JSON endpoint)
+│   └── test-serpai.php                      (search-source test)
 │
 ├── admin/
-│   └── index.php           Password-protected admin dashboard
+│   └── index.php
 │
 └── cron/
-    ├── update.php          Auto-updater: Tavily search → DeepSeek → JSON
-    ├── push.php            File deployment endpoint
-    └── .htaccess           Block web access (CLI-only)
+    ├── run.php                              (master cron entrypoint)
+    ├── update.php                           (auto-updater: search → DeepSeek → JSON)
+    ├── search.php                           (shared fallback chain)
+    ├── verify.php                           (political data verification)
+    ├── verify_news.php / verify_news.js     (news-link verification)
+    ├── healthcheck.js                       (full health check)
+    ├── keys.json                            (JS API keys — GITIGNORED)
+    ├── keys.example.json                    (template)
+    └── push.php / sync.php / sync_datajs.php
 ```
 
 ## Setup
@@ -82,59 +106,65 @@ git clone https://github.com/anand1996aditya/azadi-wtf.git
 cd azadi-wtf
 ```
 
-### 2. Configure
+### 2. Configure API keys
 
-Create `config.php`:
+Two gitignored files hold the keys (never commit real keys):
+
+**`config.php`** (PHP scripts — update.php, verify.php, verify_news.php):
 
 ```php
 <?php
-define('DEEPSEEK_API_KEY', 'sk-your-key-here');
-define('DEEPSEEK_API_URL', 'https://api.deepseek.com/v1/chat/completions');
-define('DEEPSEEK_MODEL', 'deepseek-v4-pro');
+define('DEEPSEEK_API_KEY', 'sk-...');
+define('DEEPSEEK_MODEL', 'deepseek-chat');
+define('TAVILY_API_KEY', 'tvly-...');
+define('SERPAI_API_KEY', '...');
+define('FIRECRAWL_API_KEY', 'fc-...');
+define('TINYFISH_API_KEY', 'sk-tinyfish-...');
+define('CRON_SECRET', '...');
+```
 
-define('TAVILY_API_KEY', 'tvly-your-key-here');
-define('TAVILY_API_URL', 'https://api.tavily.com/search');
+**`cron/keys.json`** (Node scripts — healthcheck.js, verify_news.js) — copy `keys.example.json` and fill in:
 
-define('INTERVAL_CRITICAL', 3600);
-define('INTERVAL_HIGH',     10800);
-define('INTERVAL_MODERATE', 43200);
-define('INTERVAL_LOW',      86400);
-
-define('CRON_SECRET', 'your-random-64-char-string');
-
-define('DATA_FILE', __DIR__ . '/data/protests.json');
-define('LOG_FILE',  __DIR__ . '/data/update.log');
+```json
+{
+  "TINYFISH": "sk-tinyfish-...",
+  "FIRECRAWL": "fc-...",
+  "SERPAI": "...",
+  "TAVILY": "tvly-...",
+  "DEEPSEEK": "sk-...",
+  "CRON_SECRET": "..."
+}
 ```
 
 ### 3. Deploy
 
-Upload to any PHP-capable host (Hostinger, Apache/Nginx + PHP 7.4+). Set `data/` directory to writable (`chmod 755`).
+Upload to any PHP-capable host (Hostinger, Apache/Nginx + PHP 8.x). Make `data/` writable.
 
 ### 4. Enable Auto-Updates
 
 Add a cron job (Hostinger cPanel → Cron Jobs):
 
 ```
-0 */4 * * * /usr/bin/php /home/your-user/domains/azadi.wtf/public_html/cron/update.php
+0 0,12 * * * /usr/bin/php /home/your-user/domains/azadi.wtf/public_html/cron/run.php
 ```
 
-Runs every 4 hours. Updates all protests with fresh Tavily search + DeepSeek analysis.
+Runs at 00:00 and 12:00. `run.php` chains the protest update → news-link verification → political verification.
 
 ### 5. Secure
 
-- Delete `cron/sync.php` if it exists (temporary deployment tool)
-- Log into `/admin` and change the default password immediately
-- Enable SSL (Let's Encrypt) — `.htaccess` auto-redirects HTTP to HTTPS
+- Delete `cron/sync.php` if present.
+- Log into `/admin` and change the default password.
+- Enable SSL — `.htaccess` auto-redirects HTTP → HTTPS.
+- Confirm `.gitignore` excludes `config.php`, `cron/keys.json`, and `data/auth.json`.
 
 ## GitHub Actions Deploy
 
-Push to `main` and changed files auto-deploy to azadi.wtf via GitHub Actions. Set `AZADI_CRON_SECRET` in repository secrets.
+Push to `main` and changed frontend files auto-deploy to azadi.wtf via GitHub Actions. Set `AZADI_CRON_SECRET` in repository secrets.
 
 ## Updating Content
 
-**Option A — Admin panel:** Go to `/admin`, log in, edit the JSON directly, save.
-
-**Option B — Edit the JSON:** Modify `data/protests.json` and re-upload.
+- **Admin panel:** `/admin` → log in → edit → save.
+- **JSON:** edit `data/protests.json` and re-upload.
 
 ## License
 
