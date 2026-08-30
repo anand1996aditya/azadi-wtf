@@ -2,7 +2,7 @@
 /**
  * Political Data + Protest Guide Verification Cron
  * Verifies CM/party data for all 28 states AND checks key guide references.
- * Uses Tavily for cross-verification. Logs to data/verify.log.
+ * Uses TinyFish → Tavily → Firecrawl → SerpAI for cross-verification. Logs to data/verify.log.
  * 
  * Schedule: Every 3 days (twice weekly)
  * Usage: php cron/verify.php
@@ -10,6 +10,8 @@
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/search.php';
+$GLOBALS['AZADI_LOG'] = 'vlog';
 
 $isCLI = (php_sapi_name() === 'cli');
 if (!$isCLI) {
@@ -68,44 +70,21 @@ foreach ($states as $code => $info) {
     
     $query = "$name chief minister 2026 current";
     
-    $ch = curl_init(TAVILY_API_URL);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => json_encode([
-            'api_key' => TAVILY_API_KEY,
-            'query' => $query,
-            'search_depth' => 'basic',
-            'include_answer' => true,
-            'max_results' => 3
-        ]),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
-    ]);
+    $result = searchWeb($query);
+    $answer = $result['answer'] ?? '';
+    $combined = $answer . "\n" . implode("\n", array_map(function ($h) {
+        return ($h['title'] ?? '') . ' ' . ($h['content'] ?? '');
+    }, $result['headlines'] ?? []));
     
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($httpCode !== 200) {
-        vlog("  ERROR: $name — Tavily API returned HTTP $httpCode");
-        $issues++;
-        usleep(500000);
-        continue;
-    }
-    
-    $data = json_decode($response, true);
-    $answer = $data['answer'] ?? '';
-    
-    // Check if CM name appears in the answer
-    $cmMatch = (stripos($answer, $expectedCM) !== false);
-    $partyMatch = (stripos($answer, $expectedParty) !== false);
+    // Check if CM name appears in the results
+    $cmMatch = (stripos($combined, $expectedCM) !== false);
+    $partyMatch = (stripos($combined, $expectedParty) !== false);
     
     if ($cmMatch && $partyMatch) {
         vlog("  ✓ $name — $expectedCM ($expectedParty) verified");
     } else {
         vlog("  ✗ $name — DISCREPANCY: Expected $expectedCM ($expectedParty)");
-        vlog("    Tavily answer: " . substr($answer, 0, 200));
+        vlog("    Search results: " . substr($combined, 0, 200));
         $issues++;
     }
     
@@ -168,39 +147,16 @@ $guideChecks = [
 ];
 
 foreach ($guideChecks as $check) {
-    $ch = curl_init(TAVILY_API_URL);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => json_encode([
-            'api_key' => TAVILY_API_KEY,
-            'query' => $check['query'],
-            'search_depth' => 'basic',
-            'include_answer' => true,
-            'max_results' => 3
-        ]),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
-    ]);
+    $result = searchWeb($check['query']);
+    $answer = $result['answer'] ?? '';
+    $combined = $answer . "\n" . implode("\n", array_map(function ($h) {
+        return ($h['title'] ?? '') . ' ' . ($h['content'] ?? '');
+    }, $result['headlines'] ?? []));
     
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    
-    if ($httpCode !== 200) {
-        vlog("  ERROR: {$check['name']} — Tavily API HTTP $httpCode");
-        $issues++;
-        usleep(500000);
-        continue;
-    }
-    
-    $data = json_decode($response, true);
-    $answer = $data['answer'] ?? '';
-    
-    // Check if any keyword appears in the answer
+    // Check if any keyword appears in the results
     $found = false;
     foreach ($check['keywords'] as $kw) {
-        if (stripos($answer, $kw) !== false) {
+        if (stripos($combined, $kw) !== false) {
             $found = true;
             break;
         }
@@ -211,7 +167,7 @@ foreach ($guideChecks as $check) {
     } else {
         $flag = $check['critical'] ? 'CRITICAL' : 'WARNING';
         vlog("  ✗ {$check['name']} — $flag: Reference may be outdated or changed");
-        vlog("    Tavily: " . substr($answer, 0, 200));
+        vlog("    Search: " . substr($combined, 0, 200));
         $issues++;
     }
     

@@ -1,6 +1,3 @@
-/**
- * India Protest Map — State Data
- */
 var STATE_DATA = {
   "DL": {
     "legalAid": {
@@ -29,7 +26,7 @@ var STATE_DATA = {
     "alliance": "NDA",
     "opposition": "AAP",
     "lastElection": "2025",
-    "totalProtests": 5,
+    "totalProtests": 2,
     "demographics": {
       "population": "21.6M (2024 est.) | 16.8M (Census 2011)",
       "area": "1,484 km² (573 sq mi)",
@@ -121,76 +118,26 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "CJP (Cockroach Janta Party) Jantar Mantar Sit-in",
-        "location": "Jantar Mantar, Central Delhi",
-        "cause": "Gen-Z-led movement demanding Education Minister Dharmendra Pradhan's resignation over the NEET-UG paper leak scandal. Over 20 students died by suicide following the exam cancellation. Sonam Wangchuk joined with a 26-day hunger strike. The movement has spread nationwide and internationally.",
-        "dangerLevel": "low",
-        "dangerReason": "The primary demand for the minister's resignation was met, leading to the conclusion of the protest. With protesters gone and no active confrontation, the risk of violence or escalation is minimal.",
-        "status": "The CJP sit-in protest at Jantar Mantar has ended after the government accepted the party's demands, including the resignation of Education Minister Dharmendra Pradhan. Activists celebrated the victory and dispersed. No ongoing protest activity is reported, and the area remains calm.",
-        "details": [
-          "Police presence: light, normal administrative deployment; no crowd-control measures in effect.",
-          "Recent incidents: The protest ended peacefully after the government's acceptance of demands; the July 20 crackdown involving tear gas and lathi charges was the last reported violence, and no new incidents have occurred.",
-          "Medical access: fully available; earlier injuries from the July 20 police action were treated, and no ongoing medical emergency exists.",
-          "Legal support: previously detained protesters were released on bail; no current legal needs reported."
-        ]
-      },
-      {
-        "name": "Farmers' MSP Guarantee March",
-        "location": "Singhu Border and Ramlila Maidan",
-        "cause": "Demanding legal guarantee for Minimum Support Price (MSP) for all crops, complete farm loan waiver, and withdrawal of cases against farmers from previous agitations.",
-        "dangerLevel": "high",
-        "dangerReason": "The sealing of border crossings with heavy police presence and the blocking of the farmers' march indicate a tense, high-stakes standoff. Although no clashes have been confirmed recently, the determination of protesters and lack of government concessions create significant risk of escalation.",
-        "status": "Farmers under the 'Desh Bachao Morcha' were stopped at Shambhu-Ambala and Khanauri-Jind inter-state borders on July 21 while attempting to march to Delhi against the India-US trade deal and for MSP guarantees. Heavy security continues at border points. No violence reported.",
-        "details": [
-          "Police presence: Heavy — Shambhu border sealed and heavily fortified",
-          "Recent incidents: Farmers intercepted at Shambhu-Ambala and Khanauri-Jind on July 21 while heading to Delhi",
-          "Medical access: Likely restricted in border areas due to security cordon",
-          "Legal support: Farm union legal cells active across Delhi borders"
-        ]
-      },
-      {
-        "name": "Save Delhi Ridge — Stop Tree Felling",
-        "location": "Delhi Ridge Forest, South-Central Delhi",
-        "cause": "Environmental activists and residents protesting the felling of thousands of trees across Delhi's Ridge forest area for infrastructure projects. Part of a nationwide wave of tree protection movements.",
-        "dangerLevel": "low",
-        "dangerReason": "The situation is low risk due to enhanced legal protection of the ridge, ongoing judicial oversight by the Supreme Court, and administrative measures. Protests are political and peaceful with no reported clashes or police violence.",
-        "status": "The Delhi government has notified over 75% of the central ridge as reserved forest, strengthening legal protections. AAP held a protest against proposed felling of 1,100 trees, and the Supreme Court is examining the matter. No violence reported.",
-        "details": [
-          "Police presence: Light — administrative and focused on legal compliance",
-          "Recent incidents: AAP protested against tree felling; Supreme Court on July 12 sought clarifications from DDA",
-          "Medical access: Available — no protests have required emergency response",
-          "Legal support: Robust — reserved forest status and Supreme Court case provide legal recourse"
-        ]
-      },
-      {
-        "name": "JNU Student Union Solidarity Protest",
-        "location": "JNU Campus, South Delhi",
-        "cause": "Students demanding restoration of campus autonomy, reversal of hostel fee hikes, and solidarity with the national CJP education reform movement.",
-        "dangerLevel": "low",
-        "dangerReason": "Campus-based movement. Peaceful assemblies with strong student union organization. No external confrontations or police action.",
-        "status": "Ongoing campus movement with regular student assemblies, cultural programs, and teach-ins. Strong tradition of student activism ensures organized, peaceful conduct. Faculty expressing solidarity through statements.",
-        "details": [
-          "Police presence: Minimal — outside campus only",
-          "Recent incidents: None — entirely campus-based peaceful assemblies",
-          "Medical access: Available on campus",
-          "Legal support: University legal aid and student union support"
-        ]
-      },
-      {
-        "name": "Delhi Labour Unions — Minimum Wage Enforcement",
-        "location": "Multiple locations — Karol Bagh, Okhla Industrial Area, Rohini",
-        "cause": "Unorganized sector workers demanding enforcement of minimum wage laws, regularization of contract workers, and better working conditions under the Delhi Minimum Wages Act.",
-        "dangerLevel": "low",
-        "dangerReason": "Peaceful union-organized marches with prior permissions. No police confrontations. Long-running advocacy movement.",
-        "status": "Regular peaceful union marches across industrial areas. Focus on policy advocacy and worker rights awareness. Cooperative approach with labour department authorities.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful union-organized demonstrations",
-          "Medical access: Not a concern",
-          "Legal support: Labour unions and legal aid centers providing representation"
-        ]
-      }
+  {
+    "name": "Farmers' MSP Guarantee March",
+    "location": "Singhu Border and Ramlila Maidan",
+    "cause": "Demanding legal guarantee for Minimum Support Price (MSP) for all crops, complete farm loan waiver, and withdrawal of cases against farmers from previous agitations",
+    "dangerLevel": "moderate",
+    "dangerReason": "The situation remains unresolved with heavy security deployment and sealed border points at Shambhu Border, sustaining a standoff. While no fresh violence has occurred since the July 21 tear gas incident, the lack of de-escalation measures and the farmers' unwavering demands maintain a moderate risk of renewed confrontation.",
+    "status": "As of August 3, 2026, the farmers' MSP Guarantee March remains tense but stable. No new clashes or violence have been reported since the July 21 tear gas incident at Shambhu Border that injured eight protesters. Thousands of farmers continue to occupy the Singhu Border area, while a large gathering at Ramlila Maidan protests the proposed India-US trade deal.",
+    "details": ["Police presence: heavy at Shambhu Border, Singhu Border, and other entry points; roadblocks and barricades remain in place with internet services suspended in some areas.", "Recent incidents: no new incidents reported since July 21, when police used tear gas on protesters, injuring eight; the march was halted but the protest continues.", "Medical access: likely available but may be restricted near protest sites due to security cordons; no reports of medical blocks.", "Legal support: Samyukt Kisan Morcha (SKM) and affiliated organizations remain active, providing coordination and legal aid; no new reports of mass detentions."],
+    "trendHistory": [{"date":"2026-08-01T00:00:25+00:00","level":"moderate","status":"Farmers continue their demand for MSP legal guarantee, with the last significant protest on July 21, 2026, at Singhu Border and Ramlila Maidan. Heavy security remains deployed and border points are se"},{"date":"2026-08-01T04:00:35+00:00","level":"high","status":"On July 21, 2026, thousands of farmers marched towards Delhi from Punjab, reaching Singhu Border and Ramlila Maidan to demand MSP legal guarantee and oppose the India-US trade deal. Heavy security rem"},{"date":"2026-08-01T12:00:23+00:00","level":"critical","status":"On July 21, 2026, thousands of farmers marching towards Delhi were met with tear gas at the Shambhu border, resulting in at least 8 injuries and halting the protest march. The farmers have since gathe"},{"date":"2026-08-02T00:00:19+00:00","level":"moderate","status":"As of the latest information, no new incidents of violence or injuries have been reported since the July 21, 2026, tear gas episode at the Shambhu border. The farmers’ gathering at Ramlila Maidan ap"},{"date":"2026-08-02T12:00:24+00:00","level":"moderate","status":"Farmers gathered at Ramlila Maidan to oppose the India–US trade deal and demand MSP guarantees, with thousands marching toward Shambhu Border. Heavy security remains at the border, but no new clashe"},{"date":"2026-08-03T08:00:23+00:00","level":"moderate","status":"The Farmers' MSP Guarantee March remains in a state of tense calm following the major rally at Ramlila Maidan earlier in 2026. As of July 21, 2026, thousands of farmers marching toward Delhi were halt"},{"date":"2026-08-03T20:00:32+00:00","level":"moderate","status":"As of August 2, 2026, the farmers' MSP Guarantee March remains in a tense but stable state. No new clashes or violence have been reported since the July 21 tear gas incident at Shambhu Border that inj"}]
+  },
+  {
+    "name": "CJP Jantar Mantar — Amit Shah Resignation Protest",
+    "location": "Jantar Mantar, Delhi",
+    "cause": "Demand for Amit Shah resignation over July 20 police crackdown; student protests over exam irregularities; police accountability",
+    "dangerLevel": "moderate",
+    "dangerReason": "Active protest with shifting tactics after crackdown. AISA hunger strike ended but Cockroach movement vowed to continue. Left MPs visiting. 118 police injured in July 20 action. Tensions remain high.",
+    "status": "The protest at Jantar Mantar remains active as of August 2026. AISA leaders ended their 23-day hunger strike but pledged to continue other forms of struggle. The Cockroach movement has vowed to persist despite the July 20 police crackdown, and a parliamentary march was attempted. While immediate confrontations have subsided, the movement is regrouping with multiple organizations maintaining pressure.",
+    "details": ["Police presence: Thousands deployed at Jantar Mantar; barricades erected; drones used for surveillance", "Recent incidents: 118 police injured in July 20 crackdown; multiple detainees; AISA hunger strike from July 5-27; Left MPs visited July 21; parliamentary march attempted August 2", "Medical access: Medical camps present at protest site; injured protesters transported to RML Hospital; ambulance on standby", "Legal support: Multiple legal aid organizations offering support for detained protesters; JNU legal aid cell active; Human Rights Law Network providing pro bono services"],
+    "trendHistory": []
+  }
     ]
   },
   "MH": {
@@ -221,7 +168,7 @@ var STATE_DATA = {
     "alliance": "NDA",
     "opposition": "INC",
     "lastElection": "2024",
-    "totalProtests": 5,
+    "totalProtests": 6,
     "demographics": {
       "population": "126M (2024 est.) | 112M (Census 2011)",
       "area": "307,713 km² (3rd largest)",
@@ -313,76 +260,66 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "CJP Mumbai Solidarity Rally",
-        "location": "Azad Maidan, South Mumbai",
-        "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement demanding NEET accountability and Education Minister's resignation. Mumbai's Azad Maidan has become the city's primary protest site.",
-        "dangerLevel": "high",
-        "dangerReason": "Moderate to heavy police presence. 400 people booked and 13 FIRs registered in just five days for protesting without permission. Police have imposed area restrictions. Situation can escalate quickly depending on crowd size and sensitive dates.",
-        "status": "Active and ongoing. Daily rallies at Azad Maidan with varying crowd sizes. Police generally allow peaceful assembly but have actively booked participants. Legal observer networks are present and active. College students and young professionals are primary participants.",
-        "details": [
-          "Police presence: Moderate to heavy — 400 booked, 13 FIRs in 5 days",
-          "Recent incidents: Organizers detained on specific occasions, Sec 163 area restrictions imposed",
-          "Medical access: Street medics generally allowed access",
-          "Legal support: Strong network — Mumbai legal aid groups and law college volunteers present"
-        ]
-      },
-      {
-        "name": "Stop Amazon Data Center — Save Water, Save Homes",
-        "location": "Kalwa, Airoli, and Digha — Navi Mumbai",
-        "cause": "Residents opposing large-scale data center construction including Amazon's proposed facility, citing severe water scarcity, environmental damage, and land acquisition concerns in already water-stressed areas of Navi Mumbai.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Localized protests in Navi Mumbai. Police presence is administrative. Growing tension between residents and project authorities. Environmental impact assessments being legally challenged.",
-        "status": "Active community resistance. Daily sit-ins near proposed data center sites. Environmental activists and citizens' groups have joined forces. Legal challenges filed in Bombay High Court. Part of growing national anti-data center movement.",
-        "details": [
-          "Police presence: Light to moderate — standard crowd management",
-          "Recent incidents: Verbal confrontations with construction security, no violence",
-          "Medical access: Not a concern — protests in residential areas",
-          "Legal support: Environmental lawyers involved, PILs under consideration"
-        ]
-      },
-      {
-        "name": "Save Aarey Forest — No More Tree Felling",
-        "location": "Aarey Colony, Goregaon, Western Suburbs",
-        "cause": "Residents and environmentalists protesting ongoing tree felling and construction in Mumbai's last major green lung — the Aarey Milk Colony. Opposition to metro car shed expansion and encroachment on forest land.",
-        "dangerLevel": "low",
-        "dangerReason": "Long-running peaceful citizen movement. Court orders from Bombay High Court have provided some protection. Protests are organized and non-confrontational. Police presence is minimal.",
-        "status": "Ongoing citizen-led conservation movement. Regular weekend gatherings and tree plantation drives attracting hundreds. Legal protections partially in place. Community-maintained vigilance against illegal tree cutting. Peaceful throughout.",
-        "details": [
-          "Police presence: Minimal — administrative",
-          "Recent incidents: None — peaceful citizen engagement",
-          "Medical access: Not a concern",
-          "Legal support: Bombay High Court has intervened, ongoing litigation"
-        ]
-      },
-      {
-        "name": "Farmers' Loan Waiver & MSP Protest — Vidarbha Region",
-        "location": "Nagpur, Amravati, Yavatmal — Vidarbha region",
-        "cause": "Farmers from Vidarbha and Marathwada demanding complete loan waiver, higher MSP for cotton and soybean, and compensation for crop losses due to unseasonal rains and drought.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Active farmer mobilization in rural Maharashtra. Some confrontations during protests at district collector offices. Long-running agrarian distress in the region with history of farmer suicides.",
-        "status": "Active farmer union protests across Vidarbha. Memoranda submitted to state government. Focus on policy advocacy and pressure through peaceful but determined demonstrations.",
-        "details": [
-          "Police presence: Light to moderate — varies by protest location",
-          "Recent incidents: Some scuffles at collector office protests",
-          "Medical access: Available — farmer unions have support networks",
-          "Legal support: Farm union legal cells and Vidarbha farmer organizations active"
-        ]
-      },
-      {
-        "name": "Pune IT Workers Union — Fair Layoff Practices",
-        "location": "Hinjewadi IT Park and EON IT Park, Kharadi, Pune",
-        "cause": "IT sector employees protesting mass layoffs without adequate severance. Demanding stronger labor protections for tech workers and fair retrenchment policies under Indian labor law.",
-        "dangerLevel": "low",
-        "dangerReason": "Peaceful workplace-adjacent demonstrations. No police confrontations. Protests organized through unions and employee associations with prior permissions.",
-        "status": "Active union-led movement across Pune's IT hubs. Regular lunch-hour demonstrations outside tech parks. Growing solidarity among tech workers. Focus on policy advocacy and legal protections.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful demonstrations",
-          "Medical access: Not a concern",
-          "Legal support: Labor law advocates and IT employee unions providing representation"
-        ]
-      }
+  {
+    "name": "CJP Mumbai Solidarity Rally",
+    "location": "Azad Maidan, South Mumbai",
+    "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement demanding NEET accountability and Education Minister's resignation",
+    "dangerLevel": "low",
+    "dangerReason": "No active protest is currently taking place, and there have been no recent incidents of violence or police action. While the heavy police response in July created a tense environment, the immediate situation is peaceful and stable.",
+    "status": "As of early August 2026, no new CJP solidarity rallies have been reported at Azad Maidan since the July 20 protest. The area remains physically calm with no active demonstrations, and search results from late July only confirm the earlier crackdown of 400 bookings and 13 FIRs.",
+    "details": ["Police presence: Minimal; no heavy deployment reported at Azad Maidan since the July crackdown.", "Recent incidents: None; the last known activity was the filing of 13 FIRs and booking of over 400 people by July 23, 2026.", "Medical access: Unrestricted, as no protest or police action is underway.", "Legal support: Required for those booked in July; current status of cases is unknown but no new arrests have been reported."],
+    "trendHistory": [{"date":"2026-07-31T20:01:13+00:00","level":"moderate","status":"No new protests have been reported at Azad Maidan since the rally on July 20, 2026. The police have filed 13 FIRs and booked approximately 400 participants for unauthorized gatherings, while maintaini"},{"date":"2026-08-01T08:01:05+00:00","level":"moderate","status":"As of the latest search results, no new protests or gatherings have been reported at Azad Maidan since the July 20, 2026 rally. The site remains physically calm with no active demonstrations or confro"},{"date":"2026-08-01T20:00:41+00:00","level":"moderate","status":"As of latest intelligence, no new CJP solidarity protests have been reported at Azad Maidan since the July 20, 2026 rally. The site remains physically calm with no active demonstrations, but the heavy"},{"date":"2026-08-02T08:00:19+00:00","level":"moderate","status":"No new CJP solidarity protests have occurred at Azad Maidan since the July 20, 2026 rally. The site remains physically calm with no active demonstrations, but the legal fallout continues with 13 FIRs "},{"date":"2026-08-02T20:00:24+00:00","level":"moderate","status":"No new CJP solidarity protests have been reported at Azad Maidan since the July 20, 2026 rally. The area remains physically calm with no active demonstrations, though legal proceedings from earlier pr"},{"date":"2026-08-03T08:00:50+00:00","level":"moderate","status":"As of early August 2026, no new CJP solidarity rallies have been reported at Azad Maidan since the July 20 protest. The area remains physically calm with no active demonstrations, though the aftermath"}]
+  },
+  {
+    "name": "Stop Amazon Data Center — Save Water, Save Homes",
+    "location": "Kalwa, Airoli, and Digha areas, Navi Mumbai",
+    "cause": "Residents opposing large-scale data center construction including Amazon's proposed facility, citing severe water scarcity, environmental damage, and land acquisition concerns in already water-stressed areas",
+    "dangerLevel": "moderate",
+    "dangerReason": "The July 19 protest was entirely peaceful with no reports of police violence, detentions, or restrictions. While underlying water and environmental grievances remain unresolved and future protests are possible, there is no evidence of recent escalation or immediate threat to public safety.",
+    "status": "No new protests have been reported since the July 19, 2026, demonstration in Thane. Current search results only reference that peaceful event and confirm no escalation or further mobilization in Kalwa, Airoli, or Digha areas. The situation remains stable with no fresh incidents.",
+    "details": ["Police presence: moderate at the July 19 protest; no confrontations reported. Current presence likely minimal as no new gatherings have occurred.", "Recent incidents: A mass peaceful protest on July 19, 2026, outside the data center site, with residents voicing concerns over water and environment. No incidents of violence or arrests were reported.", "Medical access: unrestricted; no injuries or medical emergencies reported during the protest.", "Legal support: unknown; local leaders and political parties have opposed the project, but no ongoing legal actions affecting protestor rights have been highlighted in search results."],
+    "trendHistory": [{"date":"2026-07-31T20:01:32+00:00","level":"moderate","status":"No new protests or incidents have been reported since the large peaceful demonstration on July 19, 2026. The situation remains calm; community group Wakeup Thanekars continues dialogue with authoritie"},{"date":"2026-08-01T08:01:24+00:00","level":"moderate","status":"The large peaceful protest on July 19, 2026, in Thane against Amazon's proposed data centre remains the most recent significant action. Since then, no new demonstrations, incidents, or confrontations "},{"date":"2026-08-01T20:00:56+00:00","level":"moderate","status":"No new demonstrations, incidents, or confrontations have been reported since the peaceful July 19, 2026 protest in Thane against Amazon's data center. The situation remains calm with community groups "},{"date":"2026-08-02T08:00:31+00:00","level":"moderate","status":"As of the latest searches, no new demonstrations or incidents have occurred since the peaceful July 19, 2026 protest in Thane against Amazon's data center. The situation remains calm with no reports o"},{"date":"2026-08-02T20:00:38+00:00","level":"moderate","status":"As of August 2, 2026, no new demonstrations or incidents have occurred since the peaceful July 18-19 protest in Thane against Amazon's data center. The situation remains calm with no reports of fresh "},{"date":"2026-08-03T08:01:06+00:00","level":"moderate","status":"As of August 3, 2026, no new protests or incidents have occurred since the massive but peaceful July 19 demonstration in Thane against Amazon's data center. The situation remains calm with no reports "},{"date":"2026-08-03T20:00:56+00:00","level":"moderate","status":"No new protests have been reported since the July 19, 2026, demonstration in Thane. The situation remains calm with no fresh mobilization, police action, or incidents in Kalwa, Airoli, or Digha areas."}]
+  },
+  {
+    "name": "Bhopal Gas Tragedy Survivors' Justice and Rehabilitation Protest",
+    "location": "Bhopal Railway Station area and Collectorate",
+    "cause": "Survivors of the 1984 Bhopal gas tragedy and their descendants continuing their decades-long struggle for adequate compensation, medical care, environmental cleanup of the Union Carbide site, and criminal prosecution of responsible parties",
+    "dangerLevel": "low",
+    "dangerReason": "Search intelligence yields only historical protest imagery, calls for justice anniversaries, and ongoing advocacy—no evidence of recent police action, mass detentions, or protester injuries. The protests remain non-confrontational and well-organized, consistent with the previous low-risk assessment.",
+    "status": "Survivors and descendants of the 1984 Bhopal gas tragedy continue to stage peaceful protests in the Bhopal Railway Station area and Collectorate, demanding justice, adequate compensation, and medical care. Current search results show no reports of violence, police crackdowns, or detentions. Support organizations like the Bhopal Medical Appeal remain active, and the situation appears stable.",
+    "details": ["Police presence: light to unknown—no reports of heavy deployment or confrontations in recent search results.", "Recent incidents: no new incidents of violence or arrests reported; protests remain symbolic with placards and hunger strikes.", "Medical access: available, with ongoing advocacy for free health care but no immediate restrictions reported.", "Legal support: active via Amnesty International, Bhopal Medical Appeal, and other advocacy groups, though no specific legal crackdowns are noted."],
+    "trendHistory": [{"date":"2026-08-01T08:01:43+00:00","level":"low","status":"Survivors of the Bhopal gas tragedy continue peaceful protests in Bhopal, focusing on demands for compensation, medical care, and environmental cleanup. The 2026 protests occurred as usual around the "},{"date":"2026-08-02T12:00:39+00:00","level":"low","status":"Survivors of the Bhopal gas tragedy continue peaceful protests in Bhopal and Mumbai, focusing on demands for toxic waste cleanup, adequate compensation, and medical care. Recent search results from 20"},{"date":"2026-08-03T12:00:19+00:00","level":"low","status":"Survivors and descendants of the 1984 Bhopal gas tragedy continue peaceful protests in Mumbai and Bhopal in 2026, with ongoing demands for compensation and medical care. Current search results show no"}]
+  },
+  {
+    "name": "Maratha Quota Protest March to Mumbai",
+    "location": "Mumbai (route from Antarwali Sarati via Pune, Navi Mumbai)",
+    "cause": "Demand for recognition of all Marathas as Kunbis (agrarian caste) for OBC quota benefits; led by activist Manoj Jarange Patil",
+    "dangerLevel": "high",
+    "dangerReason": "Large-scale march planned for August 29, 2026 starting from Antarwali Sarati through Pune and Navi Mumbai, ending in Mumbai. Past Maratha protests have resulted in violence and state-wide disruption. Authorities booking preventive cases. Potential for clashes during the march.",
+    "status": "Maratha quota activist Manoj Jarange Patil has announced a new protest march to Mumbai starting August 29, 2026. The march will begin from Antarwali Sarati in Beed district, passing through Pune and Navi Mumbai. Authorities have booked cases as a preventive measure. The demand remains for Kunbi caste certificates giving OBC reservation benefits to all Marathas.",
+    "details": ["Police presence: Preventive cases booked; route surveillance planned; additional forces mobilized for August 29", "Recent incidents: Manoj Jarange announced August 29 march; large gatherings expected; past Maratha quota protests saw arson and stone-pelting", "Medical access: Medical teams to be deployed along march route; hospitals alerted across Mumbai, Pune, and Navi Mumbai", "Legal support: Maratha Kranti Morcha legal team active; multiple pro bono lawyers engaged; state government monitoring"],
+    "trendHistory": []
+  },
+  {
+    "name": "Save Vetal Tekdi — Stop Hill Destruction",
+    "location": "Vetal Tekdi (Hill), Kothrud and surrounding areas",
+    "cause": "Citizens and environmental groups protesting construction and encroachment on Vetal Tekdi — one of Pune's last remaining green hill ecosystems. Opposition to road-widening projects, construction, and loss of biodiversity corridor.",
+    "dangerLevel": "low",
+    "dangerReason": "All available search intelligence indicates only peaceful assemblies and public opposition. There is no evidence of police intervention, violence, or any escalation beyond organized rallies and meetings. The protest maintains a non-violent character.",
+    "status": "Citizens continue peaceful protests against infrastructure projects on Vetal Tekdi, with a recent gathering of over 250 residents opposing MIT-WPU construction. No reports of violence, police action, or detentions have emerged. The movement remains focused on public advocacy and media outreach.",
+    "details": ["Police presence: light (no reports of active intervention or confrontation)", "Recent incidents: Over 250 residents gathered peacefully to protest MIT-WPU construction; meetings with administration did not resolve the issue. No arrests or injuries reported.", "Medical access: available (no emergencies reported)", "Legal support: no legal issues reported; the protest is within legal bounds"],
+    "trendHistory": [{"date":"2026-07-31T20:02:41+00:00","level":"low","status":"The Save Vetal Tekdi movement remains active with peaceful demonstrations, including a recent protest by over 2,000 supporters against PMC projects and an upcoming Sunday stir organized by residents' "},{"date":"2026-08-02T00:01:03+00:00","level":"low","status":"Citizens continue peaceful protests against the proposed road across Vetal Tekdi, with residents' groups organizing a Sunday stir. Over 1,000 people participated in recent demonstrations, and a petiti"},{"date":"2026-08-03T00:00:58+00:00","level":"low","status":"Citizens continue peaceful protests against infrastructure projects on Vetal Tekdi, with a recent Hindustan Times report indicating over 2,000 supporters protested against PMC projects. Additionally, "},{"date":"2026-08-04T00:00:47+00:00","level":"low","status":"Citizens continue peaceful protests against infrastructure projects on Vetal Tekdi, with recent search results confirming a gathering of over 250 residents against MIT-WPU construction. No reports of "}]
+  },
+  {
+    "name": "IT Workers Union — Fair Layoff Practices",
+    "location": "Hinjewadi IT Park and EON IT Park, Kharadi",
+    "cause": "IT sector employees protesting mass layoffs without adequate severance, demanding stronger labor protections for tech workers, and fair retrenchment policies under Indian labor law",
+    "dangerLevel": "low",
+    "dangerReason": "No reports of police violence, detentions, or physical clashes have emerged from any protests in Pune. The July 26 demonstration was specifically for infrastructure improvements, and the broader layoff-related unionizing remains non-confrontational. The absence of any aggressive law enforcement response or protester injuries justifies maintaining a low danger level.",
+    "status": "IT workers in Pune's Hinjewadi and Kharadi IT parks held a protest on July 26, 2026, focused on infrastructure demands such as better roads and electricity, while unionization efforts continue over layoff practices. A separate incident saw the collapse of a Pune tech firm leaving over 700 jobless with the CEO arrested, but no violence was reported at any of these protests. Advocacy for stronger labor protections remains peaceful and centered on policy change.",
+    "details": ["Police presence: light or administrative — no reports of heavy deployment or confrontations during the July 26 infrastructure protest or ongoing union activities.", "Recent incidents: a peaceful infrastructure protest on July 26; a separate Pune-based tech firm's collapse leading to job losses and CEO arrest, but this did not trigger violent protests.", "Medical access: not applicable — no injuries or medical emergencies reported at any protest events.", "Legal support: available — unionization efforts are proceeding through formal advocacy, and legal actions like the CEO's arrest indicate functioning legal channels."],
+    "trendHistory": [{"date":"2026-07-31T20:03:05+00:00","level":"low","status":"Peaceful protests by IT workers continue at Hinjewadi and EON IT parks, focusing on demands for stronger layoff regulations and better infrastructure. Recent gatherings, including a July 24 event, hav"},{"date":"2026-08-02T00:01:18+00:00","level":"low","status":"Protests by IT workers at Hinjewadi and EON IT parks continue over layoffs, inadequate severance, and infrastructure issues. Unionization efforts remain active, with recent protests targeting companie"},{"date":"2026-08-03T00:01:31+00:00","level":"low","status":"IT worker protests continue in Pune's Hinjewadi and Kharadi IT parks, focusing on layoff practices, inadequate severance, and demands for stronger labor protections. Unionization efforts are active wi"},{"date":"2026-08-04T00:01:09+00:00","level":"low","status":"IT worker protests in Pune's Hinjewadi and Kharadi IT parks continue to focus on layoff practices, severance pay, and stronger legal protections. Unionization efforts are active and centered on policy"}]
+  }
     ]
   },
   "KA": {
@@ -412,7 +349,7 @@ var STATE_DATA = {
     "alliance": "INDIA",
     "opposition": "BJP",
     "lastElection": "2023",
-    "totalProtests": 5,
+    "totalProtests": 2,
     "demographics": {
       "population": "69M (2024 est.) | 61M (Census 2011)",
       "area": "191,791 km² (6th largest)",
@@ -503,76 +440,26 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "CJP Bangalore Solidarity Gathering",
-        "location": "Freedom Park, Central Bangalore",
-        "cause": "CJP solidarity — peaceful assembly in support of the national movement for NEET accountability, organized primarily by college students and young IT professionals.",
-        "dangerLevel": "low",
-        "dangerReason": "Light police presence — mostly observational. Protests are well-organized with prior permissions from authorities. No incidents reported. Good coordination between student organizers and police.",
-        "status": "Peaceful and well-attended. Daily gatherings at Freedom Park without any police intervention. Organizers maintain clear communication with local authorities. Focus on awareness and solidarity rather than mass confrontation.",
-        "details": [
-          "Police presence: Light — observational crowd management",
-          "Recent incidents: None — protests entirely peaceful",
-          "Medical access: Good — medical facilities and volunteers readily available",
-          "Legal support: Active legal observer networks present and coordinating"
-        ]
-      },
-      {
-        "name": "Save Lakes, Stop Data Centers",
-        "location": "Whitefield, Sarjapur Road, and Bellandur areas",
-        "cause": "Environmental activists and residents protesting unchecked data center construction in lake catchment areas. Construction is depleting groundwater and encroaching on ecologically sensitive wetland zones across Bangalore's IT corridor.",
-        "dangerLevel": "low",
-        "dangerReason": "Community-led protests with established environmental NGOs. Completely peaceful marches, lake cleanup drives, and awareness campaigns. Strong legal backing with NGT petitions filed.",
-        "status": "Active and growing. Environmental groups organizing awareness marches combined with lake cleanup drives. Gaining local and national media attention. Completely peaceful throughout with broad community support.",
-        "details": [
-          "Police presence: Minimal — administrative only",
-          "Recent incidents: None — completely peaceful assemblies",
-          "Medical access: Not a concern",
-          "Legal support: Environmental law groups involved, NGT petition filed and pending"
-        ]
-      },
-      {
-        "name": "Stop AI Township Land Acquisition",
-        "location": "Devanahalli and Doddaballapur, North Bangalore",
-        "cause": "Farmers and rural communities protesting government acquisition of fertile agricultural land for a proposed AI technology township. Arguing the project threatens food security and displaces thousands of farming families.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Rural protests with growing farmer participation from multiple villages. Tension reported at land survey sites. Farmers refusing to accept compensation packages. Police present during acquisition proceedings.",
-        "status": "Active rural resistance. Farmer groups organizing protests at district offices and proposed township sites. Support growing from urban environmental groups. Legal challenges being prepared through farmer unions.",
-        "details": [
-          "Police presence: Moderate during land surveys — administrative otherwise",
-          "Recent incidents: Tension at survey and demarcation sites, no violence",
-          "Medical access: Available — protests in accessible rural areas",
-          "Legal support: Farmer union legal cells and environmental lawyers involved"
-        ]
-      },
-      {
-        "name": "Mysuru — Chamundi Hill Protection Movement",
-        "location": "Chamundi Hill, Mysuru",
-        "cause": "Citizens and heritage activists protesting construction and commercialization on Chamundi Hill, a protected heritage and ecological zone. Demanding preservation of the historic hill and its biodiversity.",
-        "dangerLevel": "low",
-        "dangerReason": "Citizen-led peaceful movement. Strong cultural and historical significance rallying support. Legal challenges being prepared. No confrontations.",
-        "status": "Active citizen movement in Mysuru. Regular awareness campaigns and heritage walks. Strong support from Mysuru's civic community. Legal petitions being drafted for heritage protection.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful citizen engagement",
-          "Medical access: Not a concern",
-          "Legal support: Heritage law advocates and citizen committees active"
-        ]
-      },
-      {
-        "name": "Mangaluru — Coastal Community Anti-Pollution Protest",
-        "location": "Mangaluru coast and industrial belt",
-        "cause": "Fishing communities and residents protesting industrial pollution affecting coastal waters, fish stocks, and public health. Demanding enforcement of pollution control norms on industries in the Mangaluru Special Economic Zone.",
-        "dangerLevel": "low",
-        "dangerReason": "Community-organized peaceful protests. Long-standing grievance with documented environmental impact. No confrontations reported.",
-        "status": "Active community resistance. Fisherfolk unions organizing regular protests and awareness drives. Environmental studies documenting pollution impact being used in legal advocacy.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful community protests",
-          "Medical access: Available",
-          "Legal support: Environmental lawyers and coastal community unions involved"
-        ]
-      }
+  {
+    "name": "Save Lakes, Stop Data Centers",
+    "location": "Whitefield, Sarjapur Road, and Bellandur areas",
+    "cause": "Environmental activists and residents protesting unchecked data center construction in lake catchment areas. Construction is depleting groundwater and encroaching on ecologically sensitive wetland zones.",
+    "dangerLevel": "low",
+    "dangerReason": "Search results show no evidence of violence, detentions, or police crackdowns linked to this Bangalore protest. The movement remains nonviolent, relying on public awareness campaigns and policy debates. Global context highlights similar peaceful protests elsewhere, reinforcing the low-risk profile.",
+    "status": "The 'Save Lakes, Stop Data Centers' protest in Bangalore continues as an ongoing, peaceful advocacy movement focused on raising awareness about environmental impacts from data center construction. No reports indicate any escalation, violence, or police intervention in the Whitefield, Sarjapur Road, or Bellandur areas. The situation remains consistent with previous assessments of lawful, nonviolent demonstrations.",
+    "details": ["Police presence: light or unknown — no reports of heavy deployment or intervention.", "Recent incidents: None reported; protests continue peacefully without incident.", "Medical access: available — no restrictions noted.", "Legal support: assessment — no restrictions on legal support reported; activists operate openly."],
+    "trendHistory": [{"date":"2026-07-31T20:01:51+00:00","level":"low","status":"The 'Save Lakes, Stop Data Centers' protest in Bangalore's Whitefield, Sarjapur Road, and Bellandur areas remains active, focusing on environmental advocacy against data center construction in lake ca"},{"date":"2026-08-01T20:01:17+00:00","level":"low","status":"The 'Save Lakes, Stop Data Centers' protest in Bangalore's Whitefield, Sarjapur Road, and Bellandur areas continues as a peaceful environmental advocacy movement. Current search intelligence reference"},{"date":"2026-08-02T20:00:53+00:00","level":"low","status":"The 'Save Lakes, Stop Data Centers' protest in Bangalore's Whitefield, Sarjapur Road, and Bellandur areas continues as a peaceful environmental advocacy movement. Current search results show no new re"},{"date":"2026-08-03T20:01:17+00:00","level":"low","status":"The 'Save Lakes, Stop Data Centers' protest in Bangalore has gained momentum as part of a broader global movement against data center construction, but remains a peaceful advocacy effort. Current repo"}]
+  },
+  {
+    "name": "Stop AI Township Land Acquisition",
+    "location": "Devanahalli and Doddaballapur, North Bangalore",
+    "cause": "Farmers and rural communities protesting government acquisition of fertile agricultural land for a proposed AI technology township, arguing it threatens food security and displaces thousands of farming families",
+    "dangerLevel": "moderate",
+    "dangerReason": "Ongoing protests and political tensions persist without reports of violence or detentions. Farmer anger and political opposition keep the atmosphere charged, but the absence of clashes or restrictive orders indicates the situation, while volatile, has not escalated into physical confrontation.",
+    "status": "Protests against the Bidadi AI Township land acquisition continue in Devanahalli and Doddaballapur, with farmers maintaining opposition over compensation and the BJP staging political protests. The Karnataka government's GBIT project faces significant resistance, but no new incidents of violence or police crackdowns have been reported. The situation remains tense but peaceful.",
+    "details": ["Police presence: moderate; likely present to manage protests but no heavy deployment reported", "Recent incidents: Farmers and BJP continue protests; a 'Bairamangala Chalo' rally was mentioned, indicating organized demonstrations", "Medical access: unknown; no restrictions reported", "Legal support: unknown; no information on legal aid for protesters"],
+    "trendHistory": [{"date":"2026-07-31T20:02:25+00:00","level":"moderate","status":"Farmers' protests against the Bidadi AI Township land acquisition remain active but have seen a significant political development. On July 25, Karnataka's Chief Minister announced a review of the proj"},{"date":"2026-08-01T08:02:09+00:00","level":"moderate","status":"Farmer protests against the Bidadi AI Township land acquisition remain active but have seen no major confrontations since the July 13 survey disruption. The Karnataka Chief Minister's July 25 review a"},{"date":"2026-08-01T20:01:36+00:00","level":"moderate","status":"Farmer protests against the Bidadi AI Township land acquisition have intensified, with farmers in Devanahalli issuing a 24-hour ultimatum to the government to halt the project or face escalated demons"},{"date":"2026-08-02T12:00:57+00:00","level":"moderate","status":"Farmer protests against the AI township land acquisition persist in Devanahalli and Doddaballapur, with demonstrators demanding fair compensation and transparency. The Karnataka government has offered"},{"date":"2026-08-03T00:00:25+00:00","level":"moderate","status":"Farmer protests against the AI township land acquisition in Devanahalli and Doddaballapur continue, with demonstrations demanding fair compensation. The Karnataka Chief Minister has announced a review"},{"date":"2026-08-03T12:00:40+00:00","level":"moderate","status":"Farmer protests against the Bidadi AI township project continue in Karnataka, with the Chief Minister announcing a review and assuring no forced land acquisitions. The BJP has also staged protests opp"},{"date":"2026-08-04T00:00:23+00:00","level":"moderate","status":"Protests against the Bidadi AI Township land acquisition continue in Devanahalli and Doddaballapur, with farmers maintaining opposition and the BJP staging political protests. The government maintains"}]
+  }
     ]
   },
   "UP": {
@@ -797,7 +684,7 @@ var STATE_DATA = {
     "alliance": "NDA",
     "opposition": "AITC",
     "lastElection": "2026",
-    "totalProtests": 5,
+    "totalProtests": 2,
     "demographics": {
       "population": "102M (2024 est.)",
       "area": "88,752 km²",
@@ -893,76 +780,26 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "CJP Kolkata Solidarity Assembly",
-        "location": "Esplanade / Dorina Crossing area, Central Kolkata",
-        "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement. Kolkata's long tradition of student and civil society activism is strongly represented through Left-backed mobilization.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Moderate police presence with escalation potential. Some detentions during larger gatherings. Traffic restrictions imposed. Kolkata police historically more tolerant of organized left and student protests but posture shifts with crowd size.",
-        "status": "Active. Regular assemblies at Esplanade. Student groups from Presidency, Jadavpur, and Calcutta University are core organizers. Legal aid groups maintain strong presence with decades of experience in protest-related legal defense.",
-        "details": [
-          "Police presence: Moderate — escalates with crowd size and perceived threat",
-          "Recent incidents: Brief detentions (released within 24 hours), traffic restrictions on protest days",
-          "Medical access: Generally available",
-          "Legal support: Strong, experienced legal aid network with university law faculty involvement"
-        ]
-      },
-      {
-        "name": "Save Panna — Stop Ken-Betwa Student Rally",
-        "location": "Rabindra Sadan, College Street, and Nandan Complex",
-        "cause": "Student and intellectual community protesting the Ken-Betwa river linking project's threat to Panna Tiger Reserve and tribal displacement. Part of coordinated national environmental campaign.",
-        "dangerLevel": "low",
-        "dangerReason": "Student and academic community-led. Entirely peaceful marches, film screenings, and public lectures. Zero confrontations. Deep intellectual engagement with environmental issues.",
-        "status": "Active intellectual engagement. Students from Presidency, Jadavpur, and Calcutta University organizing awareness marches, documentary screenings, and public talks. Environmental NGOs coordinating regionally.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful awareness campaigns and cultural events",
-          "Medical access: Not a concern",
-          "Legal support: University law departments involved in research and documentation"
-        ]
-      },
-      {
-        "name": "Jadavpur University Campus Democracy Movement",
-        "location": "Jadavpur University Campus, South Kolkata",
-        "cause": "Students and faculty protesting administrative overreach, demanding restoration of campus autonomy, and opposing external interference in university affairs. Part of broader movement for academic freedom.",
-        "dangerLevel": "low",
-        "dangerReason": "Campus-based movement. Peaceful sit-ins, rallies, and cultural programs within the university. Strong tradition of student activism at JU ensures organized, disciplined conduct. No external confrontation.",
-        "status": "Ongoing campus movement with widespread student and faculty participation. Regular assemblies, cultural protests, and teach-ins. Strong student union tradition ensures peaceful, organized conduct throughout.",
-        "details": [
-          "Police presence: Minimal — outside campus only",
-          "Recent incidents: None — entirely campus-based peaceful assemblies",
-          "Medical access: Available on campus",
-          "Legal support: University law faculty and extensive alumni network providing support"
-        ]
-      },
-      {
-        "name": "Siliguri — Tea Garden Workers' Wage Protest",
-        "location": "Siliguri and surrounding tea gardens, North Bengal",
-        "cause": "Tea garden workers demanding wage revisions, implementation of minimum wage, and better living conditions. North Bengal's tea gardens employ thousands who have been fighting for fair wages for decades.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Long-standing labor dispute in the tea garden belt. Periodic intensification during wage negotiation seasons. Some road blockades during protests but generally peaceful.",
-        "status": "Active tea worker union protests across North Bengal. Regular demonstrations and memoranda submissions to labour department. Negotiations ongoing with tea garden management.",
-        "details": [
-          "Police presence: Light to moderate — increases during larger demonstrations",
-          "Recent incidents: Peaceful marches and occasional road blockades",
-          "Medical access: Available through union support networks",
-          "Legal support: Tea workers' unions with decades of legal advocacy experience"
-        ]
-      },
-      {
-        "name": "Darjeeling — Gorkhaland Statehood Movement (Residual)",
-        "location": "Darjeeling and Kalimpong hills",
-        "cause": "Continuing demand for a separate Gorkhaland state. Movement has subsided in intensity but remains an active political demand with periodic mobilizations.",
-        "dangerLevel": "low",
-        "dangerReason": "Low-level ongoing political movement. Periodic bandhs and rallies. Generally peaceful in current phase.",
-        "status": "Residual movement maintaining presence through political advocacy. Periodic bandhs and rallies during key political dates. Focus on political negotiation rather than mass agitation.",
-        "details": [
-          "Police presence: Light — monitoring during bandhs",
-          "Recent incidents: Periodic bandhs, peaceful rallies",
-          "Medical access: Available",
-          "Legal support: Gorkha political organizations providing advocacy"
-        ]
-      }
+  {
+    "name": "CJP Kolkata Solidarity Assembly",
+    "location": "Esplanade / Dorina Crossing area",
+    "cause": "CJP solidarity — coordinated with the national Cockroach Janta Party movement. Kolkata's long tradition of student and civil society activism is strongly represented.",
+    "dangerLevel": "moderate",
+    "dangerReason": "While no active protest is underway, the sustained heavy police deployment and unresolved legal actions from the July 24 clash maintain a moderate risk level. The invoked Public Safety Act and the precedent of forceful dispersal mean any spontaneous assembly would likely face swift intervention.",
+    "status": "No new protest gatherings have been reported at Esplanade/Dorina Crossing since the July 24, 2026 clashes. The area remains under heavy police and Rapid Action Force surveillance, with the West Bengal Public Safety Act still invoked. Seven FIRs and 14 arrests from the earlier violence are unresolved, keeping the environment tense but quiet.",
+    "details": ["Police presence: heavy — Rapid Action Force and local police maintain fixed surveillance at Esplanade/Dorina Crossing.", "Recent incidents: none reported since the July 24 violence, where police used batons and tear gas against protesters, with six FIRs filed including complaints from media personnel.", "Medical access: unknown — no active protest, so general access likely normal, but any future gathering could see restrictions.", "Legal support: 14 arrests and multiple FIRs remain unresolved; legal aid for detainees may be limited."],
+    "trendHistory": [{"date":"2026-07-31T20:03:44+00:00","level":"high","status":"No new demonstrations have been reported at Esplanade\/Dorina Crossing since the violent clash on July 24, 2026. Heavy police and Rapid Action Force presence persists in the area, and the West Bengal P"},{"date":"2026-08-01T04:00:57+00:00","level":"high","status":"No new demonstrations have been reported at Esplanade\/Dorina Crossing since the violent clash on July 24, 2026. The previous assessment from July 31, 2026, indicating heavy police and Rapid Action For"},{"date":"2026-08-01T12:00:50+00:00","level":"high","status":"No new protests have been reported at Esplanade\/Dorina Crossing since the violent clash on July 24, 2026. The area remains under heavy police and Rapid Action Force surveillance following that inciden"},{"date":"2026-08-01T20:02:12+00:00","level":"high","status":"No new protests have been reported at Esplanade\/Dorina Crossing since the violent clash on July 24, 2026. The area remains under heavy police and Rapid Action Force surveillance, and the West Bengal P"},{"date":"2026-08-02T08:00:50+00:00","level":"high","status":"No new protest activity has been reported at Esplanade\/Dorina Crossing since the July 24, 2026 clash. The area continues to be under heavy police and Rapid Action Force surveillance, and the West Beng"},{"date":"2026-08-02T20:01:19+00:00","level":"high","status":"As of early August 2026, no new protest activity has been reported at Esplanade\/Dorina Crossing since the violent July 24 clash. The area remains under heavy police and Rapid Action Force surveillance"},{"date":"2026-08-03T04:01:37+00:00","level":"high","status":"No new protest activity has been reported at Esplanade\/Dorina Crossing since the July 24, 2026 clashes. Search results only reference that earlier violence, with no evidence of fresh gatherings or esc"},{"date":"2026-08-03T20:01:36+00:00","level":"moderate","status":"No new protest gatherings have been reported at Esplanade\/Dorina Crossing since the July 24, 2026 clashes. The area remains under heavy police and Rapid Action Force surveillance, with the West Bengal"}]
+  },
+  {
+    "name": "Bhopal Gas Tragedy Survivors' Justice and Rehabilitation Protest",
+    "location": "Bhopal Railway Station area and Collectorate",
+    "cause": "Survivors of the 1984 Bhopal gas tragedy and their descendants continuing their decades-long struggle for adequate compensation, medical care, environmental cleanup of the Union Carbide site, and criminal prosecution of responsible parties",
+    "dangerLevel": "moderate",
+    "dangerReason": "The previous moderate risk assessment was based on the protest's emotionally charged cause and its location near a railway station and collectorate. No evidence of violence, detentions, or de-escalation has emerged since then. While the lack of specific Kolkata reports suggests the protest may be dormant, the inherent potential for disruption at such a location justifies sustaining a moderate level.",
+    "status": "Current intelligence provides no specific information about an active solidarity protest in Kolkata. The last known assessment indicated a stable and peaceful gathering, and there are no reports of new developments, incidents, or escalation. General advocacy by Bhopal survivors continues elsewhere, but the Kolkata event's current status is unconfirmed.",
+    "details": ["Police presence: unknown, no reports of deployment or activity at the Kolkata site", "Recent incidents: none reported; the last known situation was peaceful", "Medical access: unknown, no restrictions documented", "Legal support: no information available about legal aid for participants"],
+    "trendHistory": [{"date":"2026-07-31T20:04:07+00:00","level":"moderate","status":"As of July 2026, survivors continue peaceful protests at Kolkata's railway station and collectorate demanding justice and compensation. No reports of violence, police crackdowns, or detentions have em"},{"date":"2026-08-01T12:01:15+00:00","level":"moderate","status":"The protest in Kolkata appears to be a solidarity action by survivors, focused on the Bhopal gas tragedy. Current search results do not mention any recent developments in Kolkata; all available inform"},{"date":"2026-08-02T00:02:46+00:00","level":"moderate","status":"Current search results focus on protests by Bhopal gas tragedy survivors in Bhopal city, with no new information emerging about the solidarity action in Kolkata. The situation in Kolkata remains stabl"},{"date":"2026-08-02T20:01:35+00:00","level":"moderate","status":"Current search results focus on protests by Bhopal gas tragedy survivors in Bhopal city, with no new information emerging about the solidarity action in Kolkata. The situation in Kolkata appears stabl"},{"date":"2026-08-03T08:01:22+00:00","level":"moderate","status":"Current search results show that Bhopal gas tragedy survivors continue their protests in Bhopal and other cities, but no new information specific to the Kolkata solidarity action has emerged. The gath"},{"date":"2026-08-04T00:01:45+00:00","level":"moderate","status":"Current search results contain no specific information about the Kolkata solidarity protest. The last known situation from the previous assessment on 2026-08-02 indicated a stable and peaceful gatheri"}]
+  }
     ]
   },
   "MP": {
@@ -991,7 +828,7 @@ var STATE_DATA = {
     "alliance": "NDA",
     "opposition": "INC",
     "lastElection": "2023",
-    "totalProtests": 5,
+    "totalProtests": 2,
     "demographics": {
       "population": "87M (2024 est.)",
       "area": "308,252 km² (2nd largest)",
@@ -1067,77 +904,26 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "Ken-Betwa: Save Bundelkhand, Save Panna March",
-        "location": "Board Office Square, Shahpura Lake, and Tribal Museum — Bhopal; Panna district",
-        "cause": "Tribal rights organizations, environmental activists, and displaced communities protesting the Ken-Betwa river linking project. Threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace over 18,000 families across MP and UP.",
-        "dangerLevel": "high",
-        "dangerReason": "Directly affects local communities facing imminent displacement. Tensions high between affected villagers and project survey teams. Police presence increased as protests grew. Clashes between villagers and survey teams reported. Activist on 18-day hunger strike ended fast after hospitalization.",
-        "status": "Highly active and emotional. Affected villagers staging continuous sit-ins. Environmental and wildlife conservation groups present in force. National and international media attention growing. Supreme Court monitoring the case.",
-        "details": [
-          "Police presence: Moderate to heavy — increased as protests have grown in scale",
-          "Recent incidents: Clashes between villagers and survey teams, activist hunger strike, some detentions",
-          "Medical access: Available but stretched in rural protest areas",
-          "Legal support: Multiple environmental law groups, Supreme Court case ongoing",
-          "Affected: 18,000+ families face displacement, 9,000+ hectares of forest at risk"
-        ]
-      },
-      {
-        "name": "Bhopal Gas Tragedy Survivors' Justice Protest",
-        "location": "Bhopal Railway Station area, Collectorate, and Union Carbide site",
-        "cause": "Survivors of the 1984 Bhopal gas tragedy and their descendants continuing their decades-long struggle for adequate compensation, medical care, environmental cleanup of the Union Carbide site, and criminal prosecution of responsible parties.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Long-running movement with periodic intensification during anniversaries and key legal dates. Emotionally charged due to multi-generational impact. International solidarity groups providing support.",
-        "status": "Ongoing multi-generational struggle. Survivor organizations maintaining regular presence at key locations. Recent intensification around anniversary periods. Focus on medical care access and site remediation demands.",
-        "details": [
-          "Police presence: Light to moderate — increases during larger gatherings and anniversary dates",
-          "Recent incidents: Peaceful demonstrations, memoranda submissions to government",
-          "Medical access: Central issue — survivors demanding better healthcare access",
-          "Legal support: Long-standing legal aid networks, international human rights groups involved"
-        ]
-      },
-      {
-        "name": "CJP MP Solidarity Forum",
-        "location": "Roshanpura Square and New Market — Bhopal; Indore",
-        "cause": "CJP solidarity — coordinated with national education reform movement. MP's student community and civil society groups actively participating in the nationwide movement.",
-        "dangerLevel": "low",
-        "dangerReason": "Community-organized with prior permissions. Focus on legal awareness and citizen rights education. Peaceful discussions and awareness drives.",
-        "status": "Peaceful community gatherings focused on legal awareness and education reform discussions. Well-coordinated with local authorities. Growing participation from smaller cities across MP.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None",
-          "Medical access: Available",
-          "Legal support: Active local legal aid networks"
-        ]
-      },
-      {
-        "name": "Indore — Urban Tree Felling Protest",
-        "location": "Indore — multiple locations including Residency and Palasia areas",
-        "cause": "Residents protesting large-scale tree felling for road widening and urban development projects in Indore. Part of the nationwide wave of tree protection movements.",
-        "dangerLevel": "low",
-        "dangerReason": "Community-led peaceful protests. Growing citizen awareness about urban green cover. Legal challenges being prepared.",
-        "status": "Active citizen movement in Indore. Regular protests and awareness campaigns. Citizens chaining themselves to trees during felling attempts. Gaining local media coverage.",
-        "details": [
-          "Police presence: Light — administrative and forest department",
-          "Recent incidents: Citizens physically blocking tree felling, no violence",
-          "Medical access: Not a concern",
-          "Legal support: Environmental lawyers engaged, citizen petitions being prepared"
-        ]
-      },
-      {
-        "name": "Jabalpur — Narmada Bachao Andolan (Residual Movement)",
-        "location": "Jabalpur and Narmada Valley areas",
-        "cause": "Continuing movement for proper rehabilitation of dam-affected families from the Narmada Valley projects. Decades-old struggle that still has pending rehabilitation cases.",
-        "dangerLevel": "low",
-        "dangerReason": "Residual movement with long history of peaceful activism. Focus on pending rehabilitation cases rather than new agitation.",
-        "status": "Low-level ongoing advocacy for remaining rehabilitation cases. NBA maintaining organizational presence. Focus on legal and administrative follow-up.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful advocacy",
-          "Medical access: Available",
-          "Legal support: NBA's decades-old legal network still active"
-        ]
-      }
+  {
+    "name": "Ken-Betwa: Save Bundelkhand, Save Panna March",
+    "location": "Board Office Square, Shahpura Lake, and Tribal Museum area",
+    "cause": "Tribal rights organizations, environmental activists, and displaced communities protesting the Ken-Betwa river linking project. Threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace over 18,000 families across MP and UP.",
+    "dangerLevel": "low",
+    "dangerReason": "No protest activity, police presence, or incidents have been reported at any of the three Bhopal sites. While tribal and environmental protests continue elsewhere in the state, these have not spread to the designated Bhopal locations. The situation poses negligible risk to these specific sites.",
+    "status": "The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal remain quiet with no reported gatherings or demonstrations. Search results confirm ongoing protests against the Ken-Betwa project in other districts of Madhya Pradesh, including Chhatarpur and Panna, but no activity at these Bhopal locations.",
+    "details": ["Police presence: light or administrative only; no unusual deployments reported at Bhopal protest sites.", "Recent incidents: no gatherings, marches, or related incidents at these locations. The nearest protest activity remains over 300 km away in Chhatarpur district.", "Medical access: available, no restrictions reported.", "Legal support: unknown; no specific legal support mobilizations noted for Bhopal."],
+    "trendHistory": [{"date":"2026-07-31T20:04:40+00:00","level":"low","status":"The Bhopal protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area remain calm with no reported incidents. The main protest encampment at Barana River in Chhatarpur district, over "},{"date":"2026-08-02T00:03:17+00:00","level":"low","status":"The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal continue to be quiet with no reported gatherings or demonstrations. The main protest encampment near Barana Ri"},{"date":"2026-08-03T04:02:07+00:00","level":"low","status":"The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal remain quiet with no reported gatherings or demonstrations. The main protest encampment near Barana River in C"}]
+  },
+  {
+    "name": "Ken-Betwa: Save Bundelkhand, Save Panna March",
+    "location": "Board Office Square, Shahpura Lake, and Tribal Museum area",
+    "cause": "Tribal rights organizations, environmental activists, and displaced communities protesting the Ken-Betwa river linking project. Threatens to submerge 9,000+ hectares of Panna Tiger Reserve and displace over 18,000 families across MP and UP.",
+    "dangerLevel": "low",
+    "dangerReason": "No protest activity, police presence, or incidents have been reported at any of the three Bhopal sites. While tribal and environmental protests continue elsewhere in the state, these have not spread to the designated Bhopal locations. The situation poses negligible risk to these specific sites.",
+    "status": "The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal remain quiet with no reported gatherings or demonstrations. Search results confirm ongoing protests against the Ken-Betwa project in other districts of Madhya Pradesh, including Chhatarpur and Panna, but no activity at these Bhopal locations.",
+    "details": ["Police presence: light or administrative only; no unusual deployments reported at Bhopal protest sites.", "Recent incidents: no gatherings, marches, or related incidents at these locations. The nearest protest activity remains over 300 km away in Chhatarpur district.", "Medical access: available, no restrictions reported.", "Legal support: unknown; no specific legal support mobilizations noted for Bhopal."],
+    "trendHistory": [{"date":"2026-07-31T20:04:40+00:00","level":"low","status":"The Bhopal protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area remain calm with no reported incidents. The main protest encampment at Barana River in Chhatarpur district, over "},{"date":"2026-08-02T00:03:17+00:00","level":"low","status":"The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal continue to be quiet with no reported gatherings or demonstrations. The main protest encampment near Barana Ri"},{"date":"2026-08-03T04:02:07+00:00","level":"low","status":"The protest sites at Board Office Square, Shahpura Lake, and Tribal Museum area in Bhopal remain quiet with no reported gatherings or demonstrations. The main protest encampment near Barana River in C"}]
+  }
     ]
   },
   "TG": {
@@ -1166,7 +952,7 @@ var STATE_DATA = {
     "alliance": "INDIA",
     "opposition": "BRS",
     "lastElection": "2023",
-    "totalProtests": 5,
+    "totalProtests": 2,
     "demographics": {
       "population": "39M (2024 est.)",
       "area": "112,077 km²",
@@ -1262,76 +1048,26 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "CJP Hyderabad Solidarity Forum",
-        "location": "Dharna Chowk, Indira Park, Hyderabad",
-        "cause": "CJP solidarity — coordinated forum discussions and peaceful demonstrations. Osmania University and HCU students are key organizers. Hyderabad residents flew to Delhi to join the Jantar Mantar mobilization.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Moderate police presence. Generally restrained but occasional identity documentation of participants. Strong student involvement from major universities keeps the movement organized and disciplined.",
-        "status": "Active. Protests largely peaceful with good crowd management by student organizers. Some reports of police recording participant identities. Osmania University and HCU students actively involved. No violent incidents.",
-        "details": [
-          "Police presence: Moderate — present but restrained",
-          "Recent incidents: Identity documentation by police, minor altercations",
-          "Medical access: Available",
-          "Legal support: Osmania University law faculty and local legal aid groups involved"
-        ]
-      },
-      {
-        "name": "Stop Ken-Betwa River Linking Project",
-        "location": "Necklace Road, Tank Bund, and People's Plaza, Hyderabad",
-        "cause": "Environmental activists and affected communities protesting the Ken-Betwa river linking project. Hyderabad serves as a key southern coordination hub for the multi-state anti-Ken-Betwa movement.",
-        "dangerLevel": "moderate",
-        "dangerReason": "NGOs coordinating large awareness rallies. Some tension with authorities over protest permits. Hyderabad's role as a coordination hub for the southern anti-Ken-Betwa movement increases visibility.",
-        "status": "Active and growing. Environmental groups from across south India coordinating through Hyderabad. Regular awareness events at Necklace Road. Multiple PILs filed. Movement gaining traction as project timelines advance.",
-        "details": [
-          "Police presence: Light to moderate — administrative",
-          "Recent incidents: Peaceful rallies, some permit-related detentions",
-          "Medical access: Available",
-          "Legal support: Multiple environmental law groups, Supreme Court monitoring the case"
-        ]
-      },
-      {
-        "name": "Stop Pharma City — Anti-Pollution Movement",
-        "location": "Kandukur and Rachakonda, outskirts of Hyderabad",
-        "cause": "Village residents and farmers protesting the proposed Pharma City industrial zone, citing expected air and water pollution, loss of agricultural land, and health hazards from pharmaceutical manufacturing waste.",
-        "dangerLevel": "moderate",
-        "dangerReason": "Rural community resistance. Tension during land surveys and public hearings. Police present at official proceedings. Residents organized through gram sabhas and local committees.",
-        "status": "Active community resistance. Village committees organizing protests at collectorate and during public hearings. Health impact studies being demanded by communities. Environmental groups providing technical and legal support.",
-        "details": [
-          "Police presence: Moderate during hearings — light otherwise",
-          "Recent incidents: Tension during public hearings, no violence",
-          "Medical access: Available — protests in accessible rural areas",
-          "Legal support: Environmental lawyers assisting gram sabhas and local committees"
-        ]
-      },
-      {
-        "name": "Warangal — Farmers' Irrigation Water Protest",
-        "location": "Warangal district — multiple mandals",
-        "cause": "Farmers demanding assured irrigation water supply from ongoing projects, compensation for crop losses due to water shortage, and completion of pending irrigation projects in the region.",
-        "dangerLevel": "low",
-        "dangerReason": "Peaceful farmer protests. Long-standing water access issues. Organized through farmer associations with clear demands.",
-        "status": "Active farmer protests at district offices. Memoranda submitted to irrigation department. Focus on completion of pending projects and water allocation.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: Peaceful protests at district offices",
-          "Medical access: Available",
-          "Legal support: Farmer associations and local legal aid"
-        ]
-      },
-      {
-        "name": "Secunderabad — Railway Workers' Union Protest",
-        "location": "Secunderabad Railway Station and South Central Railway HQ",
-        "cause": "Railway employees demanding revision of pay scales, better working conditions, and regularization of contract workers in the South Central Railway zone.",
-        "dangerLevel": "low",
-        "dangerReason": "Peaceful union-organized demonstrations. Long-standing labor issues with established union representation.",
-        "status": "Regular union-organized peaceful demonstrations. Focus on negotiation and policy advocacy through established union channels.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None — peaceful union demonstrations",
-          "Medical access: Available",
-          "Legal support: Railway workers' unions providing representation"
-        ]
-      }
+  {
+    "name": "CJP Hyderabad Solidarity Forum",
+    "location": "Dharna Chowk, Indira Park",
+    "cause": "CJP solidarity — coordinated forum discussions and peaceful demonstrations supporting the national education reform movement. Osmania University students are key organizers.",
+    "dangerLevel": "low",
+    "dangerReason": "Multiple recent protests at Dharna Chowk have been described as peaceful and well-organized with no reports of police force, mass detentions, or injuries. Search results show no escalation; the only documented pre-emptive detention of a student leader in July did not trigger unrest. The situation remains stable.",
+    "status": "As of August 2026, no incidents of violence, detentions, or police crackdowns have been reported at Dharna Chowk. The July 23 solidarity protest and July 24 gathering occurred peacefully with diverse participation. The proposed July 29 CJP march was subject to police permission, but no post-march incidents have emerged.",
+    "details": ["Police presence: light or administrative — July 29 march was proposed subject to permission, but no confrontations have been reported.", "Recent incidents: Peaceful assemblies on July 23 and 24 with students, activists, and citizens; no violence recorded.", "Medical access: not restricted — no reports of medical emergencies or blockages.", "Legal support: not a reported need currently; protesters appear to be operating within permitted frameworks."],
+    "trendHistory": [{"date":"2026-07-31T20:03:24+00:00","level":"moderate","status":"Protests at Dharna Chowk on July 23 and 24, 2026, were peaceful with diverse groups participating. The Cockroach Janta Party proposed a peaceful march on July 29, but no post-march reports have surfac"},{"date":"2026-08-02T00:01:49+00:00","level":"moderate","status":"As of late July 2026, protests at Dharna Chowk remained peaceful with diverse groups participating. The Cockroach Janta Party had proposed a peaceful march on July 29, but no subsequent reports confir"},{"date":"2026-08-03T00:01:51+00:00","level":"low","status":"As of early August 2026, protests at Dharna Chowk have remained consistently peaceful with no reports of violence or police crackdowns. Multiple solidarity events, including a women and transgender pr"},{"date":"2026-08-04T00:01:23+00:00","level":"low","status":"As of early August 2026, no new incidents have been reported at Dharna Chowk since the peaceful July 23 solidarity protest and the proposed July 29 Cockroach Janta Party march. The situation appears s"}]
+  },
+  {
+    "name": "Stop Pharma City — Anti-Pollution Residents' Movement",
+    "location": "Kandukur and Rachakonda areas, outskirts of Hyderabad",
+    "cause": "Village residents and farmers protesting the proposed Pharma City industrial zone, citing expected air and water pollution, loss of agricultural land, and health hazards from pharmaceutical manufacturing waste",
+    "dangerLevel": "low",
+    "dangerReason": "All reported protest actions are entirely peaceful, with no evidence of police crackdowns, arrests, or violent incidents. The absence of any destabilizing events keeps the risk minimal, consistent with previous assessments.",
+    "status": "Residents and farmers continue peaceful protests against the proposed Pharma City, with a planned hunger strike in Anthammagudem and a recent padayatra. Search results show no reports of violence, police intervention, or detentions. The situation remains calm and without escalation.",
+    "details": ["Police presence: unknown — no specific reports of police deployment at protest sites; typical for low-risk gatherings.", "Recent incidents: A padayatra covering 15 km was conducted, and a hunger strike was planned in May 2026; no confrontations or disruptions reported.", "Medical access: available — no restrictions mentioned in search results.", "Legal support: unknown — no information on legal aid or arrests."],
+    "trendHistory": [{"date":"2026-08-01T00:00:58+00:00","level":"low","status":"Residents in Kandukur and Rachakonda continue peaceful protests against the proposed Pharma City, with a hunger strike planned in Anthammagudem as the latest form of demonstration. Current search resu"},{"date":"2026-08-02T00:02:10+00:00","level":"low","status":"Residents and farmers continue peaceful protests against the proposed Pharma City, with a padayatra conducted on July 13, 2026, and a hunger strike planned in Anthammagudem. Current information shows "},{"date":"2026-08-03T04:01:06+00:00","level":"low","status":"Farmers and residents continue peaceful protests against the proposed Pharma City. Recent activities include a padayatra and a planned hunger strike in Anthammagudem. Despite reports of protests inten"}]
+  }
     ]
   },
   "TN": {
@@ -3184,7 +2920,7 @@ var STATE_DATA = {
     "alliance": "INDIA",
     "opposition": "BJP",
     "lastElection": "2024",
-    "totalProtests": 2,
+    "totalProtests": 1,
     "demographics": {
       "population": "39M (2024 est.)",
       "area": "79,716 km²",
@@ -3267,34 +3003,16 @@ var STATE_DATA = {
       }
     ],
     "protests": [
-      {
-        "name": "Adivasi Land Rights Movement",
-        "location": "Khunti, Simdega, West Singhbhum — tribal heartland",
-        "cause": "Tribal communities opposing displacement for mining and industrial projects. Demanding implementation of Forest Rights Act, recognition of community forest rights, and consent before land acquisition.",
-        "dangerLevel": "high",
-        "dangerReason": "Active tribal resistance with history of confrontation. Tensions with mining authorities. Several NGOs documenting rights violations. Police presence heavy near mining areas.",
-        "status": "Active adivasi resistance across multiple districts. NGOs and tribal rights organizations providing legal and organizational support. Multiple legal challenges ongoing.",
-        "details": [
-          "Police presence: Moderate to heavy near mining areas",
-          "Recent incidents: Some confrontations with mining security personnel",
-          "Medical access: Stretched in remote tribal areas",
-          "Legal support: Tribal rights lawyers and organizations like Jharkhand Adivasi Manch"
-        ]
-      },
-      {
-        "name": "CJP Jharkhand Forum",
-        "location": "Ranchi — Morabadi Ground; Jamshedpur",
-        "cause": "Education reform solidarity. Student groups from Ranchi University and Kolhan University participating in the national movement.",
-        "dangerLevel": "low",
-        "dangerReason": "Peaceful student gatherings. Growing participation. No incidents.",
-        "status": "Peaceful student gatherings in Ranchi and Jamshedpur. Focus on awareness and discussion forums.",
-        "details": [
-          "Police presence: Light — administrative",
-          "Recent incidents: None",
-          "Medical access: Available",
-          "Legal support: Local legal aid available"
-        ]
-      }
+  {
+    "name": "Jharkhand Student Paper Leak Protest",
+    "location": "Ranchi (Jaipal Singh Stadium), Jharkhand",
+    "cause": "Alleged paper leaks in JPSC/JSSC civil service examinations; demand for CBI probe; job security concerns affecting lakhs of aspirants",
+    "dangerLevel": "high",
+    "dangerReason": "Thousands of students in indefinite satyagraha since July 25, 2026. High alert declared in state. 11 people arrested in paper leak case. CJP extending solidarity. Protests intensifying daily. Potential for escalation if demands not met.",
+    "status": "Since around July 25, 2026, thousands of job aspirants have been holding an indefinite satyagraha in Ranchi, primarily at Jaipal Singh Stadium. Jharkhand has been placed on high alert. The protests intensified after similar NEET paper leak issues nationwide. The Cockroach Janta Party (CJP) has expressed support. Police have deployed additional forces at the protest site.",
+    "details": ["Police presence: High alert declared; additional forces deployed at Jaipal Singh Stadium; barricades set up around protest zone", "Recent incidents: 11 arrested in paper leak case; CM admitted students futures at risk; protests entered 6th day with growing numbers; CJP leaders visiting Ranchi", "Medical access: Medical first-aid post at protest site; nearby RIMS hospital on standby; ambulances positioned", "Legal support: Student unions coordinating legal aid; Jharkhand High Court monitoring situation; human rights observers present"],
+    "trendHistory": []
+  }
     ]
   },
   "CG": {

@@ -220,8 +220,8 @@ footer a { color:var(--accent); text-decoration:none; }
   azadi.wtf — Stay safe. Protect each other. &#9994;
 </footer>
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<script src="/assets/d3.v7.min.js"></script>
+<script src="/assets/topojson-client.min.js"></script>
 <script src="data.js"></script>
 <script>
 (function() {
@@ -254,7 +254,7 @@ footer a { color:var(--accent); text-decoration:none; }
     'Dadra and Nagar Haveli and Daman and Diu':'DD'
   };
 
-  d3.json('https://raw.githubusercontent.com/covid19india/covid19india-react/master/public/maps/india.json')
+  d3.json('/assets/india.json')
     .then(function(topo) {
       var states = topojson.feature(topo, topo.objects.states);
       var projection = d3.geoMercator().center([80, 23]).scale(1000).translate([300, 340]);
@@ -386,7 +386,8 @@ footer a { color:var(--accent); text-decoration:none; }
     else { sorted.forEach(function(p, pi) {
       h += '<div class="p-item '+p.dangerLevel+(isLocked?' clickable':'')+'"'+(isLocked?' onclick="location.href=\'state.html?code='+code+'#protest-'+pi+'\'"':'')+'>';
       h += '<div class="p-item-h"><strong>'+p.name+'</strong><span class="d-tag '+p.dangerLevel+'">'+p.dangerLevel.toUpperCase()+'</span></div>';
-      h += '<div class="p-item-loc">'+p.location+'</div><div class="p-item-st">'+p.status+'</div></div>';
+      var statusSnippet = (p.status && p.status.length > 250) ? p.status.substring(0,250).trim()+'…' : (p.status||'');
+      h += '<div class="p-item-loc">'+p.location+'</div><div class="p-item-st">'+statusSnippet+'</div></div>';
     });}
     h += '</div>';
     h += '<div class="panel-footer">'+(isLocked?'Click a protest to see full details →':'Click state to lock selection')+'</div>';

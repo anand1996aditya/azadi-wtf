@@ -1,0 +1,8 @@
+{
+  "TINYFISH": "sk-tinyfish-...",
+  "FIRECRAWL": "fc-...",
+  "SERPAI": "your-serpapi-key",
+  "TAVILY": "tvly-dev-...",
+  "DEEPSEEK": "sk-...",
+  "CRON_SECRET": "your-cron-secret"
+}

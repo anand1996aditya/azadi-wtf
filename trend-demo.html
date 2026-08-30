@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delhi — Severity Trends | azadi.wtf Demo</title>
+<style>
+:root {
+  --bg:#060606; --bg-card:#0d0d0d; --bg-elevated:#141414;
+  --border:#1e1e1e; --text:#ededed; --text-dim:#7e7e7e; --text-muted:#484848;
+  --accent:#dc4536; --d-critical:#e62e1e; --d-high:#e86930; --d-moderate:#d4a020; --d-low:#2ea85a;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--bg); color:var(--text); padding:40px; -webkit-font-smoothing:antialiased; }
+.container { max-width:800px; margin:0 auto; }
+h1 { font-size:1.6rem; font-weight:900; margin-bottom:20px; letter-spacing:-0.02em; }
+
+.protest-card {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+  padding:20px 24px; margin-bottom:12px; border-left:4px solid;
+}
+.protest-card.critical { border-left-color:var(--d-critical); }
+.protest-card.high { border-left-color:var(--d-high); }
+.protest-card.moderate { border-left-color:var(--d-moderate); }
+.protest-card.low { border-left-color:var(--d-low); }
+.protest-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
+.protest-header h3 { font-size:1rem; font-weight:700; }
+.danger-tag { font-size:0.6rem; font-weight:800; padding:3px 10px; border-radius:100px; text-transform:uppercase; letter-spacing:0.05em; }
+.danger-tag.critical { background:var(--d-critical); color:#fff; }
+.danger-tag.high { background:var(--d-high); color:#fff; }
+.danger-tag.moderate { background:var(--d-moderate); color:#000; }
+.danger-tag.low { background:var(--d-low); color:#000; }
+.protest-location { font-size:0.78rem; color:var(--text-muted); margin-bottom:6px; }
+.protest-status { font-size:0.82rem; color:var(--text-dim); margin-bottom:10px; line-height:1.45; }
+
+.btn-trend {
+  display:inline-flex; align-items:center; gap:6px; padding:7px 16px;
+  font-size:0.74rem; font-weight:600; border-radius:6px; cursor:pointer;
+  border:1px solid var(--border); background:var(--bg-elevated); color:var(--text-dim);
+  transition:all 0.12s; font-family:var(--font); margin-top:4px;
+}
+.btn-trend:hover { border-color:var(--accent); color:var(--accent); background:rgba(220,69,54,0.06); }
+
+/* Modal */
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(4px);
+  align-items:center; justify-content:center;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+  padding:28px 30px; width:640px; max-width:92vw; max-height:85vh; overflow-y:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+}
+.modal-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; gap:12px; }
+.modal-header h2 { font-size:1.1rem; font-weight:700; }
+.modal-close {
+  background:none; border:none; color:var(--text-dim); cursor:pointer;
+  font-size:1.3rem; padding:4px 8px; line-height:1; border-radius:4px;
+}
+.modal-close:hover { color:var(--text); background:var(--bg-elevated); }
+
+.chart-area { display:flex; gap:0; margin:8px 0 0; }
+.chart-yaxis {
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:4px 8px 28px 0; font-size:0.62rem; font-weight:600;
+  letter-spacing:0.04em; text-transform:uppercase; width:60px; flex-shrink:0;
+}
+.chart-yaxis span:nth-child(1) { color:var(--d-critical); }
+.chart-yaxis span:nth-child(2) { color:var(--d-high); }
+.chart-yaxis span:nth-child(3) { color:var(--d-moderate); }
+.chart-yaxis span:nth-child(4) { color:var(--d-low); }
+
+.chart-main { flex:1; }
+.chart-wrap { position:relative; height:120px; }
+.chart-wrap svg { width:100%; height:100%; }
+
+.xaxis-row { display:flex; justify-content:space-between; padding:6px 4px 0; font-size:0.64rem; color:var(--text-muted); }
+.xaxis-row span:first-child { color:var(--text-muted); }
+.xaxis-row span:last-child { color:var(--text-dim); }
+
+.trend-events { margin-top:16px; }
+.trend-event { display:flex; gap:10px; padding:5px 0; font-size:0.74rem; border-bottom:1px solid var(--border); align-items:flex-start; }
+.trend-event:last-child { border:none; }
+.trend-event .dot { width:7px; height:7px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+.trend-event .date { color:var(--text-muted); min-width:70px; font-size:0.68rem; }
+.trend-event .desc { color:var(--text-dim); line-height:1.35; }
+
+.note { text-align:center; padding:16px; color:var(--text-muted); font-size:0.72rem; border-top:1px solid var(--border); margin-top:16px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Delhi — Active Protests</h1>
+
+  <div class="protest-card critical">
+    <div class="protest-header">
+      <h3>CJP (Cockroach Janta Party) Jantar Mantar Sit-in</h3>
+      <span class="danger-tag low">LOW</span>
+    </div>
+    <div class="protest-location">Jantar Mantar, Central Delhi</div>
+    <div class="protest-status">The CJP sit-in formally ended on July 25 after Pradhan resigned. Site cleared.</div>
+    <button class="btn-trend" onclick="openTrend('cjp')">📈 Show Severity Trend</button>
+  </div>
+
+  <div class="protest-card high">
+    <div class="protest-header">
+      <h3>Farmers' MSP Guarantee March</h3>
+      <span class="danger-tag moderate">MODERATE</span>
+    </div>
+    <div class="protest-location">Singhu Border & Ramlila Maidan</div>
+    <div class="protest-status">Farmers continue border protests. Tensions at checkpoints but no major escalation.</div>
+    <button class="btn-trend" onclick="openTrend('farmers')">📈 Show Severity Trend</button>
+  </div>
+
+  <div class="protest-card low">
+    <div class="protest-header">
+      <h3>Save Delhi Ridge — Stop Tree Felling</h3>
+      <span class="danger-tag low">LOW</span>
+    </div>
+    <div class="protest-location">Delhi Ridge Forest, South-Central Delhi</div>
+    <div class="protest-status">Peaceful citizen vigils. Supreme Court monitoring. 75% of ridge now protected.</div>
+    <button class="btn-trend" onclick="openTrend('trees')">📈 Show Severity Trend</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeTrend(event)">
+  <div class="modal" id="modalContent" onclick="event.stopPropagation()"></div>
+</div>
+
+<script>
+var trendData = {
+  cjp: {
+    name: 'CJP (Cockroach Janta Party) Jantar Mantar Sit-in',
+    points: [
+      { day:'15 Jul', y:55, level:'moderate', desc:'Protests begin at Jantar Mantar. Student groups organize. Moderate turnout.' },
+      { day:'17 Jul', y:48, level:'moderate', desc:'Crowds grow. Social media amplification begins. Still peaceful.' },
+      { day:'19 Jul', y:38, level:'high', desc:'Sonam Wangchuk joins with hunger strike. Tensions rising. Escalated to HIGH.' },
+      { day:'20 Jul', y:10, level:'critical', desc:'"Sansad Chalo" march. Police use tear gas, batons, pellet guns. Mass detentions. CRITICAL.' },
+      { day:'22 Jul', y:32, level:'high', desc:'Government agrees to talks at neutral venue. Tensions ease but situation volatile.' },
+      { day:'24 Jul', y:50, level:'moderate', desc:'Talks underway. Protest site remains active but crowds thinning gradually.' },
+      { day:'25 Jul', y:80, level:'low', desc:'Dharmendra Pradhan resigns. Protesters celebrate at Jantar Mantar. Sit-in ends.' },
+      { day:'26 Jul', y:88, level:'low', desc:'Site cleared. Movement declares victory. Danger level minimal.' },
+    ]
+  },
+  farmers: {
+    name: 'Farmers\' MSP Guarantee March',
+    points: [
+      { day:'18 Jul', y:50, level:'moderate', desc:'Farmers begin mobilizing at border points. Peaceful assemblies.' },
+      { day:'20 Jul', y:35, level:'high', desc:'Heavy police deployment at Shambhu border. March blocked. Escalated to HIGH.' },
+      { day:'21 Jul', y:32, level:'high', desc:'Farmers intercepted at inter-state borders. Standoff continues.' },
+      { day:'23 Jul', y:40, level:'high', desc:'Coordinating with national farmers unions. Road blockades planned.' },
+      { day:'25 Jul', y:52, level:'moderate', desc:'Ramlila Maidan gathering peaceful. Negotiations ongoing. MODERATE.' },
+      { day:'26 Jul', y:55, level:'moderate', desc:'Situation stable. Police presence remains but no violence reported.' },
+    ]
+  },
+  trees: {
+    name: 'Save Delhi Ridge — Stop Tree Felling',
+    points: [
+      { day:'10 Jul', y:50, level:'moderate', desc:'AAP protests felling of 1,100 trees. Moderate public attention.' },
+      { day:'12 Jul', y:65, level:'low', desc:'Supreme Court seeks DDA clarification. Legal protection strengthens.' },
+      { day:'15 Jul', y:75, level:'low', desc:'Delhi government notifies 75% of central ridge as reserved forest.' },
+      { day:'20 Jul', y:82, level:'low', desc:'Peaceful citizen vigils continue. No confrontations with authorities.' },
+      { day:'25 Jul', y:88, level:'low', desc:'Green helpline reinstated. Strong legal framework in place. All quiet.' },
+    ]
+  }
+};
+
+function openTrend(id) {
+  var d = trendData[id];
+  var pts = d.points;
+  var W = 540, H = 120, padL = 0, padR = 0;
+  
+  // Y: 0=critical(top) to 90=low(bottom). Points have y where low=high number
+  // Invert: SVG y = H * (1 - point.y/90) but we want critical at top
+  // point.y=10(critical) → SVG y=13, point.y=88(low) → SVG y=117
+  
+  var polyPoints = pts.map(function(p, i) {
+    var x = padL + (i / (pts.length - 1)) * (W - padL - padR);
+    var y = (p.y / 90) * H;
+    return x + ',' + y;
+  }).join(' ');
+  
+  var circles = pts.map(function(p, i) {
+    var x = padL + (i / (pts.length - 1)) * (W - padL - padR);
+    var y = (p.y / 90) * H;
+    var color = p.level === 'critical' ? '#e62e1e' : p.level === 'high' ? '#e86930' : p.level === 'moderate' ? '#d4a020' : '#2ea85a';
+    var r = p.level === 'critical' ? 4.5 : 3.5;
+    if (i === pts.length - 1) r = 5;
+    return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+color+'"/>';
+  }).join('');
+  
+  // X-axis: generate labels for ALL dates in the range
+  function parseDay(d) { var p=d.split(' '); return {day:parseInt(p[0]), month:p[1]}; }
+  var first = parseDay(pts[0].day), last = parseDay(pts[pts.length-1].day);
+  var allDays = [];
+  for (var dayNum = first.day; dayNum <= last.day; dayNum++) allDays.push(dayNum + ' ' + first.month);
+  
+  var labels = allDays.map(function(dayLabel, i) {
+    var x = padL + (i / (allDays.length - 1)) * (W - padL - padR);
+    // Only show every other label if >10 days, otherwise show all
+    var show = allDays.length <= 10 || i % 2 === 0 || i === 0 || i === allDays.length - 1;
+    return '<text x="'+x+'" y="'+(H+14)+'" fill="#888" font-size="8.5" font-family="-apple-system,sans-serif" text-anchor="middle" opacity="'+(show?'1':'0')+'">'+dayLabel+'</text>';
+  }).join('');
+  
+  var events = pts.map(function(p) {
+    var color = p.level === 'critical' ? '#e62e1e' : p.level === 'high' ? '#e86930' : p.level === 'moderate' ? '#d4a020' : '#2ea85a';
+    return '<div class="trend-event"><span class="dot" style="background:'+color+';"></span><span class="date">'+p.day+'</span><span class="desc">'+p.desc+'</span></div>';
+  }).join('');
+
+  var html = '';
+  html += '<div class="modal-header"><h2>'+d.name+'</h2><button class="modal-close" onclick="closeTrend()">&times;</button></div>';
+  
+  // Chart with Y-axis
+  html += '<div class="chart-area">';
+  html += '<div class="chart-yaxis"><span>Critical</span><span>High</span><span>Moderate</span><span>Low</span></div>';
+  html += '<div class="chart-main">';
+  html += '<div class="chart-wrap"><svg viewBox="0 0 '+W+' '+(H+18)+'" preserveAspectRatio="none">';
+  // Zone backgrounds
+  html += '<rect x="0" y="0" width="'+W+'" height="'+(H*0.25)+'" fill="rgba(230,46,30,0.07)"/>';
+  html += '<rect x="0" y="'+(H*0.25)+'" width="'+W+'" height="'+(H*0.25)+'" fill="rgba(232,105,48,0.04)"/>';
+  html += '<rect x="0" y="'+(H*0.5)+'" width="'+W+'" height="'+(H*0.25)+'" fill="rgba(212,160,32,0.03)"/>';
+  html += '<rect x="0" y="'+(H*0.75)+'" width="'+W+'" height="'+(H*0.25)+'" fill="rgba(46,168,90,0.03)"/>';
+  // Grid lines
+  html += '<line x1="0" y1="'+(H*0.25)+'" x2="'+W+'" y2="'+(H*0.25)+'" stroke="#1a1a1a" stroke-width="0.5"/>';
+  html += '<line x1="0" y1="'+(H*0.5)+'" x2="'+W+'" y2="'+(H*0.5)+'" stroke="#1a1a1a" stroke-width="0.5"/>';
+  html += '<line x1="0" y1="'+(H*0.75)+'" x2="'+W+'" y2="'+(H*0.75)+'" stroke="#1a1a1a" stroke-width="0.5"/>';
+  // Line + points + labels
+  html += '<polyline points="'+polyPoints+'" fill="none" stroke="#dc4536" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+  html += circles;
+  html += labels;
+  html += '</svg></div>';
+  
+  html += '</div></div>';
+  
+  html += '<div class="trend-events">'+events+'</div>';
+  html += '<div class="note">Trend data auto-tracked by the cron. Each 4-hour run records the danger level.</div>';
+  
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeTrend(e) {
+  if (e && e.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') document.getElementById('modalOverlay').classList.remove('open');
+});
+</script>
+</body>
+</html>

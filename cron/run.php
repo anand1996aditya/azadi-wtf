@@ -4,17 +4,17 @@
  * Runs sequentially: protest updates → verification → data.js sync
  * Single cron entry covers everything. Frees up a slot.
  * 
- * Schedule: every 4 hours
+ * Schedule: every 12 hours (00:00 & 12:00)
  * CLI: php cron/run.php
  */
 
-// 1. Update protests (Tavily + DeepSeek)
+// 1. Update protests (TinyFish/Firecrawl → SerpAI → Tavily + DeepSeek)
 echo "=== PROTEST UPDATES ===\n";
 require __DIR__ . '/update.php';
 
 echo "\n";
 
-// 2. Verify news links (every 4h — Node.js script)
+// 2. Verify news links (every 12h — Node.js script)
 echo "=== NEWS LINK VERIFICATION ===\n";
 $verifyJs = __DIR__ . '/verify_news.js';
 if (file_exists($verifyJs)) {

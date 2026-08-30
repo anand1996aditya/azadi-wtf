@@ -2,7 +2,7 @@
 /**
  * News Link Verification + Auto-Fix (Node.js version)
  * Checks news URLs across states. Replaces broken states with Tavily results.
- * Runs every 3 hours via run.php.
+ * Runs every 12 hours via run.php.
  */
 
 var fs = require('fs');
@@ -16,7 +16,13 @@ var LOG_FILE = __dirname + '/../data/news_verify.log';
 
 eval(fs.readFileSync(DATA_FILE, 'utf8'));
 
-var TAVILY_KEY = process.env.TAVILY_KEY || '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';
+// API keys — loaded from gitignored cron/keys.json (see keys.example.json)
+var KEYS = {};
+try { KEYS = JSON.parse(fs.readFileSync(__dirname + '/keys.json', 'utf8')); } catch (e) {}
+var TAVILY_KEY = process.env.TAVILY_KEY || KEYS.TAVILY || '';
+var FIRECRAWL_KEY = process.env.FIRECRAWL_KEY || KEYS.FIRECRAWL || '';
+var TINYFISH_KEY = process.env.TINYFISH_KEY || KEYS.TINYFISH || '';
+var SERPAI_KEY = process.env.SERPAI_KEY || KEYS.SERPAI || '';
 
 function vlog(msg) {
   var entry = '[' + new Date().toISOString() + '] ' + msg;
@@ -37,21 +43,115 @@ function checkUrl(url, callback) {
   req.on('timeout', function() { req.destroy(); callback(false); });
 }
 
-function searchTavily(stateName, callback) {
-  try {
-    var payload = JSON.stringify({
-      api_key: TAVILY_KEY,
-      query: stateName + ' protest latest news 2026',
-      search_depth: 'basic',
-      include_answer: false,
-      max_results: 6
+function firecrawlSearch(query, callback) {
+  var payload = JSON.stringify({ query: query, limit: 6 });
+  var req = https.request({
+    hostname: 'api.firecrawl.dev', path: '/v1/search', method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + FIRECRAWL_KEY, 'Content-Length': payload.length },
+    timeout: 15000
+  }, function(res) {
+    var body = '';
+    res.on('data', function(d) { body += d; });
+    res.on('end', function() {
+      try {
+        var d = JSON.parse(body);
+        callback((d.data || []).map(function(r) { return { title: r.title, url: r.url, content: r.description || '' }; }));
+      } catch(e) { callback([]); }
     });
-    var resp = exec('curl -s -X POST https://api.tavily.com/search -H "Content-Type: application/json" -d \'' + payload.replace(/'/g, "'\\''") + '\'', {timeout: 15000}).toString();
-    var data = JSON.parse(resp);
-    callback((data.results || []).slice(0, 6));
-  } catch(e) {
-    callback([]);
-  }
+  });
+  req.on('error', function() { callback([]); });
+  req.on('timeout', function() { req.destroy(); callback([]); });
+  req.write(payload); req.end();
+}
+
+function tinyfishSearch(query, callback) {
+  var init = JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'verify_news', version: '3.0' } } });
+  var req = https.request({
+    hostname: 'agent.tinyfish.ai', path: '/mcp', method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream', 'Authorization': 'Bearer ' + TINYFISH_KEY, 'Content-Length': init.length },
+    timeout: 15000
+  }, function(res) {
+    var body = '';
+    res.on('data', function(d) { body += d; });
+    res.on('end', function() {
+      var sid = res.headers['mcp-session-id'];
+      if (!sid) { callback([]); return; }
+      var search = JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'search', arguments: { query: query, domain_type: 'news', location: 'IN' } } });
+      var req2 = https.request({
+        hostname: 'agent.tinyfish.ai', path: '/mcp', method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json, text/event-stream', 'Authorization': 'Bearer ' + TINYFISH_KEY, 'Mcp-Session-Id': sid, 'Content-Length': search.length },
+        timeout: 15000
+      }, function(res2) {
+        var body2 = '';
+        res2.on('data', function(d) { body2 += d; });
+        res2.on('end', function() {
+          try {
+            var d = JSON.parse(body2);
+            var text = (d.result && d.result.content || []).filter(function(b){return b.type === 'text';}).map(function(b){return b.text;}).join('');
+            var inner = JSON.parse(text);
+            callback((inner.results || []).map(function(r) { return { title: r.title, url: r.url, content: r.snippet || '' }; }));
+          } catch(e) { callback([]); }
+        });
+      });
+      req2.on('error', function() { callback([]); });
+      req2.on('timeout', function() { req2.destroy(); callback([]); });
+      req2.write(search); req2.end();
+    });
+  });
+  req.on('error', function() { callback([]); });
+  req.on('timeout', function() { req.destroy(); callback([]); });
+  req.write(init); req.end();
+}
+
+function serpaiSearch(query, callback) {
+  var q = encodeURIComponent(query);
+  var req = https.get('https://serpapi.com/search.json?api_key=' + SERPAI_KEY + '&q=' + q + '&num=6&gl=in&hl=en&engine=google', { timeout: 15000 }, function(res) {
+    var body = '';
+    res.on('data', function(d) { body += d; });
+    res.on('end', function() {
+      try {
+        var d = JSON.parse(body);
+        callback((d.organic_results || []).map(function(r) { return { title: r.title, url: r.link, content: r.snippet || '' }; }));
+      } catch(e) { callback([]); }
+    });
+  });
+  req.on('error', function() { callback([]); });
+  req.on('timeout', function() { req.destroy(); callback([]); });
+}
+
+function tavilySearch(query, callback) {
+  var payload = JSON.stringify({ api_key: TAVILY_KEY, query: query, search_depth: 'basic', include_answer: false, max_results: 6 });
+  var req = https.request({
+    hostname: 'api.tavily.com', path: '/search', method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Content-Length': payload.length },
+    timeout: 15000
+  }, function(res) {
+    var body = '';
+    res.on('data', function(d) { body += d; });
+    res.on('end', function() {
+      try {
+        var d = JSON.parse(body);
+        callback((d.results || []).map(function(r) { return { title: r.title, url: r.url, content: r.content || '' }; }));
+      } catch(e) { callback([]); }
+    });
+  });
+  req.on('error', function() { callback([]); });
+  req.on('timeout', function() { req.destroy(); callback([]); });
+  req.write(payload); req.end();
+}
+
+function searchWeb(query, callback) {
+  // Cost-effective: TinyFish (free) → Tavily → Firecrawl → SerpAI (most expensive)
+  tinyfishSearch(query, function(tf) {
+    if (tf.length > 0) { callback(tf); return; }
+    tavilySearch(query, function(tv) {
+      if (tv.length > 0) { callback(tv); return; }
+      firecrawlSearch(query, function(fr) {
+        if (fr.length > 0) { callback(fr); return; }
+        serpaiSearch(query, callback);
+      });
+    });
+  });
 }
 
 vlog('=== NEWS VERIFICATION STARTED ===');
@@ -78,7 +178,7 @@ states.forEach(function(code) {
       
       if (pct >= 67) {
         vlog('  ✗ ' + state.name + ' — ' + broken + '/' + sample.length + ' broken. Replacing...');
-        searchTavily(state.name, function(results) {
+        searchWeb(state.name + ' protest latest news 2026', function(results) {
           if (results.length >= 3) {
             STATE_DATA[code].news = results.map(function(r) {
               var u = r.url || '';
@@ -110,7 +210,7 @@ states.forEach(function(code) {
               };
             });
             totalReplaced++;
-            vlog('    Replaced with ' + results.length + ' Tavily links');
+            vlog('    Replaced with ' + results.length + ' search links');
           }
           totalBroken++;
           finishState();

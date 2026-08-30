@@ -2,10 +2,12 @@
 /**
  * News Link Verification + Auto-Fix
  * Checks news URLs across all states. Flags states where >50% links are broken.
- * If broken, replaces with fresh Tavily results. Runs every 3 hours via run.php.
+ * If broken, replaces with fresh search results (TinyFish → Tavily → Firecrawl → SerpAI). Runs every 12 hours via run.php.
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/search.php';
+$GLOBALS['AZADI_LOG'] = 'nvlog';
 
 $isCLI = (php_sapi_name() === 'cli');
 if (!$isCLI) {
@@ -73,28 +75,11 @@ function checkUrl($url) {
     return ($code >= 200 && $code < 400);
 }
 
-// Search Tavily for real replacement news
-function searchTavilyNews($stateName) {
-    $ch = curl_init(TAVILY_API_URL);
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_POSTFIELDS => json_encode([
-            'api_key' => TAVILY_API_KEY,
-            'query' => $stateName . ' protest latest news 2026',
-            'search_depth' => 'basic',
-            'include_answer' => false,
-            'max_results' => 6
-        ]),
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 10
-    ]);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    
-    $data = json_decode($response, true);
+// Search for replacement news (TinyFish → Tavily → Firecrawl → SerpAI)
+function searchNews($stateName) {
+    $data = searchWeb($stateName . ' protest latest news 2026');
     $news = [];
-    foreach ($data['results'] ?? [] as $r) {
+    foreach ($data['headlines'] ?? [] as $r) {
         $title = addslashes(substr($r['title'] ?? 'Untitled', 0, 120));
         $url = $r['url'] ?? '';
         $snippet = addslashes(substr($r['content'] ?? '', 0, 180));
@@ -150,9 +135,9 @@ foreach ($stateData as $code => $state) {
     if ($pct >= 67) {
         // More than 2/3 broken — replace all
         $name = $state['name'] ?? $code;
-        nvlog("  ✗ $name — $broken/".count($sample)." broken ($pct%). Replacing with Tavily...");
+        nvlog("  ✗ $name — $broken/".count($sample)." broken ($pct%). Replacing with fresh search results...");
         
-        $newNews = searchTavilyNews($name);
+        $newNews = searchNews($name);
         if (count($newNews) >= 3) {
             // Inject into data.js
             $newNewsStr = '[' . implode(',', $newNews) . ']';
@@ -165,10 +150,10 @@ foreach ($stateData as $code => $state) {
             if ($newDataJs !== $dataJs && $newDataJs !== null) {
                 $dataJs = $newDataJs;
                 $totalReplaced++;
-                nvlog("    Replaced with " . count($newNews) . " Tavily links");
+                nvlog("    Replaced with " . count($newNews) . " search links");
             }
         } else {
-            nvlog("    Tavily returned insufficient results");
+            nvlog("    Search returned insufficient results");
         }
         $totalBroken++;
     } else if ($pct > 0) {

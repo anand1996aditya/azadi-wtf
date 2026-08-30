@@ -1,5 +1,6 @@
 # Sensitive files — do not commit
 config.php
+cron/keys.json
 data/auth.json
 data/update.log
 
@@ -18,4 +19,3 @@ sync.php
 guide.pdf
 guide-print.html
 "Protest Safely.pdf"
-cron/healthcheck.js

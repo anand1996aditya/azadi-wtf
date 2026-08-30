@@ -129,7 +129,7 @@ main { padding:32px 0 60px; }
 .protest-card.moderate { border-left-color:var(--d-moderate); }
 .protest-card.low { border-left-color:var(--d-low); }
 
-.protest-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
+.protest-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap; }
 .protest-header h3 { font-size:1.1rem; font-weight:700; letter-spacing:-0.01em; }
 .d-tag { font-size:0.58rem; font-weight:800; letter-spacing:0.05em; padding:2px 8px; border-radius:100px; text-transform:uppercase; white-space:nowrap; }
 .d-tag.critical { background:var(--d-critical); color:#fff; }
@@ -274,6 +274,19 @@ footer a { color:var(--accent); text-decoration:none; }
     var m = 0;
     protests.forEach(function(p) { m = Math.max(m, dangerW[p.dangerLevel]||0); });
     return ['low','moderate','high','critical'][m] || 'low';
+  }
+
+  function timeAgo(iso) {
+    if (!iso) return 'unknown';
+    var t = new Date(iso);
+    if (isNaN(t.getTime())) return 'unknown';
+    var mins = Math.floor((Date.now() - t.getTime()) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    var days = Math.floor(hrs / 24);
+    return days + 'd ago';
   }
 
   var danger = highest(d.protests);
@@ -443,9 +456,14 @@ footer a { color:var(--accent); text-decoration:none; }
       html += '<div class="protest-card '+p.dangerLevel+'" id="protest-'+i+'">';
       html += '<div class="protest-header">';
       html += '<h3>'+p.name+'</h3>';
+      html += '<div style="display:flex;align-items:center;gap:8px;">';
+      if (p.trendHistory && p.trendHistory.length >= 2) {
+        html += '<button class="btn-trend" onclick="event.stopPropagation();openTrend(\''+p.name.replace(/'/g,"\\'")+'\')">📈 Severity Trend</button>';
+      }
       html += '<span class="d-tag '+p.dangerLevel+'">'+p.dangerLevel.toUpperCase()+'</span>';
       html += '</div>';
-      html += '<div class="protest-meta"><strong>Location:</strong> '+p.location+'</div>';
+      html += '</div>';
+      html += '<div class="protest-meta"><strong>Location:</strong> '+p.location+' · <strong>Updated:</strong> '+timeAgo(p.lastUpdated)+'</div>';
       html += '<div class="protest-cause">'+p.cause+'</div>';
       html += '<div class="protest-status">'+p.status+'</div>';
       if (p.dangerReason) {
@@ -455,10 +473,6 @@ footer a { color:var(--accent); text-decoration:none; }
         html += '<ul class="protest-details">';
         p.details.forEach(function(d) { html += '<li>'+d+'</li>'; });
         html += '</ul>';
-      }
-      // Trend button
-      if (p.trendHistory && p.trendHistory.length >= 2) {
-        html += '<button class="btn-trend" onclick="event.stopPropagation();openTrend(\''+p.name.replace(/'/g,"\\'")+'\')">📈 Severity Trend ('+p.trendHistory.length+' points)</button>';
       }
       html += '</div>';
     });
