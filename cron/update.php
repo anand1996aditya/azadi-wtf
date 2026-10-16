@@ -192,6 +192,10 @@ foreach ($due as $job) {
 // Recalculate city-level overviews
 // Track Tavily health — don't blind-archive if news source is unavailable
 // With SerpAI fallback, we're covered even when Tavily dies
+// Load the archive once; the per-city data cap appends to it.
+$archiveAll = loadArchive();
+$cappedTotal = 0;
+
 $tavilyAvailable = ($tavilySuccessCount > 0);
 if (!$tavilyAvailable) {
     logUpdate("  No successful search this run (sources down or nothing needed update) — skipping archive/discovery");
@@ -263,9 +267,18 @@ foreach ($data['cities'] as $citySlug => &$city) {
     if ($tavilyAvailable) {
         discoverNewProtests($city, $citySlug, $city['name']);
     }
+
+    // Hard data cap: no city lists more than MAX_PROTESTS_PER_CITY protests.
+    // Runs every time, whatever the search health. (Aditya, 17 Oct 2026.)
+    $cappedTotal += enforceCityCap($city, $archiveAll);
     
     $city['overallDanger'] = calculateOverallDanger($city['protests']);
     $city['overallStatus'] = generateOverallStatus($city['name'], $city['protests']);
+}
+
+if ($cappedTotal > 0) {
+    saveArchive($archiveAll);
+    logUpdate("  City cap: archived {$cappedTotal} protest(s) beyond " . MAX_PROTESTS_PER_CITY . " per city");
 }
 
 // Save
@@ -336,6 +349,43 @@ function loadData() {
 function saveData($data) {
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     return file_put_contents(DATA_FILE, $json, LOCK_EX) !== false;
+}
+
+// ── Hard data cap (Aditya, 17 Oct 2026) ───────────────────────────────────
+// No city may LIST more than MAX_PROTESTS_PER_CITY protests. Ranked by severity
+// (critical first), then by recency. The surplus moves to data/archive.json —
+// never silently lost — so the map shrinks without destroying data.
+function dataArchivePath() { return DATA_DIR . 'archive.json'; }
+function loadArchive() {
+    $p = dataArchivePath();
+    if (!is_file($p)) return [];
+    $j = json_decode(@file_get_contents($p), true);
+    if (!is_array($j)) return [];
+    return (isset($j['archived']) && is_array($j['archived'])) ? $j['archived'] : [];
+}
+function saveArchive(array $archived) {
+    $json = json_encode(['archived' => array_values($archived)],
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    return file_put_contents(dataArchivePath(), $json, LOCK_EX) !== false;
+}
+function enforceCityCap(array &$city, array &$archive) {
+    $max = max(1, (int)MAX_PROTESTS_PER_CITY);
+    if (count($city['protests']) <= $max) return 0;
+    usort($city['protests'], function ($a, $b) {
+        $r = severityRank($b['dangerLevel'] ?? '') <=> severityRank($a['dangerLevel'] ?? '');
+        if ($r !== 0) return $r;
+        return (strtotime($b['lastUpdated'] ?? '') ?: 0) <=> (strtotime($a['lastUpdated'] ?? '') ?: 0);
+    });
+    $dropped = array_slice($city['protests'], $max);
+    $city['protests'] = array_slice($city['protests'], 0, $max);
+    foreach ($dropped as $p) {
+        $p['_archivedAt'] = date('c');
+        $p['_archivedReason'] = 'city-cap';
+        $archive[] = $p;
+    }
+    logUpdate("  Cap: {$city['name']} — kept {$max} of " . ($max + count($dropped))
+        . " (archived " . count($dropped) . ")");
+    return count($dropped);
 }
 
 // ── Per-city monitoring cap (Aditya, 16 Oct 2026) ─────────────────────────
