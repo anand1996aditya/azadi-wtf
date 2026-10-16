@@ -19,8 +19,8 @@ Real-time protest-safety platform for India. Interactive map, per-state protest 
 
 ```
 Search fallback chain          DeepSeek (deepseek-chat)
-  TinyFish → Tavily →             │
-  Firecrawl → SerpAI              ▼
+  TinyFish → Firecrawl →          │
+  SerpAI → Tavily → Parallel      ▼
         │                   cron/update.php ── analyzes news, updates risk
         ▼                         │
   search.php (shared)             ▼
@@ -37,14 +37,15 @@ The homepage uses d3.js + TopoJSON (both self-hosted in `assets/`) for the map. 
 
 ## Search Fallback Chain (cost-optimised)
 
-Order: **TinyFish → Tavily → Firecrawl → SerpAI** (free-first, most expensive last).
+Order: **TinyFish → Firecrawl → SerpAI → Tavily → Parallel** (Aditya's sequence, 24 Sep 2026).
 
 | # | Tool | Cost (approx) |
 |---|---|---|
 | 1 | TinyFish | Free |
-| 2 | Tavily | Free tier, then ~$0.008/search |
-| 3 | Firecrawl | Free tier, then $16–83/mo |
-| 4 | SerpAI | Free 250, then $75–150/mo |
+| 2 | Firecrawl | Free tier, then $16–83/mo |
+| 3 | SerpAI | Free 250, then $75–150/mo |
+| 4 | Tavily | Free tier, then ~$0.008/search |
+| 5 | Parallel | Paid (Parallel Web Systems) |
 
 The chain lives **only** in `cron/search.php` (`searchWeb()`). If one source fails or hits its quota, it automatically falls through to the next — verified live.
 

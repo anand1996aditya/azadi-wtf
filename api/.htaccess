@@ -1,0 +1,14 @@
+# 10 Oct 2026 - refresh.php runs the whole paid update chain on a plain GET,
+# with no auth. test-serpai.php burns a provider call each time. Neither is
+# referenced by the site. Block both; leave protests.php and sync.php working.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(refresh|test-serpai)\.php$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^(refresh|test-serpai)\.php$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>

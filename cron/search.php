@@ -25,107 +25,59 @@ function azadiLog($msg) {
 }
 
 // ==========================================
-// TINYFISH (MCP over HTTP) — #1 free source
+// TINYFISH (REST Search API) — #1 free source
 // ==========================================
-
-function tinyfishMcpCall($method, $params, $sessionId = null) {
-    $payload = [
-        'jsonrpc' => '2.0',
-        'id'      => rand(1, 999999),
-        'method'  => $method,
-        'params'  => $params
-    ];
-
-    $headers = [
-        'Content-Type: application/json',
-        'Accept: application/json, text/event-stream',
-        'Authorization: Bearer ' . TINYFISH_API_KEY
-    ];
-    if ($sessionId) {
-        $headers[] = 'Mcp-Session-Id: ' . $sessionId;
-    }
-
-    $ch = curl_init(TINYFISH_API_URL);
-    curl_setopt_array($ch, [
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => json_encode($payload),
-        CURLOPT_HTTPHEADER     => $headers,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HEADER         => true,
-        CURLOPT_TIMEOUT        => 25,
-        CURLOPT_CONNECTTIMEOUT => 8
-    ]);
-
-    $response = curl_exec($ch);
-    $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-    $curlError = curl_error($ch);
-    curl_close($ch);
-
-    if ($curlError) {
-        return [null, null, $curlError];
-    }
-
-    $headerBlock = substr($response, 0, $headerSize);
-    $body = substr($response, $headerSize);
-
-    $sid = null;
-    foreach (explode("\r\n", $headerBlock) as $line) {
-        if (stripos($line, 'mcp-session-id:') === 0) {
-            $sid = trim(substr($line, strlen('mcp-session-id:')));
-        }
-    }
-
-    return [$body, $sid, null];
-}
+// Rewritten 10 Oct 2026. The old code spoke MCP over HTTP, which now requires an
+// OAuth 2.1 token, so every call failed with "init failed (no session)" and the
+// chain fell through to the paid providers. The REST Search API takes the plain
+// key in X-API-Key and is FREE up to 12,000 requests a day (30/min).
 
 function searchTinyFish($query) {
     if (!defined('TINYFISH_API_KEY') || TINYFISH_API_KEY === '') {
         return ['answer' => null, 'headlines' => []];
     }
 
-    // Step 1: initialize to obtain a session id
-    list($body, $sid, $err) = tinyfishMcpCall('initialize', [
-        'protocolVersion' => '2024-11-05',
-        'capabilities'    => new stdClass(),
-        'clientInfo'      => ['name' => 'azadi-cron', 'version' => '3.0']
+    $url = TINYFISH_SEARCH_URL . '?' . http_build_query([
+        'query'       => $query,
+        'location'    => 'IN',
+        'language'    => 'en',
+        'domain_type' => 'news'
     ]);
 
-    if ($err || !$sid) {
-        azadiLog("  TinyFish init failed" . ($err ? ": {$err}" : " (no session)"));
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_HTTPHEADER     => ['X-API-Key: ' . TINYFISH_API_KEY],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 20,
+        CURLOPT_CONNECTTIMEOUT => 8
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($curlError) {
+        azadiLog("  TinyFish cURL error: {$curlError}");
+        return ['answer' => null, 'headlines' => []];
+    }
+    if ($httpCode === 402) {
+        azadiLog("  TinyFish 402: daily free allowance used");
+        return ['answer' => null, 'headlines' => []];
+    }
+    if ($httpCode !== 200) {
+        azadiLog("  TinyFish HTTP {$httpCode}: " . substr($response, 0, 200));
         return ['answer' => null, 'headlines' => []];
     }
 
-    // Step 2: call the search tool
-    list($body, $sid2, $err2) = tinyfishMcpCall('tools/call', [
-        'name'      => 'search',
-        'arguments' => [
-            'query'       => $query,
-            'domain_type' => 'news',
-            'location'    => 'IN'
-        ]
-    ], $sid);
-
-    if ($err2) {
-        azadiLog("  TinyFish search cURL error: {$err2}");
+    $decoded = json_decode($response, true);
+    if (!$decoded) {
+        azadiLog("  TinyFish returned invalid JSON");
         return ['answer' => null, 'headlines' => []];
     }
 
-    $decoded = json_decode($body, true);
-    if (!$decoded || !isset($decoded['result']['content'])) {
-        azadiLog("  TinyFish returned invalid response");
-        return ['answer' => null, 'headlines' => []];
-    }
-
-    $text = '';
-    foreach ($decoded['result']['content'] as $block) {
-        if (($block['type'] ?? '') === 'text') {
-            $text .= $block['text'];
-        }
-    }
-
-    $inner = json_decode($text, true);
     $headlines = [];
-    foreach ($inner['results'] ?? [] as $r) {
+    foreach ($decoded['results'] ?? [] as $r) {
         $headlines[] = [
             'title'   => $r['title'] ?? 'Untitled',
             'url'     => $r['url'] ?? '',

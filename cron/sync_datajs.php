@@ -16,7 +16,7 @@ function syncDataJs() {
     if (!$protests || !$dataJs) return false;
     
     // Full city-to-state mapping (37 cities → 36 states, Pune + Mumbai both → MH)
-    $cityToState = [
+    $cityToState = defined('CITY_TO_STATE') ? CITY_TO_STATE : [
         'delhi'                  => 'DL', 'mumbai'       => 'MH',
         'pune'                   => 'MH', 'bangalore'    => 'KA',
         'lucknow'                => 'UP', 'kolkata'      => 'WB',
@@ -52,8 +52,14 @@ function syncDataJs() {
     $updated = 0;
     $replacements = []; // collect: [start, oldLen, newStr]
     
-    foreach ($stateProtests as $stateCode => $protests) {
-        if (empty($protests)) continue;
+    // Iterate EVERY known state, not only the ones present now. A state whose
+    // protests have gone must be emptied, or data.js keeps ghosts forever. (10 Oct 2026)
+    $stateCodes = array_values(array_unique(array_merge(
+        array_keys($stateProtests),
+        array_values($cityToState)
+    )));
+    foreach ($stateCodes as $stateCode) {
+        $protests = $stateProtests[$stateCode] ?? [];
         
         // Build the new protests array in data.js JSON format (double-quoted keys)
         $protestBlocks = [];

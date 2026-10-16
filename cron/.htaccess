@@ -1,3 +1,21 @@
-# Block all web access to cron scripts
-# These run via CLI only, never via HTTP
-Deny from all
+# 10 Oct 2026 - block cron/ from serving data, source and backup files.
+# No "Require all granted" here: it would override the deny above it. The default
+# is already allow, so plain PHP endpoints keep working.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(test_apis)\.php$">
+    Require all denied
+  </FilesMatch>
+  <FilesMatch "\.(json|js|log|txt|md|sql|bak|env|ini|yml|yaml|sh|old|orig|save|swp|tmp|dist|map)([-._].*)?$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^(test_apis)\.php$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+  <FilesMatch "\.(json|js|log|txt|md|sql|bak|env|ini|yml|yaml|sh|old|orig|save|swp|tmp|dist|map)([-._].*)?$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>

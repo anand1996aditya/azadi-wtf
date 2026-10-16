@@ -26,6 +26,16 @@ $GLOBALS['AZADI_LOG'] = 'logUpdate';
 if (!defined('MAX_ESCALATION_AGE_DAYS')) define('MAX_ESCALATION_AGE_DAYS', 7);
 if (!defined('DORMANT_ARCHIVE_DAYS')) define('DORMANT_ARCHIVE_DAYS', 7);
 
+// ── Per-city monitoring cap (Aditya, 16 Oct 2026) ─────────────────────────
+// A few cities carried 15–21 protests; the update loop searched + analysed every
+// one of them each run, burning search quota and DeepSeek tokens for no gain.
+// This bounds how many protests PER CITY a run will spend money on. The protests
+// are never deleted — the map and the data are untouched; only the cron's work
+// is capped.
+if (!defined('MAX_PROTESTS_PER_CITY')) define('MAX_PROTESTS_PER_CITY', 7);   // hard ceiling
+if (!defined('CAP_TIERED_PER_CITY'))  define('CAP_TIERED_PER_CITY', true);  // fewer for quieter cities
+if (!defined('CAP_STALENESS_GUARD'))  define('CAP_STALENESS_GUARD', true);  // never starve an old one
+
 // Allow long-running cron runs (web-triggered or CLI)
 set_time_limit(0);
 ignore_user_abort(true);
@@ -72,27 +82,40 @@ $noNewInfo = 0;
 $demoted = 0;
 $tavilySuccessCount = 0;
 
+// Build the "due" list first — oldest-checked first — then cap this run.
+// This bounds the cost of every run. (10 Oct 2026)
+$due = [];
 foreach ($data['cities'] as $citySlug => &$city) {
-    // If filtering by cities, skip non-matching
-    if ($filterCities && !in_array($citySlug, $filterCities, true)) {
-        continue;
-    }
-
-    foreach ($city['protests'] as &$protest) {
+    if ($filterCities && !in_array($citySlug, $filterCities, true)) continue;
+    $cityDue = [];
+    foreach ($city['protests'] as $idx => &$protest) {
         $level = $protest['dangerLevel'];
+        if ($filterLevels && !in_array($level, $filterLevels, true)) { $skipped++; continue; }
+        if (!needsUpdate($protest, $level)) { $skipped++; continue; }
+        $cityDue[] = [
+            'city'    => $citySlug,
+            'idx'     => $idx,
+            'level'   => $level,
+            'checked' => (int)(strtotime($protest['lastChecked'] ?? ($protest['lastUpdated'] ?? '')) ?: 0)
+        ];
+    }
+    unset($protest);
+    // Per-city cap (16 Oct 2026) — never spend one run on more than
+    // MAX_PROTESTS_PER_CITY of a single city's protests.
+    $due = array_merge($due, capCityDue($cityDue, $city['protests']));
+}
+usort($due, function ($a, $b) { return $a['checked'] <=> $b['checked']; });
+$dueTotal = count($due);
+$cap = defined('MAX_SEARCHES_PER_RUN') ? MAX_SEARCHES_PER_RUN : 150;
+if ($dueTotal > $cap) { $due = array_slice($due, 0, $cap); }
+logUpdate("  Due: {$dueTotal} — this run: " . count($due) . " (cap {$cap})");
 
-        // If filtering by levels, skip non-matching
-        if ($filterLevels && !in_array($level, $filterLevels, true)) {
-            $skipped++;
-            continue;
-        }
+foreach ($due as $job) {
+    $city = &$data['cities'][$job['city']];
+    $protest = &$city['protests'][$job['idx']];
+    $level = $protest['dangerLevel'];
 
-        if (!needsUpdate($protest, $level)) {
-            $skipped++;
-            continue;
-        }
-
-        logUpdate("Updating: {$city['name']} — {$protest['name']} [{$level}]");
+    logUpdate("Updating: {$city['name']} — {$protest['name']} [{$level}]");
 
         try {
             // Step 1: Search for latest news (TinyFish → Tavily → Firecrawl → SerpAI)
@@ -164,7 +187,7 @@ foreach ($data['cities'] as $citySlug => &$city) {
             logUpdate("  EXCEPTION: {$protest['name']} — " . $e->getMessage());
         }
     }
-}
+    unset($protest, $city);
 
 // Recalculate city-level overviews
 // Track Tavily health — don't blind-archive if news source is unavailable
@@ -246,7 +269,28 @@ foreach ($data['cities'] as $citySlug => &$city) {
 }
 
 // Save
-$data['lastUpdated'] = date('c');
+// Refresh truth (10 Oct 2026). Only claim "refreshed" when something was really
+// checked: a run that finds nothing due changes nothing, so it must not move
+// lastUpdated. "complete" means every due item was reached; if the cap clips the
+// list, the run is "partial". Cities the run touched are counted against the total.
+$checkedCities = [];
+foreach ($due as $job) { $checkedCities[$job['city']] = true; }
+$checkedCount = count($due);
+$capHit = ($dueTotal > $cap);
+$refreshStatus = ($checkedCount === 0) ? 'no-change' : ($capHit ? 'partial' : 'complete');
+if ($checkedCount > 0) { $data['lastUpdated'] = date('c'); }
+$data['refresh'] = [
+    'at'          => date('c'),
+    'status'      => $refreshStatus,
+    'checked'     => $checkedCount,
+    'due'         => $dueTotal,
+    'cap'         => $cap,
+    'cities'      => count($checkedCities),
+    'citiesTotal' => count($data['cities']),
+    'scope'       => $filterLabel,
+    'errors'      => $errors
+];
+logUpdate("  REFRESH: {$refreshStatus} — checked {$checkedCount} of {$dueTotal} due, " . count($checkedCities) . " of " . count($data['cities']) . " cities (cap {$cap})");
 if (saveData($data)) {
     logUpdate("SAVED: {$updated} updated, {$skipped} skipped, {$noNewInfo} no-new-info, {$demoted} demoted, {$errors} errors");
     // Phase E: staleness summary — flag silently-stale protests
@@ -265,6 +309,18 @@ if (saveData($data)) {
     logUpdate("ERROR: Failed to write protests.json — check file permissions");
 }
 
+
+// Run the health sweep after a full update run, in its own process so a fault in
+// the sweep can never affect the update. The sweep guards its own cadence (6h),
+// so calling it on every full run is safe. (10 Oct 2026)
+if (!$filterLevels && !$filterCities) {
+    // Run the health sweep in-process. exec() is disabled by this host, which is
+    // why the sweep never ran from here — proven 11 Oct 2026. health.php guards
+    // itself with a lock and a 6-hour cadence, so this stays cheap.
+    $GLOBALS['HEALTH_FROM_UPDATE'] = true;
+    include __DIR__ . '/health.php';
+}
+
 logUpdate("=== UPDATE RUN COMPLETE ===\n");
 echo "Done. Updated: {$updated}, Skipped: {$skipped}, No-new-info: {$noNewInfo}, Errors: {$errors}\n";
 
@@ -280,6 +336,62 @@ function loadData() {
 function saveData($data) {
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     return file_put_contents(DATA_FILE, $json, LOCK_EX) !== false;
+}
+
+// ── Per-city monitoring cap (Aditya, 16 Oct 2026) ─────────────────────────
+// Rank a protest's severity so the busiest, most serious cities keep their most
+// serious protests when a city is capped.
+function severityRank($level) {
+    $r = ['critical' => 4, 'high' => 3, 'moderate' => 2, 'low' => 1];
+    return $r[$level] ?? 0;
+}
+
+// How many protests this city may MONITOR this run.
+//   a city with a critical protest  -> the full cap (7)
+//   a city with high but no critical -> 6
+//   a purely moderate/low city       -> 4
+// Never below 1.
+function monitorCapForCity(array $protests) {
+    $cap = max(1, (int)MAX_PROTESTS_PER_CITY);
+    if (!CAP_TIERED_PER_CITY) return $cap;
+    $hasCritical = false; $hasHigh = false; $hasModerate = false;
+    foreach ($protests as $p) {
+        $l = $p['dangerLevel'] ?? '';
+        if ($l === 'critical') $hasCritical = true;
+        elseif ($l === 'high') $hasHigh = true;
+        elseif ($l === 'moderate') $hasModerate = true;
+    }
+    if (!$hasCritical && !$hasHigh && !$hasModerate) return min($cap, 2); // low only
+    if (!$hasCritical && !$hasHigh)                  return min($cap, 5); // moderate
+    if (!$hasCritical)                               return min($cap, 6); // high
+    return $cap;                                                          // critical
+}
+
+// Keep only this city's top-N due protests: strict severity first (critical
+// before high before moderate before low), then the least-recently-checked.
+function capCityDue(array $cityDue, array $protests) {
+    $cap = monitorCapForCity($protests);
+    if (count($cityDue) <= $cap) return $cityDue;
+    usort($cityDue, function ($a, $b) {
+        $r = severityRank($b['level']) <=> severityRank($a['level']);
+        return $r !== 0 ? $r : ($a['checked'] <=> $b['checked']);
+    });
+    $keep = array_slice($cityDue, 0, $cap);
+    // Staleness guard: give the single least-recently-checked protest a turn, so
+    // a quiet low-severity item in a busy city is never frozen forever.
+    if (CAP_STALENESS_GUARD) {
+        $oldest = null;
+        foreach ($cityDue as $j) {
+            if ($oldest === null || $j['checked'] < $oldest['checked']) $oldest = $j;
+        }
+        $keptKeys = [];
+        foreach ($keep as $j) $keptKeys[$j['city'] . '#' . $j['idx']] = true;
+        if ($oldest && !isset($keptKeys[$oldest['city'] . '#' . $oldest['idx']])) {
+            array_pop($keep);
+            $keep[] = $oldest;
+        }
+    }
+    return $keep;
 }
 
 function needsUpdate($protest, $level) {

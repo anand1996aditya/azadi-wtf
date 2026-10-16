@@ -175,7 +175,7 @@ footer a { color:var(--accent); text-decoration:none; }
 <div class="hero">
   <h1>India Protest Map</h1>
   <p>Hover over any state to preview protests. Click to lock — then click any protest for full details. Map stays visible.</p>
-  <div class="hero-updated">Data last refreshed: <span id="lastRefresh">loading...</span></div>
+  <div class="hero-updated">Data last refreshed: <span id="lastRefresh">loading...</span> <span id="lastStatus"></span></div>
   <div class="legend-row">
     <span class="legend-item"><span class="legend-dot critical"></span>Critical</span>
     <span class="legend-item"><span class="legend-dot high"></span>High</span>
@@ -348,6 +348,23 @@ footer a { color:var(--accent); text-decoration:none; }
           if (el && d.lastUpdated) {
             var date = new Date(d.lastUpdated);
             el.textContent = date.toLocaleString('en-IN', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short' });
+          }
+          var st = document.getElementById('lastStatus');
+          if (st && d.refresh) {
+            var s = d.refresh.status;
+            var r = d.refresh;
+            st.title = 'Checked ' + r.checked + ' of ' + r.due + ' due items, across ' +
+                       r.cities + ' of ' + r.citiesTotal + ' states and UTs (cap ' + r.cap + ').';
+            if (s === 'complete') {
+              st.textContent = 'Complete';
+              st.style.color = 'var(--d-low)';
+            } else if (s === 'partial') {
+              st.textContent = 'Partial — ' + r.checked + ' of ' + r.due + ' due items checked';
+              st.style.color = 'var(--d-moderate)';
+            } else {
+              st.textContent = 'No changes since the last check';
+              st.style.color = 'var(--text-muted)';
+            }
           }
         })
         .catch(function() {

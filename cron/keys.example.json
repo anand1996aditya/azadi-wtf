@@ -4,5 +4,6 @@
   "SERPAI": "your-serpapi-key",
   "TAVILY": "tvly-dev-...",
   "DEEPSEEK": "sk-...",
+  "PARALLEL": "your-parallel-api-key",
   "CRON_SECRET": "your-cron-secret"
 }
