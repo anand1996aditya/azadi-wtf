@@ -60,6 +60,9 @@ $filterLevels = $rawLevel ? array_map('trim', explode(',', $rawLevel)) : null;
 
 // Accept comma-separated city slugs: "delhi,mumbai"
 $rawCity = $_GET['city'] ?? ($argv[2] ?? null);
+// Force a full re-search of every protest, ignoring the per-level staleness
+// interval. Added 17 Oct 2026 for a manual full sweep: ?force=1 (web) / --force (CLI).
+$force = isset($_GET['force']) || ($isCLI && in_array('--force', $argv, true));
 $filterCities = $rawCity ? array_map('trim', explode(',', $rawCity)) : null;
 
 // ==========================================
@@ -91,7 +94,7 @@ foreach ($data['cities'] as $citySlug => &$city) {
     foreach ($city['protests'] as $idx => &$protest) {
         $level = $protest['dangerLevel'];
         if ($filterLevels && !in_array($level, $filterLevels, true)) { $skipped++; continue; }
-        if (!needsUpdate($protest, $level)) { $skipped++; continue; }
+        if (!$force && !needsUpdate($protest, $level)) { $skipped++; continue; }
         $cityDue[] = [
             'city'    => $citySlug,
             'idx'     => $idx,

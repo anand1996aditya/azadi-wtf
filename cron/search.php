@@ -3,7 +3,7 @@
  * cron/search.php — Shared search fallback chain for azadi.wtf
  *
  * Priority order (cost-effective — free first, most expensive last):
- *   TinyFish (free) → Tavily → Firecrawl → SerpAI
+ *   SerpAI → Tavily → Firecrawl → TinyFish (free tiers first) → DeepSeek Search (paid, last)
  *
  * Every search-capable script (update, verify, verify_news, tests) must
  * require this file and use searchWeb() so the order stays in ONE place.
@@ -25,7 +25,31 @@ function azadiLog($msg) {
 }
 
 // ==========================================
-// TINYFISH (REST Search API) — #1 free source
+// PER-RUN CIRCUIT BREAKER
+// ==========================================
+// A provider that answers with a quota/rate error (402/403/429/432) will do so
+// for every remaining query in the run. Trying it 16 more times only burns the
+// host's ~30-minute budget — the exact failure that killed the 13 Oct run. Mark
+// it dead for the rest of THIS run and move on. The next run starts clean, so a
+// monthly quota that resets is picked up automatically.
+
+function markProviderDead($name) {
+    $GLOBALS['AZADI_DEAD'][$name] = true;
+}
+
+function isProviderDead($name) {
+    return !empty($GLOBALS['AZADI_DEAD'][$name]);
+}
+
+function isQuotaError($httpCode) {
+    // 401 is included deliberately: an invalid/expired key (SerpAI returned 401
+    // on 17 Oct 2026) will NEVER succeed in this run, so retrying it per query
+    // only wastes the host's time budget.
+    return in_array((int)$httpCode, [401, 402, 403, 429, 432], true);
+}
+
+// ==========================================
+// TINYFISH (REST Search API) — free source
 // ==========================================
 // Rewritten 10 Oct 2026. The old code spoke MCP over HTTP, which now requires an
 // OAuth 2.1 token, so every call failed with "init failed (no session)" and the
@@ -62,10 +86,12 @@ function searchTinyFish($query) {
         return ['answer' => null, 'headlines' => []];
     }
     if ($httpCode === 402) {
+        markProviderDead('tinyfish');
         azadiLog("  TinyFish 402: daily free allowance used");
         return ['answer' => null, 'headlines' => []];
     }
     if ($httpCode !== 200) {
+        if (isQuotaError($httpCode)) markProviderDead('tinyfish');
         azadiLog("  TinyFish HTTP {$httpCode}: " . substr($response, 0, 200));
         return ['answer' => null, 'headlines' => []];
     }
@@ -91,7 +117,93 @@ function searchTinyFish($query) {
 }
 
 // ==========================================
-// FIRECRAWL — #2 free source
+// DEEPSEEK SEARCH — LAST resort ($0.75 / 1,000 requests)
+// ==========================================
+// Added 17 Oct 2026 after a same-query probe against TinyFish: DeepSeek's
+// in-house engine returned newspaper-grade Indian local news (Saamana, Aaj Tak,
+// Amar Ujala, Tribune India) with correct recent dates and an authority tier,
+// where the free providers leaned on YouTube/Instagram. It runs on the DeepSeek
+// key already held for analysis, so no new credential is involved.
+//   POST https://api.deepseek.com/v1/tools/search
+//   { "query": "...", "count": 8, "need_content": false }
+// Only successful requests are billed; failures and empty results are free.
+
+function searchDeepSeek($query) {
+    if (!defined('DEEPSEEK_API_KEY') || DEEPSEEK_API_KEY === '') {
+        return ['answer' => null, 'headlines' => []];
+    }
+    // config.php is git-ignored, so the URL must not depend on a new constant
+    // reaching the server. Use it when present, otherwise the literal default.
+    $url = (defined('DEEPSEEK_SEARCH_URL') && DEEPSEEK_SEARCH_URL !== '')
+        ? DEEPSEEK_SEARCH_URL
+        : 'https://api.deepseek.com/v1/tools/search';
+
+    $payload = [
+        'query'        => $query,
+        'count'        => 8,
+        'need_content' => false,
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => json_encode($payload),
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . DEEPSEEK_API_KEY,
+        ],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 20,
+        CURLOPT_CONNECTTIMEOUT => 8,
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($curlError) {
+        azadiLog("  DeepSeek cURL error: {$curlError}");
+        return ['answer' => null, 'headlines' => []];
+    }
+    if ($httpCode === 402) {
+        markProviderDead('deepseek');
+        azadiLog("  DeepSeek 402: balance exhausted");
+        return ['answer' => null, 'headlines' => []];
+    }
+    if ($httpCode === 429) {
+        markProviderDead('deepseek');
+        azadiLog("  DeepSeek 429: rate limited");
+        return ['answer' => null, 'headlines' => []];
+    }
+    if ($httpCode !== 200) {
+        if (isQuotaError($httpCode)) markProviderDead('deepseek');
+        azadiLog("  DeepSeek HTTP {$httpCode}: " . substr($response, 0, 200));
+        return ['answer' => null, 'headlines' => []];
+    }
+
+    $decoded = json_decode($response, true);
+    if (!$decoded) {
+        azadiLog("  DeepSeek returned invalid JSON");
+        return ['answer' => null, 'headlines' => []];
+    }
+
+    $headlines = [];
+    foreach ($decoded['results'] ?? [] as $r) {
+        $headlines[] = [
+            'title'   => $r['title'] ?? 'Untitled',
+            'url'     => $r['url'] ?? '',
+            'content' => $r['summary'] ?? $r['snippet'] ?? '',
+            'score'   => $r['rerank_score'] ?? 0
+        ];
+    }
+
+    azadiLog("  DeepSeek returned " . count($headlines) . " results");
+    return ['answer' => null, 'headlines' => $headlines];
+}
+
+// ==========================================
+// FIRECRAWL — free source
 // ==========================================
 
 function searchFirecrawl($query) {
@@ -124,6 +236,7 @@ function searchFirecrawl($query) {
         return ['answer' => null, 'headlines' => []];
     }
     if ($httpCode !== 200) {
+        if (isQuotaError($httpCode)) markProviderDead('firecrawl');
         azadiLog("  Firecrawl HTTP {$httpCode}: " . substr($response, 0, 200));
         return ['answer' => null, 'headlines' => []];
     }
@@ -205,6 +318,7 @@ function searchSerpAI($query) {
         return ['answer' => null, 'headlines' => []];
     }
     if ($httpCode !== 200) {
+        if (isQuotaError($httpCode)) markProviderDead('serpai');
         azadiLog("  SerpAI HTTP {$httpCode}: " . substr($response, 0, 200));
         return ['answer' => null, 'headlines' => []];
     }
@@ -285,6 +399,7 @@ function searchTavily($query) {
         return ['answer' => null, 'headlines' => []];
     }
     if ($httpCode !== 200) {
+        if (isQuotaError($httpCode)) markProviderDead('tavily');
         azadiLog("  Tavily HTTP {$httpCode}: " . substr($response, 0, 200));
         return ['answer' => null, 'headlines' => []];
     }
@@ -342,40 +457,41 @@ function dedupHeadlines(array $headlines) {
 
 /**
  * Search with the full fallback chain (cost-effective order).
- * TinyFish (free) → Tavily (~$0.008/search) → Firecrawl (~$0.01/search) → SerpAI (most expensive).
+ * SerpAI → Tavily → Firecrawl → TinyFish → **DeepSeek Search** ($0.75/1,000, last).
+ * DeepSeek was added on 17 Oct 2026 as the paid last resort; a per-run circuit
+ * breaker means an exhausted quota costs one failed call, not one per query.
  * Returns the first source that yields results (deduplicated).
  */
 function searchWeb($query) {
-    // 1. TinyFish (free)
-    $result = searchTinyFish($query);
-    $result['headlines'] = dedupHeadlines($result['headlines'] ?? []);
-    if (!empty($result['headlines']) || !empty($result['answer'])) {
-        $result['source'] = 'tinyfish';
-        return $result;
-    }
-    azadiLog("  TinyFish returned no results — trying Tavily");
+    // Aditya's order (17 Oct 2026): consume the free-tier APIs first and keep
+    // the PAID DeepSeek Search as the last resort.
+    //   SerpAI → Tavily → Firecrawl → TinyFish → DeepSeek
+    // A provider that answers with a quota/rate error is marked dead for the
+    // rest of the run, so an exhausted quota costs ONE failed call, not one per
+    // query — that repeated-failure pattern is what pushed the 13 Oct run past
+    // the host's ~30-minute kill.
+    $chain = [
+        ['serpai',    'searchSerpAI'],
+        ['tavily',    'searchTavily'],
+        ['firecrawl', 'searchFirecrawl'],
+        ['tinyfish',  'searchTinyFish'],
+        ['deepseek',  'searchDeepSeek'],
+    ];
 
-    // 2. Tavily (cheapest paid, also returns AI answer)
-    $result = searchTavily($query);
-    $result['headlines'] = dedupHeadlines($result['headlines'] ?? []);
-    if (!empty($result['headlines']) || !empty($result['answer'])) {
-        $result['source'] = 'tavily';
-        return $result;
+    foreach ($chain as [$name, $fn]) {
+        if (isProviderDead($name)) {
+            azadiLog("  {$name} skipped (quota dead this run)");
+            continue;
+        }
+        $result = $fn($query);
+        $result['headlines'] = dedupHeadlines($result['headlines'] ?? []);
+        if (!empty($result['headlines']) || !empty($result['answer'])) {
+            $result['source'] = $name;
+            return $result;
+        }
+        azadiLog("  {$name} returned no results — next provider");
     }
-    azadiLog("  Tavily returned no results — trying Firecrawl");
 
-    // 3. Firecrawl
-    $result = searchFirecrawl($query);
-    $result['headlines'] = dedupHeadlines($result['headlines'] ?? []);
-    if (!empty($result['headlines']) || !empty($result['answer'])) {
-        $result['source'] = 'firecrawl';
-        return $result;
-    }
-    azadiLog("  Firecrawl returned no results — trying SerpAI");
-
-    // 4. SerpAI (most expensive, last resort)
-    $result = searchSerpAI($query);
-    $result['headlines'] = dedupHeadlines($result['headlines'] ?? []);
-    $result['source'] = 'serpai';
-    return $result;
+    // Everything failed: return an empty, well-formed result.
+    return ['answer' => null, 'headlines' => [], 'source' => 'none'];
 }
