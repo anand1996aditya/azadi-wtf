@@ -11,11 +11,14 @@
  *   Moderate: every 12 hours
  *   Low:      every 24 hours
  *
- * Manual test (URL):  /cron/update.php?secret=CRON_SECRET&level=critical
+ * Manual test (header auth, never the URL):
+ *   curl -H "Authorization: Bearer $AZADI_CRON_SECRET" \
+ *        "https://azadi.wtf/cron/update.php?level=critical"
  * CLI (cron):         php cron/update.php critical
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/sync_datajs.php';
 require_once __DIR__ . '/search.php';
 
@@ -46,12 +49,11 @@ ignore_user_abort(true);
 
 $isCLI = (php_sapi_name() === 'cli');
 
-if (!$isCLI) {
-    $providedSecret = $_GET['secret'] ?? '';
-    if ($providedSecret !== CRON_SECRET) {
-        http_response_code(403);
-        die('Unauthorized');
-    }
+// Web calls must present the secret in an Authorization header, never in the
+// URL. CLI runs (Hostinger cron) are trusted. AZADI_INTERNAL_CRON is defined
+// only by a server-side file that already authenticated the request.
+if (!$isCLI && !defined('AZADI_INTERNAL_CRON')) {
+    azadi_cron_require_auth();
 }
 
 // Accept comma-separated levels: "critical,high" or "moderate,low"

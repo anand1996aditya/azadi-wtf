@@ -6,18 +6,17 @@
  * 
  * Schedule: Every 3 days (twice weekly)
  * Usage: php cron/verify.php
- * Manual: /cron/verify.php?secret=CRON_SECRET
+ * Manual: curl -H "Authorization: Bearer $AZADI_CRON_SECRET" https://azadi.wtf/cron/verify.php
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/search.php';
 $GLOBALS['AZADI_LOG'] = 'vlog';
 
 $isCLI = (php_sapi_name() === 'cli');
 if (!$isCLI) {
-    if (($_GET['secret'] ?? '') !== CRON_SECRET) {
-        http_response_code(403); die('Unauthorized');
-    }
+    azadi_cron_require_auth();
 }
 
 $LOG_FILE = DATA_DIR . 'verify.log';

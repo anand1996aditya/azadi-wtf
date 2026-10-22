@@ -2,12 +2,35 @@
 /**
  * Admin Panel — Manage Protest Data
  * Single-file admin with login and dashboard
+ *
+ * Security controls (audit F7, 23 Oct 2026):
+ *   - session cookie: HttpOnly, Secure, SameSite=Lax, strict mode
+ *   - new session ID after a successful login
+ *   - CSRF token on login, save and password-change forms
+ *   - login rate limit: 5 failures per 15 minutes per source address
+ *   - password change requires the current password
  */
+
+// --- Session hardening (must run before session_start) ---
+ini_set('session.use_strict_mode', '1');
+ini_set('session.use_only_cookies', '1');
+ini_set('session.cookie_httponly', '1');
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path'     => '/',
+    'domain'   => '',
+    'secure'   => true,
+    'httponly' => true,
+    'samesite' => 'Lax',
+]);
 session_start();
 
 define('DATA_DIR', __DIR__ . '/../data/');
 define('PROTESTS_FILE', DATA_DIR . 'protests.json');
 define('AUTH_FILE', DATA_DIR . 'auth.json');
+define('LOGIN_ATTEMPTS_FILE', DATA_DIR . '.login_attempts.json');
+define('LOGIN_MAX_FAILURES', 5);
+define('LOGIN_LOCKOUT_SECONDS', 900);
 
 // --- Auth Helper ---
 function isLoggedIn() {
@@ -15,7 +38,9 @@ function isLoggedIn() {
 }
 
 function verifyPassword($input) {
-    $auth = json_decode(file_get_contents(AUTH_FILE), true);
+    if (!is_string($input) || $input === '') return false;
+    if (!is_file(AUTH_FILE)) return false;
+    $auth = json_decode((string)@file_get_contents(AUTH_FILE), true);
     if (!$auth || !isset($auth['password'])) return false;
     return password_verify($input, $auth['password']);
 }
@@ -23,6 +48,75 @@ function verifyPassword($input) {
 function hashPassword($plain) {
     return password_hash($plain, PASSWORD_BCRYPT);
 }
+
+// --- CSRF helpers ---
+function csrfToken() {
+    if (empty($_SESSION['csrf_token']) || !is_string($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function verifyCsrf() {
+    $sent = $_POST['csrf_token'] ?? '';
+    return is_string($sent) && $sent !== ''
+        && !empty($_SESSION['csrf_token'])
+        && hash_equals($_SESSION['csrf_token'], $sent);
+}
+
+// --- Login rate limiting (file-backed, per source address) ---
+function loginAttemptKey() {
+    return hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '|azadi-admin');
+}
+
+function loadLoginAttempts() {
+    if (!is_file(LOGIN_ATTEMPTS_FILE)) return [];
+    $json = json_decode((string)@file_get_contents(LOGIN_ATTEMPTS_FILE), true);
+    return is_array($json) ? $json : [];
+}
+
+function saveLoginAttempts(array $attempts) {
+    $now = time();
+    $clean = [];
+    foreach ($attempts as $key => $attempt) {
+        if (!is_array($attempt) || !isset($attempt['first'])) continue;
+        if (($now - (int)$attempt['first']) < LOGIN_LOCKOUT_SECONDS) {
+            $clean[$key] = $attempt;
+        }
+    }
+    @file_put_contents(LOGIN_ATTEMPTS_FILE, json_encode($clean), LOCK_EX);
+}
+
+function loginLockRemaining() {
+    $attempts = loadLoginAttempts();
+    $key = loginAttemptKey();
+    if (empty($attempts[$key]) || !is_array($attempts[$key])) return 0;
+    $attempt = $attempts[$key];
+    if ((int)($attempt['count'] ?? 0) < LOGIN_MAX_FAILURES) return 0;
+    $remaining = LOGIN_LOCKOUT_SECONDS - (time() - (int)($attempt['first'] ?? time()));
+    return $remaining > 0 ? $remaining : 0;
+}
+
+function recordLoginFailure() {
+    $attempts = loadLoginAttempts();
+    $key = loginAttemptKey();
+    $now = time();
+    if (empty($attempts[$key]) || !is_array($attempts[$key])
+        || ($now - (int)($attempts[$key]['first'] ?? 0)) >= LOGIN_LOCKOUT_SECONDS) {
+        $attempts[$key] = ['count' => 1, 'first' => $now, 'last' => $now];
+    } else {
+        $attempts[$key]['count'] = (int)($attempts[$key]['count'] ?? 0) + 1;
+        $attempts[$key]['last'] = $now;
+    }
+    saveLoginAttempts($attempts);
+}
+
+function clearLoginFailures() {
+    $attempts = loadLoginAttempts();
+    unset($attempts[loginAttemptKey()]);
+    saveLoginAttempts($attempts);
+}
+
 
 function loadProtests() {
     if (!file_exists(PROTESTS_FILE)) return null;
@@ -44,11 +138,21 @@ $action = $_GET['action'] ?? ($_POST['action'] ?? 'dashboard');
 // Handle login
 if ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
-    if (verifyPassword($password)) {
+    if (!verifyCsrf()) {
+        $error = 'Session token expired. Reload the page and try again.';
+    } elseif (($lockRemaining = loginLockRemaining()) > 0) {
+        $error = 'Too many failed attempts. Try again in ' . (int)ceil($lockRemaining / 60) . ' minute(s).';
+    } elseif (verifyPassword($password)) {
+        // New session ID on privilege change, and a fresh CSRF token.
+        session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
+        $_SESSION['login_at'] = time();
+        unset($_SESSION['csrf_token']);
+        clearLoginFailures();
         header('Location: index.php');
         exit;
     } else {
+        recordLoginFailure();
         $error = 'Invalid password.';
     }
 }
@@ -62,10 +166,15 @@ if ($action === 'logout') {
 
 // Handle password change
 if ($action === 'change_password' && $_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
+    $currentPassword = $_POST['current_password'] ?? '';
     $newPassword = $_POST['new_password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
-    if (strlen($newPassword) < 8) {
+    if (!verifyCsrf()) {
+        $pwError = 'Session token expired. Reload the page and try again.';
+    } elseif (!verifyPassword($currentPassword)) {
+        $pwError = 'Current password is incorrect.';
+    } elseif (strlen($newPassword) < 8) {
         $pwError = 'Password must be at least 8 characters.';
     } elseif ($newPassword !== $confirmPassword) {
         $pwError = 'Passwords do not match.';
@@ -73,6 +182,7 @@ if ($action === 'change_password' && $_SERVER['REQUEST_METHOD'] === 'POST' && is
         $auth = json_decode(file_get_contents(AUTH_FILE), true);
         $auth['password'] = hashPassword($newPassword);
         file_put_contents(AUTH_FILE, json_encode($auth, JSON_PRETTY_PRINT));
+        unset($_SESSION['csrf_token']);
         $pwSuccess = 'Password changed successfully.';
     }
 }
@@ -82,7 +192,9 @@ if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn())
     $jsonData = $_POST['json_data'] ?? '';
     $decoded = json_decode($jsonData, true);
 
-    if ($decoded === null) {
+    if (!verifyCsrf()) {
+        $saveError = 'Session token expired. Reload the page and try again.';
+    } elseif ($decoded === null) {
         $saveError = 'Invalid JSON: ' . json_last_error_msg();
     } else {
         $decoded['lastUpdated'] = date('c');
@@ -190,6 +302,7 @@ $protests = loadProtests();
       <div class="error"><?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
     <form method="POST" action="?action=login">
+      <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(csrfToken()); ?>">
       <label class="label" for="password">Master Password</label>
       <input type="password" id="password" name="password" placeholder="Enter password..." required autofocus>
       <button type="submit" class="btn btn-primary">Sign In</button>
@@ -249,6 +362,7 @@ $protests = loadProtests();
 
     <!-- JSON Editor -->
     <form method="POST" action="?action=save">
+      <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(csrfToken()); ?>">
       <label class="label" for="json_data">Edit Protest Data (JSON)</label>
       <textarea id="json_data" name="json_data" spellcheck="false"><?php
         echo htmlspecialchars(json_encode($protests, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
@@ -265,6 +379,9 @@ $protests = loadProtests();
     <details>
       <summary>Change Admin Password</summary>
       <form method="POST" action="?action=change_password" style="margin-top:12px;">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(csrfToken()); ?>">
+        <label class="label" for="current_password">Current Password</label>
+        <input type="password" id="current_password" name="current_password" placeholder="Current password..." required>
         <label class="label" for="new_password">New Password (min 8 chars)</label>
         <input type="password" id="new_password" name="new_password" placeholder="New password..." required minlength="8">
         <label class="label" for="confirm_password">Confirm Password</label>

@@ -3,15 +3,19 @@
  * News Link Verification + Auto-Fix
  * Checks news URLs across all states. Flags states where >50% links are broken.
  * If broken, replaces with fresh search results (TinyFish → Tavily → Firecrawl → SerpAI). Runs every 12 hours via run.php.
+ *
+ * Web trigger (header auth, never the URL):
+ *   curl -H "Authorization: Bearer $AZADI_CRON_SECRET" https://azadi.wtf/cron/verify_news.php
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/search.php';
 $GLOBALS['AZADI_LOG'] = 'nvlog';
 
 $isCLI = (php_sapi_name() === 'cli');
 if (!$isCLI) {
-    if (($_GET['secret'] ?? '') !== CRON_SECRET) { http_response_code(403); die('Unauthorized'); }
+    azadi_cron_require_auth();
 }
 
 $DATA_JS_FILE = __DIR__ . '/../data.js';

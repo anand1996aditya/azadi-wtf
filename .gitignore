@@ -2,6 +2,7 @@
 config.php
 cron/keys.json
 data/auth.json
+data/.login_attempts.json
 data/update.log
 
 # OS files

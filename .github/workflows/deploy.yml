@@ -10,19 +10,39 @@ on:
       - 'data/protests.json'
       - 'Protest Safely.pdf'
       - 'guide-print.html'
+      # Server-side code never deploys through this workflow; avoiding these
+      # paths keeps the job silent when only PHP or cron tooling changes.
+      - '!cron/**'
+      - '!admin/**'
+      - '!api/**'
+
+# The job only needs to read the repository. The deploy itself uses the
+# AZADI_CRON_SECRET repository secret, not the GitHub token.
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Pin the action to a full commit SHA (audit F9): a retagged major version
+      # cannot change what this workflow runs.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: Deploy changed files to azadi.wtf
         env:
           AZADI_CRON_SECRET: ${{ secrets.AZADI_CRON_SECRET }}
         run: |
-          # Get list of changed files in this push
-          FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.(html|css|js|json|pdf)$' || echo "")
+          if [ -z "$AZADI_CRON_SECRET" ]; then
+            echo "ERROR: AZADI_CRON_SECRET repository secret is not set."
+            exit 1
+          fi
+
+          # Get list of changed deployable files in this push. cron/, admin/ and
+          # api/ are server-side code and are deliberately excluded.
+          FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '(^assets/.+\.js$|^[^/]+\.(html|css|js|pdf)$|^data/protests\.json$)' || echo "")
 
           if [ -z "$FILES" ]; then
             echo "No frontend files changed. Skipping deploy."
@@ -34,28 +54,39 @@ jobs:
 
           for fn in $FILES; do
             case "$fn" in
-              *.html|*.css|*.js)
+              data/protests.json)
                 CONTENT=$(cat "$fn")
                 curl -s -X POST "https://azadi.wtf/cron/push.php" \
+                  -H "Authorization: Bearer $AZADI_CRON_SECRET" \
                   --data-urlencode "secret=$AZADI_CRON_SECRET" \
-                  --data-urlencode "file=$(basename $fn)" \
+                  --data-urlencode "file=$fn" \
                   --data-urlencode "content=$CONTENT" \
                   -w "\n  %{http_code} — $fn\n"
                 ;;
-              data/protests.json)
-                curl -s -X POST "https://azadi.wtf/cron/sync.php" \
+              *.html|*.css|*.js)
+                CONTENT=$(cat "$fn")
+                curl -s -X POST "https://azadi.wtf/cron/push.php" \
+                  -H "Authorization: Bearer $AZADI_CRON_SECRET" \
                   --data-urlencode "secret=$AZADI_CRON_SECRET" \
-                  --data-urlencode "data=$(cat $fn)" \
+                  --data-urlencode "file=$(basename "$fn")" \
+                  --data-urlencode "content=$CONTENT" \
                   -w "\n  %{http_code} — $fn\n"
                 ;;
               *.pdf)
+                B64=$(base64 -w 0 "$fn")
                 curl -s -X POST "https://azadi.wtf/cron/push.php" \
+                  -H "Authorization: Bearer $AZADI_CRON_SECRET" \
                   --data-urlencode "secret=$AZADI_CRON_SECRET" \
-                  --data-urlencode "file=$(basename $fn)" \
-                  --data-urlencode "content=$(base64 $fn)" \
+                  --data-urlencode "file=$(basename "$fn")" \
+                  --data-urlencode "content_base64=$B64" \
                   -w "\n  %{http_code} — $fn\n"
                 ;;
             esac
           done
 
           echo "Deploy complete."
+          # Note: cron/push.php only writes static assets. Server-side PHP
+          # (cron/*.php, admin/index.php, api/*.php) is uploaded by SFTP/SSH.
+          # The Authorization header is the supported auth path; the legacy
+          # "secret" form field above keeps one transition release working on a
+          # host that still runs the old push.php. Remove it after that upload.

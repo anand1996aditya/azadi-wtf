@@ -19,10 +19,13 @@
  *
  * Run:
  *   CLI     : php cron/health.php [--dry-run] [--force]
- *   Web     : /cron/health.php?secret=CRON_SECRET[&dry=1][&force=1]
+ *   Web     : curl -H "Authorization: Bearer $AZADI_CRON_SECRET" \
+ *                  "https://azadi.wtf/cron/health.php?dry=1"
+ *             (the secret is never taken from the URL)
  */
 $HEALTH_INCLUDED = !empty($GLOBALS['HEALTH_FROM_UPDATE']);
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/search.php';
 require_once __DIR__ . '/sync_datajs.php';
 
@@ -35,9 +38,9 @@ if ($isCLI) {
     $dryRun = in_array('--dry-run', $argv ?? [], true);
     $force = in_array('--force', $argv ?? [], true);
 } else {
-    if (($_GET['secret'] ?? '') !== CRON_SECRET) {
-        http_response_code(403);
-        die('Unauthorized');
+    // When included by cron/update.php the request is already authenticated.
+    if (!$HEALTH_INCLUDED) {
+        azadi_cron_require_auth();
     }
     $dryRun = !empty($_GET['dry']);
     $force = !empty($_GET['force']);

@@ -4,6 +4,10 @@
 # Usage: ./deploy.sh [file1 file2 ...]
 #   No args = deploy all changed HTML/CSS/JS files
 #   With args = deploy specific files only
+#
+# Auth: the cron secret goes in an Authorization header, never in a URL.
+# The legacy form field is kept for one transition release so this script also
+# works against a host that still runs the old cron/push.php.
 # ============================================
 set -e
 
@@ -34,7 +38,11 @@ for fn in $FILES; do
     *.html|*.css|*.js)
       if [ -f "$fn" ]; then
         CONTENT=$(cat "$fn")
+        # Header auth is the supported path. The legacy "secret" form field is
+        # kept for one transition release only; remove it once the host runs the
+        # hardened cron/push.php and the workflow that sends the header.
         RESULT=$(curl -s -X POST "$BASE" \
+          -H "Authorization: Bearer $SECRET" \
           --data-urlencode "secret=$SECRET" \
           --data-urlencode "file=$fn" \
           --data-urlencode "content=$CONTENT")

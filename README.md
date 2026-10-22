@@ -95,7 +95,7 @@ These run at the code level (not relying on the LLM), layered across the pipelin
     ├── healthcheck.js                       (full health check)
     ├── keys.json                            (JS API keys — GITIGNORED)
     ├── keys.example.json                    (template)
-    └── push.php / sync.php / sync_datajs.php
+    └── push.php / auth.php / sync_datajs.php
 ```
 
 ## Setup
@@ -111,7 +111,7 @@ cd azadi-wtf
 
 Two gitignored files hold the keys (never commit real keys):
 
-**`config.php`** (PHP scripts — update.php, verify.php, verify_news.php):
+**`config.php`** (PHP scripts — update.php, verify.php, verify_news.php, push.php):
 
 ```php
 <?php
@@ -121,8 +121,10 @@ define('TAVILY_API_KEY', 'tvly-...');
 define('SERPAI_API_KEY', '...');
 define('FIRECRAWL_API_KEY', 'fc-...');
 define('TINYFISH_API_KEY', 'sk-tinyfish-...');
-define('CRON_SECRET', '...');
+define('CRON_SECRET', '...'); // 32-byte random value; sent in a header, never in a URL
 ```
+
+Generate `CRON_SECRET` with `php -r 'echo bin2hex(random_bytes(32)), PHP_EOL;'`.
 
 **`cron/keys.json`** (Node scripts — healthcheck.js, verify_news.js) — copy `keys.example.json` and fill in:
 
@@ -153,14 +155,19 @@ Runs at 00:00 and 12:00. `run.php` chains the protest update → news-link verif
 
 ### 5. Secure
 
-- Delete `cron/sync.php` if present.
-- Log into `/admin` and change the default password.
+- Delete `cron/sync.php` if present. It is a legacy server-only endpoint; the deploy workflow no longer calls it.
+- Log into `/admin` and change the default password. The admin panel requires the current password for a change, and it rate-limits failed logins.
+- Set `CRON_SECRET` to a 32-byte random value. The cron endpoints and `api/health.php` accept it only in an `Authorization: Bearer ...` or `X-Cron-Secret: ...` header, so it never appears in a URL or access log. Rotate it at once if it may have leaked.
 - Enable SSL — `.htaccess` auto-redirects HTTP → HTTPS.
-- Confirm `.gitignore` excludes `config.php`, `cron/keys.json`, and `data/auth.json`.
+- Confirm `.gitignore` excludes `config.php`, `cron/keys.json`, `data/auth.json` and `data/.login_attempts.json`.
 
 ## GitHub Actions Deploy
 
 Push to `main` and changed frontend files auto-deploy to azadi.wtf via GitHub Actions. Set `AZADI_CRON_SECRET` in repository secrets.
+
+The workflow sends the secret in an `Authorization` header, and it pins `actions/checkout` to a full commit SHA with `permissions: contents: read`.
+
+The deployed `cron/push.php` writes **static files only**. It cannot write PHP, by design. Server-side code (`cron/*.php`, `admin/index.php`, `api/*.php`) is uploaded to the host by SFTP/SSH or the host's file manager, not by the workflow. Upload the changed PHP files before the first deploy that relies on a new endpoint.
 
 ## Updating Content
 

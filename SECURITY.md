@@ -37,15 +37,23 @@ Run this checklist before every deployment. Automated via `./check.sh` (future).
 | 3.1 | Login page shows no default password | View `/admin/index.php` | No "protest2026" text |
 | 3.2 | Admin uses bcrypt hashing | Check admin code | `password_verify()` used |
 | 3.3 | Admin has session protection | Check admin code | `session_start()` present |
+| 3.4 | Session cookie is hardened | `curl -i` a login POST | `HttpOnly`, `Secure`, `SameSite=Lax` |
+| 3.5 | Session ID rotates on login | Check admin code | `session_regenerate_id(true)` after login |
+| 3.6 | Forms carry CSRF tokens | View the three forms | `csrf_token` hidden field in each |
+| 3.7 | Login is rate limited | 5 wrong passwords in a row | Lockout message, then correct password still refused |
+| 3.8 | Password change asks for the current password | Check the change form | `current_password` field required |
 
 ## 4. Cron Updater
 
 | # | Check | Method | Expected |
 |---|-------|--------|----------|
 | 4.1 | `cron/update.php` not web-accessible without secret | `curl https://azadi.wtf/cron/update.php` | 403 or "Unauthorized" |
-| 4.2 | Cron works with valid secret | `curl https://azadi.wtf/cron/update.php?secret=...` | "Done. Updated: ..." |
-| 4.3 | `cron/.htaccess` blocks web access | `curl -I https://azadi.wtf/cron/.htaccess` | 403 |
-| 4.4 | Hostinger cron job active | Check cPanel → Cron Jobs | Entry exists, path correct |
+| 4.2 | Cron works with valid secret | `curl -H "Authorization: Bearer $AZADI_CRON_SECRET" https://azadi.wtf/cron/update.php` | "Done. Updated: ..." |
+| 4.3 | Cron rejects a secret in the URL | Append the secret as a query parameter to `/cron/update.php` | 403 Unauthorized |
+| 4.4 | `cron/.htaccess` blocks web access | `curl -I https://azadi.wtf/cron/.htaccess` | 403 |
+| 4.5 | Hostinger cron job active | Check cPanel → Cron Jobs | Entry exists, path correct |
+| 4.6 | `cron/push.php` cannot write PHP | POST `file=cron/update.php` with the valid secret | 400 Invalid filename |
+| 4.7 | `api/health.php` hides internal text | `curl https://azadi.wtf/api/health.php` | Counts only, no issue strings |
 
 ## 5. Content Integrity
 

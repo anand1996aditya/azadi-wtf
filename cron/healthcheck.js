@@ -263,11 +263,23 @@ secChecks.forEach(function (s) {
 // ═══════════════════════════════════════════
 console.log('── Cron Jobs ──');
 
-test('update.php (Delhi only, dry run)', function (done) {
-  httpGet(BASE + '/cron/update.php?secret=' + SECRET + '&city=delhi', function (err, code, body) {
+test('update.php (Delhi only)', function (done) {
+  if (!SECRET) { fail('update.php', 'CRON_SECRET is not set'); done(); return; }
+  // The cron secret travels in a header, never in the URL (audit F6).
+  request({
+    hostname: 'azadi.wtf',
+    path: '/cron/update.php?city=delhi',
+    method: 'GET',
+    timeout: 120000,
+    headers: {
+      'User-Agent': 'azadi.wtf-healthcheck/2.0',
+      'Authorization': 'Bearer ' + SECRET
+    }
+  }, function (err, r) {
     if (err) { fail('update.php', 'connection error'); done(); return; }
-    if (body.indexOf('Done') >= 0) pass('update.php', 'ran successfully');
-    else fail('update.php', body.substring(0, 80));
+    if (r.status === 403) { fail('update.php', 'secret rejected — check CRON_SECRET'); done(); return; }
+    if (r.body.indexOf('Done') >= 0) pass('update.php', 'ran successfully');
+    else fail('update.php', 'HTTP ' + r.status + ' — ' + r.body.substring(0, 80));
     done();
   });
 });
